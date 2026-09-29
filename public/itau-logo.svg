@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" fill="none">
+  <!-- Itaú Squircle Icon -->
+  <rect x="4" y="4" width="40" height="40" rx="11" fill="#EC7000"/>
+  <text x="24" y="29" fill="#002D72" font-family="'Inter', system-ui, sans-serif" font-weight="900" font-size="16" text-anchor="middle" letter-spacing="-0.5px">itau</text>
+  <circle cx="33" cy="18" r="2" fill="#FFE600"/>
+  <!-- Itaú Wordmark -->
+  <text x="56" y="31" fill="#FFFFFF" class="bank-text" font-family="'Inter', system-ui, sans-serif" font-weight="800" font-size="22" letter-spacing="-0.5px">Itaú</text>
+</svg>
