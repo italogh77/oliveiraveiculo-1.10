@@ -46,6 +46,14 @@ if not exist "node_modules\vite\bin\vite.js" (
 )
 
 echo.
+echo [GitHub] Verificando se ha atualizacoes do outro PC...
+set "PATH=%PATH%;C:\Users\%USERNAME%\AppData\Local\GitHubDesktop\app-3.6.6\resources\app\git\cmd"
+git pull --rebase origin main >nul 2>&1
+
+echo [GitHub] Ativando sincronizador automatico em segundo plano...
+start /min "AutoSync-GitHub" cmd /c "node auto-sync.js"
+
+echo.
 echo Iniciando o site...
 echo O endereco sera mostrado abaixo, normalmente http://localhost:5173/
 echo Salve qualquer alteracao em src ou public para atualizar o navegador automaticamente.
