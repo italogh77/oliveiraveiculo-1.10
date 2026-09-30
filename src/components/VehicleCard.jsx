@@ -51,13 +51,13 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
   };
 
   return (
-    <motion.article
-      variants={staggerItem}
-      onClick={open}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetCardPosition}
-      className="vehicle-card group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow duration-200 hover:shadow-lg dark:border-[#262626] dark:bg-[#141414]"
-    >
+    <motion.div variants={staggerItem} className="h-full">
+      <article
+        onClick={open}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={resetCardPosition}
+        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow duration-200 hover:shadow-lg dark:border-[#262626] dark:bg-[#141414]"
+      >
       {/* Foto */}
       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800 sm:aspect-[16/10]">
         <img
@@ -126,6 +126,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
           <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
         </button>
       </div>
-    </motion.article>
+      </article>
+    </motion.div>
   );
 }
