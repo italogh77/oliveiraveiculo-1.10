@@ -799,13 +799,17 @@ body {
 
 /* Card de veículo: sobe e ganha aro dourado (só em telas com mouse) */
 .vehicle-card {
-  transition: transform 0.45s var(--ease-spring), box-shadow 0.45s var(--ease-spring), border-color 0.3s ease;
+  transform: perspective(1200px) translate3d(0, 0, 0) rotateX(0) rotateY(0);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.55s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury), border-color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 @media (hover: hover) {
   .vehicle-card:hover {
-    transform: translateY(-4px);
+    transform: perspective(1200px) translate3d(0, -5px, 0) rotateX(1.2deg) rotateY(-1.4deg) scale(1.006);
   }
 }
 

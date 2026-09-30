@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Gauge, Cog, Fuel } from 'lucide-react';
 import { staggerItem } from './Reveal';
 import { photoDimensions, photoThumbUrl } from '../lib/vehicleImages';
@@ -32,8 +32,6 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
   return (
     <motion.article
       variants={staggerItem}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2 }}
       onClick={open}
       className="vehicle-card group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow duration-200 hover:shadow-lg dark:border-[#262626] dark:bg-[#141414]"
     >

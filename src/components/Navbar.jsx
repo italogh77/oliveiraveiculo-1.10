@@ -62,7 +62,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           <img
             src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
             alt="Oliveira Veículos"
-            className="h-9 w-auto max-w-[170px] object-contain"
+            className="h-9 w-auto max-w-[170px] object-contain ov-logo-breathing"
           />
         </button>
 
