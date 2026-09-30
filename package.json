@@ -6,7 +6,7 @@
   "scripts": {
     "sync:pull": "node sync-before-start.js",
     "predev": "npm run sync:pull",
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"

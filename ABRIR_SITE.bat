@@ -56,7 +56,6 @@ echo Salve qualquer alteracao em src ou public para atualizar o navegador automa
 echo Mantenha esta janela aberta enquanto edita.
 echo Para fechar o site, pressione CTRL+C nesta janela.
 echo.
-start "" cmd /c "timeout /t 3 /nobreak >nul & start \"\" http://localhost:5173/"
 call npm run dev
 
 echo.
