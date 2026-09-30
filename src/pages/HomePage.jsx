@@ -38,7 +38,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       <section className="ov-hero">
         <img
           className="ov-hero-image"
-          src={publicAsset('loja-oliveira-hero.jpg')}
+          src={publicAsset('loja-oliveira-hero-original.jpg')}
           alt="Fachada e veículos da Oliveira Veículos em Maricá"
           fetchPriority="high"
         />
