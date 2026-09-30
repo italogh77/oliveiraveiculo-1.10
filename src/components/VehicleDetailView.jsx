@@ -162,7 +162,7 @@ export default function VehicleDetailView({ vehicle, onBack }) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-xl bg-[#dfb15b] hover:bg-[#efc676] px-4 py-3.5 text-sm font-bold text-black shadow-sm transition-all"
+          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-3.5 text-sm font-bold text-black shadow-md transition-transform duration-150 active:scale-95"
         >
           <MessageSquare className="h-4 w-4 fill-black text-black" />
           <span>Falar sobre este carro</span>
@@ -171,7 +171,7 @@ export default function VehicleDetailView({ vehicle, onBack }) {
           href={scheduleVisitUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-xl border border-[#dfb15b] px-4 py-3.5 text-sm font-semibold text-[#dfb15b] transition-colors hover:bg-[#dfb15b]/10"
+          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full border border-[#dfb15b] px-5 py-3.5 text-sm font-bold text-[#dfb15b] transition-transform duration-150 hover:bg-[#dfb15b]/10 active:scale-95"
         >
           <Calendar className="h-4 w-4" />
           <span>Agendar visita</span>
@@ -290,7 +290,7 @@ export default function VehicleDetailView({ vehicle, onBack }) {
               {video && !videoOn && (
                 <button
                   onClick={() => setVideoOn(true)}
-                  className="absolute bottom-3 left-3 z-10 inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-xl bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-sm font-bold text-black shadow-lg transition-transform hover:scale-105"
+                  className="absolute bottom-3 left-3 z-10 inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-2 text-sm font-bold text-black shadow-lg transition-transform active:scale-95"
                 >
                   <Play className="h-4 w-4 fill-black text-black" />
                   Assistir vídeo
