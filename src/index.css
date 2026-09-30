@@ -1217,8 +1217,8 @@ html:not(.dark) .ov-transition-logo {
 .ov-hero {
   position: relative;
   isolation: isolate;
-  min-height: clamp(520px, 46.5vw, 760px);
-  aspect-ratio: 1024 / 476;
+  height: clamp(520px, 38vw, 680px);
+  min-height: 520px;
   display: flex;
   align-items: center;
   padding: 80px 0 40px;
@@ -1814,7 +1814,7 @@ html:not(.dark) .ov-transition-logo {
   }
 
   .ov-hero {
-    aspect-ratio: auto !important;
+    height: auto;
     min-height: calc(100svh - 20px);
     display: flex;
     align-items: flex-end;
