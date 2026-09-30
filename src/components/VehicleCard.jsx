@@ -39,15 +39,11 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
 
     card.style.setProperty('--card-rotate-x', `${(0.5 - y) * 7}deg`);
     card.style.setProperty('--card-rotate-y', `${(x - 0.5) * 9}deg`);
-    card.style.setProperty('--card-glow-x', `${x * 100}%`);
-    card.style.setProperty('--card-glow-y', `${y * 100}%`);
   };
 
   const resetCardPosition = (event) => {
     event.currentTarget.style.setProperty('--card-rotate-x', '0deg');
     event.currentTarget.style.setProperty('--card-rotate-y', '0deg');
-    event.currentTarget.style.setProperty('--card-glow-x', '50%');
-    event.currentTarget.style.setProperty('--card-glow-y', '50%');
   };
 
   return (
