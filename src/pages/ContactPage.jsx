@@ -128,13 +128,13 @@ export default function ContactPage({ onGoToOndeEstamos }) {
 
           <button
             type="submit"
-            className="ov-button ov-button-dark w-full mt-6 py-3.5 text-base flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full mt-6 min-h-[46px] rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150 shadow-md cursor-pointer"
           >
             <span>Conversar no WhatsApp</span>
             <MessageCircle size={18} />
           </button>
 
-          <p className="mt-3 text-center text-xs text-gray-500 dark:text-gray-400">
+          <p className="mt-3 text-center text-xs text-gray-400">
             Ao clicar, sua mensagem será aberta no WhatsApp oficial da loja para você concluir o envio.
           </p>
         </form>
