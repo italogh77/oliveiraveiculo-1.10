@@ -799,7 +799,11 @@ body {
 
 /* Card de veículo: sobe e ganha aro dourado (só em telas com mouse) */
 .vehicle-card {
-  transform: perspective(1200px) translate3d(0, 0, 0) rotateX(0) rotateY(0);
+  --card-rotate-x: 0deg;
+  --card-rotate-y: 0deg;
+  --card-glow-x: 50%;
+  --card-glow-y: 50%;
+  transform: perspective(1000px) translate3d(0, 0, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y));
   transform-origin: center center;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -809,7 +813,7 @@ body {
 
 @media (hover: hover) {
   .vehicle-card:hover {
-    transform: perspective(1200px) translate3d(0, -5px, 0) rotateX(1.2deg) rotateY(-1.4deg) scale(1.006);
+    transform: perspective(1000px) translate3d(0, -7px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) scale(1.012);
   }
 }
 
@@ -1117,13 +1121,29 @@ body {
 
 /* Mantém a transição 3D dos veículos acima da transição genérica dos cards. */
 .vehicle-card {
-  transition: transform 0.55s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury), border-color 0.3s ease;
+  transition: transform 0.18s ease-out, box-shadow 0.4s var(--ease-luxury), border-color 0.3s ease;
+}
+
+.vehicle-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--card-glow-x) var(--card-glow-y), rgba(255, 218, 145, 0.22), transparent 38%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 @media (hover: hover) {
   .vehicle-card:hover {
-    transform: perspective(1200px) translate3d(0, -5px, 0) rotateX(1.2deg) rotateY(-1.4deg) scale(1.006);
+    transform: perspective(1000px) translate3d(0, -7px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) scale(1.012);
     box-shadow: 0 18px 38px -14px rgba(17, 24, 39, 0.28), 0 0 0 1px rgba(223, 177, 91, 0.12) !important;
+  }
+
+  .vehicle-card:hover::after {
+    opacity: 1;
   }
 
   .dark .vehicle-card:hover {

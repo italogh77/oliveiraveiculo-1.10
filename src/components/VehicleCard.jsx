@@ -29,10 +29,33 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
   const coverPhoto = vehicle.fotos?.[0] || vehicle.foto;
   const coverDimensions = photoDimensions(coverPhoto, true);
 
+  const handlePointerMove = (event) => {
+    if (event.pointerType !== 'mouse') return;
+
+    const card = event.currentTarget;
+    const bounds = card.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+
+    card.style.setProperty('--card-rotate-x', `${(0.5 - y) * 7}deg`);
+    card.style.setProperty('--card-rotate-y', `${(x - 0.5) * 9}deg`);
+    card.style.setProperty('--card-glow-x', `${x * 100}%`);
+    card.style.setProperty('--card-glow-y', `${y * 100}%`);
+  };
+
+  const resetCardPosition = (event) => {
+    event.currentTarget.style.setProperty('--card-rotate-x', '0deg');
+    event.currentTarget.style.setProperty('--card-rotate-y', '0deg');
+    event.currentTarget.style.setProperty('--card-glow-x', '50%');
+    event.currentTarget.style.setProperty('--card-glow-y', '50%');
+  };
+
   return (
     <motion.article
       variants={staggerItem}
       onClick={open}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetCardPosition}
       className="vehicle-card group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow duration-200 hover:shadow-lg dark:border-[#262626] dark:bg-[#141414]"
     >
       {/* Foto */}
