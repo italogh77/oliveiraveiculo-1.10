@@ -60,7 +60,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           className="shrink-0 cursor-pointer"
         >
           <picture>
-            <source media="(max-width: 640px)" srcSet={publicAsset('logo-dark.png')} />
+            <source media="(max-width: 767px)" srcSet={publicAsset('logo-dark.png')} />
           <img
             src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
             alt="Oliveira Veículos"
