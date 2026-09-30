@@ -223,7 +223,7 @@ export default function ContactPage({ onGoToOndeEstamos }) {
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-[#dfb15b] text-black hover:bg-[#efc676] transition-colors shrink-0 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] text-xs font-bold rounded-full bg-[#dfb15b] text-black hover:bg-[#efc676] active:scale-95 transition-transform duration-150 shrink-0 shadow-sm"
               >
                 <Navigation size={13} />
                 <span>Como chegar</span>
