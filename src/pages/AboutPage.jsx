@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, MessageSquare, Car, ShieldCheck } from 'lucide-react';
+import { Award, MessageSquare, Car, ShieldCheck, CreditCard, Users, MapPin, Navigation } from 'lucide-react';
 import TrustBar from '../components/TrustBar';
 import SocialProof from '../components/SocialProof';
 import Services from '../components/Services';
@@ -8,7 +8,50 @@ import { COMPANY_DATA } from '../data/companyData';
 
 export default function AboutPage({ onGoToEstoque }) {
   return (
-    <div className="ov-about pt-28 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full">
+    <>
+      <div className="ov-about-mobile">
+        <section className="ov-about-mobile-hero">
+          <img src="/loja-oliveira-hero-original.jpg" alt="Fachada da Oliveira Veículos" />
+          <div className="ov-about-mobile-hero-shade" />
+          <div className="ov-about-mobile-copy">
+            <h1>Mais que<br />uma <em>revenda.</em></h1>
+            <p>Atendimento próximo para sua próxima conquista.</p>
+          </div>
+        </section>
+
+        <section className="ov-about-mobile-content">
+          <div className="ov-about-mobile-benefit">
+            <Car />
+            <span><strong>Veículos selecionados</strong><small>Revisados e inspecionados. Sem leilão, sem sinistro.</small></span>
+          </div>
+          <div className="ov-about-mobile-benefit">
+            <CreditCard />
+            <span><strong>Financiamento</strong><small>Simulações com os principais bancos parceiros da loja.</small></span>
+          </div>
+          <div className="ov-about-mobile-benefit">
+            <Users />
+            <span><strong>Atendimento de verdade</strong><small>Converse com nossa equipe antes de decidir.</small></span>
+          </div>
+
+          <div className="ov-about-mobile-map">
+            <div className="ov-about-mobile-map-copy">
+              <h2>Venha nos visitar</h2>
+              <p><MapPin /> <span><strong>Maricá, RJ</strong><small>{COMPANY_DATA.address}</small></span></p>
+            </div>
+            <iframe
+              title="Mapa Oliveira Veículos Maricá"
+              src="https://maps.google.com/maps?q=-22.9033231,-42.7993074&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a href={COMPANY_DATA.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+              <span>Como chegar</span><Navigation />
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <div className="ov-about ov-about-desktop pt-28 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full">
       {/* ── APRESENTAÇÃO DA LOJA (DESTAQUE E LARGURA AMPLA) ─────────── */}
       <section className="text-center max-w-4xl mx-auto mb-20">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#dfb15b]/15 text-[#dfb15b] text-xs font-bold uppercase tracking-widest mb-4 border border-[#dfb15b]/30">
@@ -80,6 +123,7 @@ export default function AboutPage({ onGoToEstoque }) {
       <section className="mb-12">
         <Services onGoToEstoque={onGoToEstoque} />
       </section>
-    </div>
+      </div>
+    </>
   );
 }

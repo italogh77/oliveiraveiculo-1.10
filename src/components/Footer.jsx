@@ -15,7 +15,28 @@ export default function Footer({ onSelectTab }) {
 
   return (
     <footer className="ov-footer">
-      <div className="ov-shell ov-footer-grid">
+      <div className="ov-footer-mobile ov-shell">
+        <div className="ov-footer-mobile-brand">
+          <img src={publicAsset('logo-dark.png')} alt="Oliveira Veículos" />
+          <a href={COMPANY_DATA.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram da Oliveira Veículos">
+            <InstagramIcon size={18} />
+          </a>
+        </div>
+        <details>
+          <summary>Navegação</summary>
+          <div>{links.map(([id, label]) => <button key={id} onClick={() => onSelectTab(id)}>{label}</button>)}</div>
+        </details>
+        <details>
+          <summary>Horário de atendimento</summary>
+          <p>{COMPANY_DATA.hours}</p>
+        </details>
+        <details>
+          <summary>Contato</summary>
+          <a href={`tel:+${COMPANY_DATA.whatsappNumber}`}>{COMPANY_DATA.phone}</a>
+        </details>
+      </div>
+
+      <div className="ov-footer-desktop ov-shell ov-footer-grid">
         <div>
           <img
             src={publicAsset('logo-dark.png')}
@@ -69,7 +90,7 @@ export default function Footer({ onSelectTab }) {
         </div>
       </div>
 
-      <div className="ov-shell ov-footer-bottom">
+      <div className="ov-footer-desktop ov-shell ov-footer-bottom">
         <span>© {new Date().getFullYear()} Oliveira Veículos · Maricá, RJ</span>
         <button
           onClick={() => onSelectTab('admin')}
