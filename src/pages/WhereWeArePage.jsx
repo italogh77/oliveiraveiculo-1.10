@@ -39,13 +39,13 @@ export default function WhereWeArePage() {
               Encontre nossa loja no mapa.
             </p>
 
-            {/* Botões de Ação */}
+            {/* Botões de Ação em Formato Pílula (Regra 1) */}
             <div className="space-y-3">
               <a
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 px-4 bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm text-sm cursor-pointer"
+                className="w-full min-h-[46px] py-3.5 px-6 bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold rounded-full flex items-center justify-center gap-2 transition-transform duration-150 active:scale-95 shadow-md text-sm cursor-pointer"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Traçar rota</span>
@@ -55,7 +55,7 @@ export default function WhereWeArePage() {
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 px-4 border border-[#dfb15b] text-[#dfb15b] hover:bg-[#dfb15b]/10 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors text-sm cursor-pointer"
+                className="w-full min-h-[46px] py-3.5 px-6 border border-[#dfb15b] text-[#dfb15b] hover:bg-[#dfb15b]/10 font-bold rounded-full flex items-center justify-center gap-2 transition-transform duration-150 active:scale-95 text-sm cursor-pointer"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>Falar no WhatsApp</span>
@@ -136,7 +136,7 @@ export default function WhereWeArePage() {
               href={COMPANY_DATA.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/90 hover:bg-white text-gray-950 font-semibold text-xs sm:text-sm transition-all shadow-md self-start sm:self-auto cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 min-h-[44px] rounded-full bg-white/95 hover:bg-white text-gray-950 font-bold text-xs sm:text-sm transition-transform duration-150 active:scale-95 shadow-md self-start sm:self-auto cursor-pointer"
             >
               <span>Ver no Google Maps</span>
               <ExternalLink className="w-3.5 h-3.5" />
