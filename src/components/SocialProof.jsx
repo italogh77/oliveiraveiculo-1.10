@@ -110,17 +110,17 @@ export default function SocialProof({ onGoToEstoque }) {
           </div>
         </div>
 
-        {/* Carrossel Horizontal com Snap no Mobile e Scroll Suave no Desktop */}
+        {/* Carrossel Horizontal com Snap / Peek no Mobile e Scroll Suave no Desktop */}
         <div
           ref={carouselRef}
-          className="flex gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth px-6 sm:px-0 -mx-4 sm:mx-0"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollPaddingInline: '24px' }}
         >
           {MOMENTS_DATA.map((moment) => (
             <div
               key={moment.id}
               onClick={() => setActiveMedia(moment)}
-              className="group shrink-0 w-[270px] sm:w-[300px] snap-center rounded-2xl overflow-hidden bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#262626] hover:border-[#cf8d3c]/50 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
+              className="group shrink-0 w-[76vw] max-w-[280px] sm:w-[300px] snap-center rounded-2xl overflow-hidden bg-white dark:bg-[#141414] border border-gray-200 dark:border-[#262626] hover:border-[#cf8d3c]/50 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col justify-between"
             >
               {/* Área de mídia com proporção 9:16 (Stories do Instagram) */}
               <div className="relative aspect-[9/16] overflow-hidden bg-black">
@@ -192,7 +192,7 @@ export default function SocialProof({ onGoToEstoque }) {
             href="https://www.google.com/maps/place/Oliveira+Ve%C3%ADculos+Maric%C3%A1/@-22.9033231,-42.7993074,17z/data=!3m1!4b1!4m6!3m5!1s0x99ed9b8c5bf7ab:0x9229d06d2cf0423d!8m2!3d-22.9033231!4d-42.7993074!16s%2Fg%2F11t0rpf0sy"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#cf8d3c] hover:underline cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#cf8d3c]/40 px-4 py-2 text-xs sm:text-sm font-bold text-[#cf8d3c] hover:bg-[#cf8d3c] hover:text-black transition-all active:scale-95 cursor-pointer"
           >
             <span>Ver todas no Google</span>
             <ArrowRight size={15} />
@@ -247,20 +247,18 @@ export default function SocialProof({ onGoToEstoque }) {
           })}
         </div>
 
-        {totalReviewPages > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-6">
-            {Array.from({ length: totalReviewPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setReviewPage(i)}
-                aria-label={`Ir para página ${i + 1} de avaliações`}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  reviewPage === i ? 'bg-[#cf8d3c] w-6' : 'bg-gray-300 dark:bg-gray-700'
-                }`}
-              />
-            ))}
-          </div>
-        )}
+        {/* Botão em Pílula no Mobile: "Ver mais avaliações" (Regra 6) */}
+        <div className="mt-6 flex justify-center">
+          <a
+            href="https://www.google.com/maps/place/Oliveira+Ve%C3%ADculos+Maric%C3%A1/@-22.9033231,-42.7993074,17z/data=!3m1!4b1!4m6!3m5!1s0x99ed9b8c5bf7ab:0x9229d06d2cf0423d!8m2!3d-22.9033231!4d-42.7993074!16s%2Fg%2F11t0rpf0sy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 hover:bg-[#dfb15b] hover:text-black text-white px-6 py-3 min-h-[44px] text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-md cursor-pointer"
+          >
+            <span>Ver mais avaliações no Google</span>
+            <ArrowRight size={15} />
+          </a>
+        </div>
       </div>
 
       {/* ── 3. CHAMADA FINAL PARA CONTATO (DESIGN MARCANTE) ─────────── */}
