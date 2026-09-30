@@ -1,10 +1,24 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
+function buildVersion() {
+  const version = Date.now().toString()
+
+  return {
+    name: 'oliveira-build-version',
+    transformIndexHtml(html) {
+      return html.replace(
+        '<head>',
+        `<head>\n    <meta name="oliveira-build" content="${version}" />`,
+      )
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  plugins: [react()],
+  plugins: [react(), buildVersion()],
   server: {
     port: 5173,
     strictPort: true,
