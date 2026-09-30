@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { publicAsset } from '../lib/publicAsset';
 
 const items = [
   ['inicio', 'Início'],
@@ -59,7 +60,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           className="shrink-0 cursor-pointer"
         >
           <img
-            src={isDark ? '/logo-dark.png' : '/logo-light.png'}
+            src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
             alt="Oliveira Veículos"
             className="h-9 w-auto max-w-[170px] object-contain"
           />

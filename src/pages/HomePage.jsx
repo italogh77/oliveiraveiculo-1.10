@@ -4,6 +4,7 @@ import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
 import BankLogos from '../components/BankLogos';
+import { publicAsset } from '../lib/publicAsset';
 
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
@@ -37,7 +38,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       <section className="ov-hero">
         <img
           className="ov-hero-image"
-          src="/loja-oliveira-hero.jpg"
+          src={publicAsset('loja-oliveira-hero.jpg')}
           alt="Fachada e veículos da Oliveira Veículos em Maricá"
           fetchPriority="high"
         />

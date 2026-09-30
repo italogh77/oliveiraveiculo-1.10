@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Showroom from './components/Showroom';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import { publicAsset } from './lib/publicAsset';
 
 // Lazy-loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -73,7 +74,7 @@ function PageTransitionOverlay({ isVisible }) {
             className="flex flex-col items-center justify-center select-none"
           >
             <img
-              src={isDark ? '/logo-dark.png' : '/logo-light.png'}
+              src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
               alt="Oliveira Veículos"
               className="h-16 sm:h-20 w-auto max-w-[280px] object-contain ov-transition-logo"
             />

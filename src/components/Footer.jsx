@@ -2,6 +2,7 @@ import React from 'react';
 import { MapPin, Phone, Clock3, Lock } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import InstagramIcon from './InstagramIcon';
+import { publicAsset } from '../lib/publicAsset';
 
 export default function Footer({ onSelectTab }) {
   const links = [
@@ -17,7 +18,7 @@ export default function Footer({ onSelectTab }) {
       <div className="ov-shell ov-footer-grid">
         <div>
           <img
-            src="/logo-dark.png"
+            src={publicAsset('logo-dark.png')}
             alt="Oliveira Veículos"
             className="h-10 max-w-[175px] object-contain ov-logo-breathing"
           />
