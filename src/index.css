@@ -1115,6 +1115,22 @@ body {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* Mantém a transição 3D dos veículos acima da transição genérica dos cards. */
+.vehicle-card {
+  transition: transform 0.55s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury), border-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .vehicle-card:hover {
+    transform: perspective(1200px) translate3d(0, -5px, 0) rotateX(1.2deg) rotateY(-1.4deg) scale(1.006);
+    box-shadow: 0 18px 38px -14px rgba(17, 24, 39, 0.28), 0 0 0 1px rgba(223, 177, 91, 0.12) !important;
+  }
+
+  .dark .vehicle-card:hover {
+    box-shadow: 0 20px 42px -14px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(223, 177, 91, 0.2) !important;
+  }
+}
+
 .ov-button-hero {
   min-height: 54px;
   padding: 0 30px;
