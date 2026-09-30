@@ -1985,8 +1985,7 @@ html:not(.dark) .ov-transition-logo {
 @media (prefers-reduced-motion:reduce) {
 
   .ov-button,
-  .ov-hero-image,
-  .vehicle-card {
+  .ov-hero-image {
     transition: none !important;
     transform: none !important;
   }
