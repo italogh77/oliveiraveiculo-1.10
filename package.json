@@ -4,6 +4,8 @@
   "version": "1.9.0",
   "type": "module",
   "scripts": {
+    "sync:pull": "node sync-before-start.js",
+    "predev": "npm run sync:pull",
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",

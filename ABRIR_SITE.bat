@@ -45,12 +45,8 @@ if not exist "node_modules\vite\bin\vite.js" (
     )
 )
 
-echo.
-echo [GitHub] Verificando se ha atualizacoes do outro PC...
-call "%~dp0CONFIGURAR_GIT.bat"
-git pull --rebase origin main >nul 2>&1
-
 echo [GitHub] Ativando sincronizador automatico em segundo plano...
+call "%~dp0CONFIGURAR_GIT.bat"
 start /min "AutoSync-GitHub" cmd /c "node auto-sync.js"
 
 echo.

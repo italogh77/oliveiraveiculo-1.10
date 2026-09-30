@@ -23,6 +23,11 @@ Abra o CMD/PowerShell nesta pasta e rode:
 npm install
 npm run dev
 
+Ao abrir pelo ABRIR_SITE.bat ou executar npm run dev, o projeto verifica
+automaticamente se existe uma versao mais recente no GitHub antes de iniciar.
+Se houver alteracoes locais ainda nao salvas, a atualizacao sera ignorada para
+nao sobrescrever seu trabalho.
+
 Depois abra no navegador o endereco mostrado pelo Vite.
 
 EDICAO COM ATUALIZACAO AUTOMATICA:
