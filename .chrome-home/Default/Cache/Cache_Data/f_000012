@@ -1,0 +1,189 @@
+export const VEHICLES_DATA = [
+	{
+		id: 1,
+		marca: "Honda",
+		modelo: "Honda Fit EXL 1.5",
+		tituloCard: "Honda Fit",
+		subtituloCard: "1.5 EXL 2021 • 32.000 km",
+		categoria: "Hatch",
+		ano: 2021,
+		anoModelo: "2021/2021",
+		km: 32e3,
+		cambio: "Automático",
+		combustivel: "Flex",
+		cor: "Preto Cristal",
+		preco: 89900,
+		parcela: "1.190",
+		tag: "Destaque",
+		descricao: "O Honda Fit EXL 1.5 une versatilidade, conforto e a confiabilidade que é marca da Honda. Um hatch completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.",
+		foto: "https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Câmbio Automático CVT",
+			"Bancos em Couro",
+			"Multimídia com Câmera de Ré",
+			"Ar Condicionado Digital",
+			"Garantia de Procedência"
+		]
+	},
+	{
+		id: 2,
+		marca: "Jeep",
+		modelo: "Jeep Renegade 1.8 Longitude",
+		tituloCard: "Jeep Renegade",
+		subtituloCard: "1.8 Longitude 2022 • 41.000 km",
+		categoria: "SUV",
+		ano: 2022,
+		anoModelo: "2022/2022",
+		km: 41e3,
+		cambio: "Automático",
+		combustivel: "Flex",
+		cor: "Branco Polar",
+		preco: 119900,
+		parcela: "1.590",
+		tag: "Novidade",
+		descricao: "O Jeep Renegade Longitude entrega toda a robustez e elegância que você procura. Equipado com bancos em couro, painel digital, rodas aro 18 e central multimídia completa com conectividade total.",
+		foto: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Multimídia 8.4 Polegadas",
+			"Faróis Full LED",
+			"Sensor e Câmera de Ré",
+			"Piloto Automático",
+			"Revisado com Garantia"
+		]
+	},
+	{
+		id: 3,
+		marca: "Nissan",
+		modelo: "Nissan March 1.6 SV",
+		tituloCard: "Nissan March",
+		subtituloCard: "1.6 SV 2021 • 38.000 km",
+		categoria: "Hatch",
+		ano: 2021,
+		anoModelo: "2021/2021",
+		km: 38e3,
+		cambio: "Manual",
+		combustivel: "Flex",
+		cor: "Cinza Magnetic",
+		preco: 72900,
+		parcela: "980",
+		tag: "Super Econômico",
+		descricao: "Ágil, econômico e surpreendente em espaço interno. O Nissan March SV 1.6 é perfeito para a cidade e estrada, com motor moderno, baixo custo de manutenção e consumo exemplar.",
+		foto: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Direção Elétrica Progressiva",
+			"Ar Condicionado",
+			"Som Bluetooth Original",
+			"Vidros Elétricos nas 4 Portas"
+		]
+	},
+	{
+		id: 4,
+		marca: "Toyota",
+		modelo: "Toyota Corolla 2.0 XEi",
+		tituloCard: "Toyota Corolla",
+		subtituloCard: "2.0 XEi 2021 • 55.000 km",
+		categoria: "Sedan",
+		ano: 2021,
+		anoModelo: "2021/2021",
+		km: 55e3,
+		cambio: "Automático",
+		combustivel: "Flex",
+		cor: "Prata Névoa",
+		preco: 122900,
+		parcela: "1.650",
+		tag: "Mais Procurado",
+		descricao: "O sedan de maior prestígio e valor de revenda do mercado. O Toyota Corolla XEi 2.0 combina conforto absoluto, espaço refinado, 7 airbags e o potente motor Dynamic Force de 177cv.",
+		foto: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Câmbio Direct Shift 10v",
+			"Chave Presencial com Start/Stop",
+			"Bancos em Couro",
+			"Multimídia com GPS e CarPlay"
+		]
+	},
+	{
+		id: 5,
+		marca: "Hyundai",
+		modelo: "Hyundai HB20 1.0 Comfort",
+		tituloCard: "Hyundai HB20",
+		subtituloCard: "1.0 Comfort 2022 • 36.000 km",
+		categoria: "Hatch",
+		ano: 2022,
+		anoModelo: "2022/2022",
+		km: 36e3,
+		cambio: "Manual",
+		combustivel: "Flex",
+		cor: "Cinza Silk",
+		preco: 76900,
+		parcela: "990",
+		tag: "Oportunidade",
+		descricao: "Modernidade, economia e tecnologia. O Hyundai HB20 Comfort oferece excelente dirigibilidade urbana, visual marcante e um dos interiores mais confortáveis da categoria.",
+		foto: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Central Multimídia blueMedia",
+			"Controle de Tração e Estabilidade",
+			"Assistente de Partida em Rampa",
+			"Econômico"
+		]
+	},
+	{
+		id: 6,
+		marca: "Fiat",
+		modelo: "Fiat Strada 1.3 Freedom CD",
+		tituloCard: "Fiat Strada",
+		subtituloCard: "1.3 Freedom CD 2022 • 28.000 km",
+		categoria: "Picape",
+		ano: 2022,
+		anoModelo: "2022/2022",
+		km: 28e3,
+		cambio: "Manual",
+		combustivel: "Flex",
+		cor: "Branco Banchisa",
+		preco: 99900,
+		parcela: "1.350",
+		tag: "Líder de Vendas",
+		descricao: "A picape mais vendida e versátil do país. A Fiat Strada Freedom Cabine Dupla tem 4 portas, espaço confortável para 5 ocupantes, excelente capacidade de carga e motor 1.3 Firefly super econômico.",
+		foto: "https://images.unsplash.com/photo-1551830820-330a71b99659?q=80&w=1200&auto=format&fit=crop",
+		fotos: [
+			"https://images.unsplash.com/photo-1551830820-330a71b99659?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1200&auto=format&fit=crop",
+			"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop"
+		],
+		destaques: [
+			"Cabine Dupla 4 Portas",
+			"Direção Elétrica",
+			"Capota Marítima",
+			"Computador de Bordo",
+			"Baixa Quilometragem"
+		]
+	}
+];
+
+//# sourceMappingURL=data:application/json;base64,eyJtYXBwaW5ncyI6IkFBQUEsT0FBTyxNQUFNLGdCQUFnQjtDQUMzQjtFQUNFLElBQUk7RUFDSixPQUFPO0VBQ1AsUUFBUTtFQUNSLFlBQVk7RUFDWixlQUFlO0VBQ2YsV0FBVztFQUNYLEtBQUs7RUFDTCxXQUFXO0VBQ1gsSUFBSTtFQUNKLFFBQVE7RUFDUixhQUFhO0VBQ2IsS0FBSztFQUNMLE9BQU87RUFDUCxTQUFTO0VBQ1QsS0FBSztFQUNMLFdBQVc7RUFDWCxNQUFNO0VBQ04sT0FBTztHQUNMO0dBQ0E7R0FDQTtHQUNBO0VBQ0Y7RUFDQSxXQUFXO0dBQUM7R0FBeUI7R0FBbUI7R0FBK0I7R0FBMkI7RUFBeUI7Q0FDN0k7Q0FDQTtFQUNFLElBQUk7RUFDSixPQUFPO0VBQ1AsUUFBUTtFQUNSLFlBQVk7RUFDWixlQUFlO0VBQ2YsV0FBVztFQUNYLEtBQUs7RUFDTCxXQUFXO0VBQ1gsSUFBSTtFQUNKLFFBQVE7RUFDUixhQUFhO0VBQ2IsS0FBSztFQUNMLE9BQU87RUFDUCxTQUFTO0VBQ1QsS0FBSztFQUNMLFdBQVc7RUFDWCxNQUFNO0VBQ04sT0FBTztHQUNMO0dBQ0E7R0FDQTtHQUNBO0VBQ0Y7RUFDQSxXQUFXO0dBQUM7R0FBNEI7R0FBbUI7R0FBeUI7R0FBcUI7RUFBdUI7Q0FDbEk7Q0FDQTtFQUNFLElBQUk7RUFDSixPQUFPO0VBQ1AsUUFBUTtFQUNSLFlBQVk7RUFDWixlQUFlO0VBQ2YsV0FBVztFQUNYLEtBQUs7RUFDTCxXQUFXO0VBQ1gsSUFBSTtFQUNKLFFBQVE7RUFDUixhQUFhO0VBQ2IsS0FBSztFQUNMLE9BQU87RUFDUCxTQUFTO0VBQ1QsS0FBSztFQUNMLFdBQVc7RUFDWCxNQUFNO0VBQ04sT0FBTztHQUNMO0dBQ0E7R0FDQTtFQUNGO0VBQ0EsV0FBVztHQUFDO0dBQWdDO0dBQW1CO0dBQTBCO0VBQStCO0NBQzFIO0NBQ0E7RUFDRSxJQUFJO0VBQ0osT0FBTztFQUNQLFFBQVE7RUFDUixZQUFZO0VBQ1osZUFBZTtFQUNmLFdBQVc7RUFDWCxLQUFLO0VBQ0wsV0FBVztFQUNYLElBQUk7RUFDSixRQUFRO0VBQ1IsYUFBYTtFQUNiLEtBQUs7RUFDTCxPQUFPO0VBQ1AsU0FBUztFQUNULEtBQUs7RUFDTCxXQUFXO0VBQ1gsTUFBTTtFQUNOLE9BQU87R0FDTDtHQUNBO0dBQ0E7RUFDRjtFQUNBLFdBQVc7R0FBQztHQUEyQjtHQUFtQztHQUFtQjtFQUE4QjtDQUM3SDtDQUNBO0VBQ0UsSUFBSTtFQUNKLE9BQU87RUFDUCxRQUFRO0VBQ1IsWUFBWTtFQUNaLGVBQWU7RUFDZixXQUFXO0VBQ1gsS0FBSztFQUNMLFdBQVc7RUFDWCxJQUFJO0VBQ0osUUFBUTtFQUNSLGFBQWE7RUFDYixLQUFLO0VBQ0wsT0FBTztFQUNQLFNBQVM7RUFDVCxLQUFLO0VBQ0wsV0FBVztFQUNYLE1BQU07RUFDTixPQUFPO0dBQ0w7R0FDQTtHQUNBO0VBQ0Y7RUFDQSxXQUFXO0dBQUM7R0FBZ0M7R0FBcUM7R0FBa0M7RUFBVztDQUNoSTtDQUNBO0VBQ0UsSUFBSTtFQUNKLE9BQU87RUFDUCxRQUFRO0VBQ1IsWUFBWTtFQUNaLGVBQWU7RUFDZixXQUFXO0VBQ1gsS0FBSztFQUNMLFdBQVc7RUFDWCxJQUFJO0VBQ0osUUFBUTtFQUNSLGFBQWE7RUFDYixLQUFLO0VBQ0wsT0FBTztFQUNQLFNBQVM7RUFDVCxLQUFLO0VBQ0wsV0FBVztFQUNYLE1BQU07RUFDTixPQUFPO0dBQ0w7R0FDQTtHQUNBO0VBQ0Y7RUFDQSxXQUFXO0dBQUM7R0FBeUI7R0FBb0I7R0FBbUI7R0FBdUI7RUFBcUI7Q0FDMUg7QUFDRiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJ2ZWhpY2xlc0RhdGEuanMiXSwidmVyc2lvbiI6Mywic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IFZFSElDTEVTX0RBVEEgPSBbXG4gIHtcbiAgICBpZDogMSxcbiAgICBtYXJjYTogXCJIb25kYVwiLFxuICAgIG1vZGVsbzogXCJIb25kYSBGaXQgRVhMIDEuNVwiLFxuICAgIHRpdHVsb0NhcmQ6IFwiSG9uZGEgRml0XCIsXG4gICAgc3VidGl0dWxvQ2FyZDogXCIxLjUgRVhMIDIwMjEg4oCiIDMyLjAwMCBrbVwiLFxuICAgIGNhdGVnb3JpYTogXCJIYXRjaFwiLFxuICAgIGFubzogMjAyMSxcbiAgICBhbm9Nb2RlbG86IFwiMjAyMS8yMDIxXCIsXG4gICAga206IDMyMDAwLFxuICAgIGNhbWJpbzogXCJBdXRvbcOhdGljb1wiLFxuICAgIGNvbWJ1c3RpdmVsOiBcIkZsZXhcIixcbiAgICBjb3I6IFwiUHJldG8gQ3Jpc3RhbFwiLFxuICAgIHByZWNvOiA4OTkwMCxcbiAgICBwYXJjZWxhOiBcIjEuMTkwXCIsXG4gICAgdGFnOiBcIkRlc3RhcXVlXCIsXG4gICAgZGVzY3JpY2FvOiBcIk8gSG9uZGEgRml0IEVYTCAxLjUgdW5lIHZlcnNhdGlsaWRhZGUsIGNvbmZvcnRvIGUgYSBjb25maWFiaWxpZGFkZSBxdWUgw6kgbWFyY2EgZGEgSG9uZGEuIFVtIGhhdGNoIGNvbXBsZXRvLCBpZGVhbCBwYXJhIG8gZGlhIGEgZGlhLCBjb20gw7N0aW1vIGVzcGHDp28gaW50ZXJubyBlIGV4Y2VsZW50ZSBkaXJpZ2liaWxpZGFkZS5cIixcbiAgICBmb3RvOiBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTkwMzYyODkxOTkxLWY3NzZlNzQ3YTU4OD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgIGZvdG9zOiBbXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTkwMzYyODkxOTkxLWY3NzZlNzQ3YTU4OD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTUwMzM3Njc4MDM1My03ZTY2OTI3NjdiNzA/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIixcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NTI1MTk1MDctZGEzYjE0MmM2ZTNkP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTQxODk5NDgxMjgyLWQ1M2JmZmUzYzM1ZD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiXG4gICAgXSxcbiAgICBkZXN0YXF1ZXM6IFtcIkPDom1iaW8gQXV0b23DoXRpY28gQ1ZUXCIsIFwiQmFuY29zIGVtIENvdXJvXCIsIFwiTXVsdGltw61kaWEgY29tIEPDom1lcmEgZGUgUsOpXCIsIFwiQXIgQ29uZGljaW9uYWRvIERpZ2l0YWxcIiwgXCJHYXJhbnRpYSBkZSBQcm9jZWTDqm5jaWFcIl0sXG4gIH0sXG4gIHtcbiAgICBpZDogMixcbiAgICBtYXJjYTogXCJKZWVwXCIsXG4gICAgbW9kZWxvOiBcIkplZXAgUmVuZWdhZGUgMS44IExvbmdpdHVkZVwiLFxuICAgIHRpdHVsb0NhcmQ6IFwiSmVlcCBSZW5lZ2FkZVwiLFxuICAgIHN1YnRpdHVsb0NhcmQ6IFwiMS44IExvbmdpdHVkZSAyMDIyIOKAoiA0MS4wMDAga21cIixcbiAgICBjYXRlZ29yaWE6IFwiU1VWXCIsXG4gICAgYW5vOiAyMDIyLFxuICAgIGFub01vZGVsbzogXCIyMDIyLzIwMjJcIixcbiAgICBrbTogNDEwMDAsXG4gICAgY2FtYmlvOiBcIkF1dG9tw6F0aWNvXCIsXG4gICAgY29tYnVzdGl2ZWw6IFwiRmxleFwiLFxuICAgIGNvcjogXCJCcmFuY28gUG9sYXJcIixcbiAgICBwcmVjbzogMTE5OTAwLFxuICAgIHBhcmNlbGE6IFwiMS41OTBcIixcbiAgICB0YWc6IFwiTm92aWRhZGVcIixcbiAgICBkZXNjcmljYW86IFwiTyBKZWVwIFJlbmVnYWRlIExvbmdpdHVkZSBlbnRyZWdhIHRvZGEgYSByb2J1c3RleiBlIGVsZWfDom5jaWEgcXVlIHZvY8OqIHByb2N1cmEuIEVxdWlwYWRvIGNvbSBiYW5jb3MgZW0gY291cm8sIHBhaW5lbCBkaWdpdGFsLCByb2RhcyBhcm8gMTggZSBjZW50cmFsIG11bHRpbcOtZGlhIGNvbXBsZXRhIGNvbSBjb25lY3RpdmlkYWRlIHRvdGFsLlwiLFxuICAgIGZvdG86IFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MzM0NzMzNTkzMzEtMDEzNWVmMWI1OGJmP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgZm90b3M6IFtcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1MzM0NzMzNTkzMzEtMDEzNWVmMWI1OGJmP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTE5NjQxNDcxNjU0LTc2Y2UwMTA3YWQxYj9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTUwMjg3NzMzODUzNS03NjZlMTQ1MjY4NGE/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIixcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NDkzOTk1NDItN2UzZjhiNzljMzQxP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCJcbiAgICBdLFxuICAgIGRlc3RhcXVlczogW1wiTXVsdGltw61kaWEgOC40IFBvbGVnYWRhc1wiLCBcIkZhcsOzaXMgRnVsbCBMRURcIiwgXCJTZW5zb3IgZSBDw6JtZXJhIGRlIFLDqVwiLCBcIlBpbG90byBBdXRvbcOhdGljb1wiLCBcIlJldmlzYWRvIGNvbSBHYXJhbnRpYVwiXSxcbiAgfSxcbiAge1xuICAgIGlkOiAzLFxuICAgIG1hcmNhOiBcIk5pc3NhblwiLFxuICAgIG1vZGVsbzogXCJOaXNzYW4gTWFyY2ggMS42IFNWXCIsXG4gICAgdGl0dWxvQ2FyZDogXCJOaXNzYW4gTWFyY2hcIixcbiAgICBzdWJ0aXR1bG9DYXJkOiBcIjEuNiBTViAyMDIxIOKAoiAzOC4wMDAga21cIixcbiAgICBjYXRlZ29yaWE6IFwiSGF0Y2hcIixcbiAgICBhbm86IDIwMjEsXG4gICAgYW5vTW9kZWxvOiBcIjIwMjEvMjAyMVwiLFxuICAgIGttOiAzODAwMCxcbiAgICBjYW1iaW86IFwiTWFudWFsXCIsXG4gICAgY29tYnVzdGl2ZWw6IFwiRmxleFwiLFxuICAgIGNvcjogXCJDaW56YSBNYWduZXRpY1wiLFxuICAgIHByZWNvOiA3MjkwMCxcbiAgICBwYXJjZWxhOiBcIjk4MFwiLFxuICAgIHRhZzogXCJTdXBlciBFY29uw7RtaWNvXCIsXG4gICAgZGVzY3JpY2FvOiBcIsOBZ2lsLCBlY29uw7RtaWNvIGUgc3VycHJlZW5kZW50ZSBlbSBlc3Bhw6dvIGludGVybm8uIE8gTmlzc2FuIE1hcmNoIFNWIDEuNiDDqSBwZXJmZWl0byBwYXJhIGEgY2lkYWRlIGUgZXN0cmFkYSwgY29tIG1vdG9yIG1vZGVybm8sIGJhaXhvIGN1c3RvIGRlIG1hbnV0ZW7Dp8OjbyBlIGNvbnN1bW8gZXhlbXBsYXIuXCIsXG4gICAgZm90bzogXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU0MTg5OTQ4MTI4Mi1kNTNiZmZlM2MzNWQ/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIixcbiAgICBmb3RvczogW1xuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU0MTg5OTQ4MTI4Mi1kNTNiZmZlM2MzNWQ/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIixcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NTI1MTk1MDctZGEzYjE0MmM2ZTNkP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTkwMzYyODkxOTkxLWY3NzZlNzQ3YTU4OD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiXG4gICAgXSxcbiAgICBkZXN0YXF1ZXM6IFtcIkRpcmXDp8OjbyBFbMOpdHJpY2EgUHJvZ3Jlc3NpdmFcIiwgXCJBciBDb25kaWNpb25hZG9cIiwgXCJTb20gQmx1ZXRvb3RoIE9yaWdpbmFsXCIsIFwiVmlkcm9zIEVsw6l0cmljb3MgbmFzIDQgUG9ydGFzXCJdLFxuICB9LFxuICB7XG4gICAgaWQ6IDQsXG4gICAgbWFyY2E6IFwiVG95b3RhXCIsXG4gICAgbW9kZWxvOiBcIlRveW90YSBDb3JvbGxhIDIuMCBYRWlcIixcbiAgICB0aXR1bG9DYXJkOiBcIlRveW90YSBDb3JvbGxhXCIsXG4gICAgc3VidGl0dWxvQ2FyZDogXCIyLjAgWEVpIDIwMjEg4oCiIDU1LjAwMCBrbVwiLFxuICAgIGNhdGVnb3JpYTogXCJTZWRhblwiLFxuICAgIGFubzogMjAyMSxcbiAgICBhbm9Nb2RlbG86IFwiMjAyMS8yMDIxXCIsXG4gICAga206IDU1MDAwLFxuICAgIGNhbWJpbzogXCJBdXRvbcOhdGljb1wiLFxuICAgIGNvbWJ1c3RpdmVsOiBcIkZsZXhcIixcbiAgICBjb3I6IFwiUHJhdGEgTsOpdm9hXCIsXG4gICAgcHJlY286IDEyMjkwMCxcbiAgICBwYXJjZWxhOiBcIjEuNjUwXCIsXG4gICAgdGFnOiBcIk1haXMgUHJvY3VyYWRvXCIsXG4gICAgZGVzY3JpY2FvOiBcIk8gc2VkYW4gZGUgbWFpb3IgcHJlc3TDrWdpbyBlIHZhbG9yIGRlIHJldmVuZGEgZG8gbWVyY2Fkby4gTyBUb3lvdGEgQ29yb2xsYSBYRWkgMi4wIGNvbWJpbmEgY29uZm9ydG8gYWJzb2x1dG8sIGVzcGHDp28gcmVmaW5hZG8sIDcgYWlyYmFncyBlIG8gcG90ZW50ZSBtb3RvciBEeW5hbWljIEZvcmNlIGRlIDE3N2N2LlwiLFxuICAgIGZvdG86IFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE2MjEwMDc5NDczODItYmIzYzM5OTRlM2ZiP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgZm90b3M6IFtcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE2MjEwMDc5NDczODItYmIzYzM5OTRlM2ZiP3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTAzMzc2NzgwMzUzLTdlNjY5Mjc2N2I3MD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU1MjUxOTUwNy1kYTNiMTQyYzZlM2Q/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIlxuICAgIF0sXG4gICAgZGVzdGFxdWVzOiBbXCJDw6JtYmlvIERpcmVjdCBTaGlmdCAxMHZcIiwgXCJDaGF2ZSBQcmVzZW5jaWFsIGNvbSBTdGFydC9TdG9wXCIsIFwiQmFuY29zIGVtIENvdXJvXCIsIFwiTXVsdGltw61kaWEgY29tIEdQUyBlIENhclBsYXlcIl0sXG4gIH0sXG4gIHtcbiAgICBpZDogNSxcbiAgICBtYXJjYTogXCJIeXVuZGFpXCIsXG4gICAgbW9kZWxvOiBcIkh5dW5kYWkgSEIyMCAxLjAgQ29tZm9ydFwiLFxuICAgIHRpdHVsb0NhcmQ6IFwiSHl1bmRhaSBIQjIwXCIsXG4gICAgc3VidGl0dWxvQ2FyZDogXCIxLjAgQ29tZm9ydCAyMDIyIOKAoiAzNi4wMDAga21cIixcbiAgICBjYXRlZ29yaWE6IFwiSGF0Y2hcIixcbiAgICBhbm86IDIwMjIsXG4gICAgYW5vTW9kZWxvOiBcIjIwMjIvMjAyMlwiLFxuICAgIGttOiAzNjAwMCxcbiAgICBjYW1iaW86IFwiTWFudWFsXCIsXG4gICAgY29tYnVzdGl2ZWw6IFwiRmxleFwiLFxuICAgIGNvcjogXCJDaW56YSBTaWxrXCIsXG4gICAgcHJlY286IDc2OTAwLFxuICAgIHBhcmNlbGE6IFwiOTkwXCIsXG4gICAgdGFnOiBcIk9wb3J0dW5pZGFkZVwiLFxuICAgIGRlc2NyaWNhbzogXCJNb2Rlcm5pZGFkZSwgZWNvbm9taWEgZSB0ZWNub2xvZ2lhLiBPIEh5dW5kYWkgSEIyMCBDb21mb3J0IG9mZXJlY2UgZXhjZWxlbnRlIGRpcmlnaWJpbGlkYWRlIHVyYmFuYSwgdmlzdWFsIG1hcmNhbnRlIGUgdW0gZG9zIGludGVyaW9yZXMgbWFpcyBjb25mb3J0w6F2ZWlzIGRhIGNhdGVnb3JpYS5cIixcbiAgICBmb3RvOiBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTUyNTE5NTA3LWRhM2IxNDJjNmUzZD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgIGZvdG9zOiBbXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTUyNTE5NTA3LWRhM2IxNDJjNmUzZD9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTU0MTg5OTQ4MTI4Mi1kNTNiZmZlM2MzNWQ/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIixcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1OTAzNjI4OTE5OTEtZjc3NmU3NDdhNTg4P3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCJcbiAgICBdLFxuICAgIGRlc3RhcXVlczogW1wiQ2VudHJhbCBNdWx0aW3DrWRpYSBibHVlTWVkaWFcIiwgXCJDb250cm9sZSBkZSBUcmHDp8OjbyBlIEVzdGFiaWxpZGFkZVwiLCBcIkFzc2lzdGVudGUgZGUgUGFydGlkYSBlbSBSYW1wYVwiLCBcIkVjb27DtG1pY29cIl0sXG4gIH0sXG4gIHtcbiAgICBpZDogNixcbiAgICBtYXJjYTogXCJGaWF0XCIsXG4gICAgbW9kZWxvOiBcIkZpYXQgU3RyYWRhIDEuMyBGcmVlZG9tIENEXCIsXG4gICAgdGl0dWxvQ2FyZDogXCJGaWF0IFN0cmFkYVwiLFxuICAgIHN1YnRpdHVsb0NhcmQ6IFwiMS4zIEZyZWVkb20gQ0QgMjAyMiDigKIgMjguMDAwIGttXCIsXG4gICAgY2F0ZWdvcmlhOiBcIlBpY2FwZVwiLFxuICAgIGFubzogMjAyMixcbiAgICBhbm9Nb2RlbG86IFwiMjAyMi8yMDIyXCIsXG4gICAga206IDI4MDAwLFxuICAgIGNhbWJpbzogXCJNYW51YWxcIixcbiAgICBjb21idXN0aXZlbDogXCJGbGV4XCIsXG4gICAgY29yOiBcIkJyYW5jbyBCYW5jaGlzYVwiLFxuICAgIHByZWNvOiA5OTkwMCxcbiAgICBwYXJjZWxhOiBcIjEuMzUwXCIsXG4gICAgdGFnOiBcIkzDrWRlciBkZSBWZW5kYXNcIixcbiAgICBkZXNjcmljYW86IFwiQSBwaWNhcGUgbWFpcyB2ZW5kaWRhIGUgdmVyc8OhdGlsIGRvIHBhw61zLiBBIEZpYXQgU3RyYWRhIEZyZWVkb20gQ2FiaW5lIER1cGxhIHRlbSA0IHBvcnRhcywgZXNwYcOnbyBjb25mb3J0w6F2ZWwgcGFyYSA1IG9jdXBhbnRlcywgZXhjZWxlbnRlIGNhcGFjaWRhZGUgZGUgY2FyZ2EgZSBtb3RvciAxLjMgRmlyZWZseSBzdXBlciBlY29uw7RtaWNvLlwiLFxuICAgIGZvdG86IFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NTE4MzA4MjAtMzMwYTcxYjk5NjU5P3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgZm90b3M6IFtcbiAgICAgIFwiaHR0cHM6Ly9pbWFnZXMudW5zcGxhc2guY29tL3Bob3RvLTE1NTE4MzA4MjAtMzMwYTcxYjk5NjU5P3E9ODAmdz0xMjAwJmF1dG89Zm9ybWF0JmZpdD1jcm9wXCIsXG4gICAgICBcImh0dHBzOi8vaW1hZ2VzLnVuc3BsYXNoLmNvbS9waG90by0xNTMzNDczMzU5MzMxLTAxMzVlZjFiNThiZj9xPTgwJnc9MTIwMCZhdXRvPWZvcm1hdCZmaXQ9Y3JvcFwiLFxuICAgICAgXCJodHRwczovL2ltYWdlcy51bnNwbGFzaC5jb20vcGhvdG8tMTUwMjg3NzMzODUzNS03NjZlMTQ1MjY4NGE/cT04MCZ3PTEyMDAmYXV0bz1mb3JtYXQmZml0PWNyb3BcIlxuICAgIF0sXG4gICAgZGVzdGFxdWVzOiBbXCJDYWJpbmUgRHVwbGEgNCBQb3J0YXNcIiwgXCJEaXJlw6fDo28gRWzDqXRyaWNhXCIsIFwiQ2Fwb3RhIE1hcsOtdGltYVwiLCBcIkNvbXB1dGFkb3IgZGUgQm9yZG9cIiwgXCJCYWl4YSBRdWlsb21ldHJhZ2VtXCJdLFxuICB9XG5dO1xuIl19
