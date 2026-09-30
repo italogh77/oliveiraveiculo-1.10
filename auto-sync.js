@@ -33,9 +33,15 @@ function log(msg) {
 
 function runGit(command) {
   return new Promise((resolve, reject) => {
-    // Adiciona caminhos do Git do GitHub Desktop ao PATH se necessário
-    const gitPath = path.join(process.env.LOCALAPPDATA || '', 'GitHubDesktop', 'app-3.6.6', 'resources', 'app', 'git', 'cmd');
-    const env = { ...process.env, PATH: `${process.env.PATH};${gitPath}` };
+    // O atalho "bin" acompanha as atualizações do GitHub Desktop e evita
+    // depender de um número de versão fixo do programa.
+    const gitPath = path.join(process.env.LOCALAPPDATA || '', 'GitHubDesktop', 'bin');
+    const env = {
+      ...process.env,
+      PATH: `${process.env.PATH};${gitPath}`,
+      GIT_TERMINAL_PROMPT: '0',
+      GCM_INTERACTIVE: 'Never',
+    };
 
     exec(command, { cwd: __dirname, env }, (err, stdout, stderr) => {
       if (err) {
@@ -93,7 +99,11 @@ async function syncWithGitHub() {
     log('🎉 SUCESSO! Alterações sincronizadas com o GitHub!');
 
   } catch (error) {
-    console.error('[ERRO na sincronização]:', error.stderr || error.err || error);
+    const message = String(error.stderr || error.err || error);
+    console.error('[ERRO na sincronização]:', message);
+    if (/authentication|username|credential|terminal prompts disabled|could not read/i.test(message)) {
+      log('🔐 Execute ATIVAR_SINCRONIZACAO_GITHUB.bat uma vez para autorizar o envio automático.');
+    }
   } finally {
     isSyncing = false;
     if (pendingChanges) {
