@@ -31,11 +31,32 @@ function log(msg) {
   console.log(`[${now}] ${msg}`);
 }
 
+function findGitPath() {
+  const desktopRoot = path.join(process.env.LOCALAPPDATA || '', 'GitHubDesktop');
+
+  try {
+    const candidates = fs.readdirSync(desktopRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && entry.name.startsWith('app-'))
+      .map((entry) => {
+        const cmdPath = path.join(desktopRoot, entry.name, 'resources', 'app', 'git', 'cmd');
+        return {
+          cmdPath,
+          updatedAt: fs.statSync(path.join(desktopRoot, entry.name)).mtimeMs,
+        };
+      })
+      .filter(({ cmdPath }) => fs.existsSync(path.join(cmdPath, 'git.exe')))
+      .sort((a, b) => b.updatedAt - a.updatedAt);
+
+    return candidates[0]?.cmdPath || '';
+  } catch {
+    return '';
+  }
+}
+
 function runGit(command) {
   return new Promise((resolve, reject) => {
-    // O atalho "bin" acompanha as atualizações do GitHub Desktop e evita
-    // depender de um número de versão fixo do programa.
-    const gitPath = path.join(process.env.LOCALAPPDATA || '', 'GitHubDesktop', 'bin');
+    // Localiza automaticamente a versão mais recente do GitHub Desktop.
+    const gitPath = findGitPath();
     const env = {
       ...process.env,
       PATH: `${process.env.PATH};${gitPath}`,

@@ -47,7 +47,7 @@ if not exist "node_modules\vite\bin\vite.js" (
 
 echo.
 echo [GitHub] Verificando se ha atualizacoes do outro PC...
-set "PATH=%PATH%;C:\Users\%USERNAME%\AppData\Local\GitHubDesktop\app-3.6.6\resources\app\git\cmd"
+call "%~dp0CONFIGURAR_GIT.bat"
 git pull --rebase origin main >nul 2>&1
 
 echo [GitHub] Ativando sincronizador automatico em segundo plano...

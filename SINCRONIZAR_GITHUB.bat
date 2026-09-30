@@ -9,7 +9,7 @@ echo =======================================================
 echo.
 
 :: Garantir que o Git do GitHub Desktop esteja acessível se necessário
-set "PATH=%PATH%;C:\Users\%USERNAME%\AppData\Local\GitHubDesktop\bin;C:\Users\%USERNAME%\AppData\Local\GitHubDesktop\app-3.6.6\resources\app\git\cmd"
+call "%~dp0CONFIGURAR_GIT.bat"
 
 :: 1. Puxar alterações recentes da nuvem
 echo [1/3] Verificando se há atualizações no GitHub...

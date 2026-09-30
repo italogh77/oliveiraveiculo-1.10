@@ -11,7 +11,7 @@ echo Esta configuracao e feita apenas uma vez.
 echo O GitHub podera abrir uma janela ou o navegador para confirmar sua conta.
 echo.
 
-set "PATH=%PATH%;%LOCALAPPDATA%\GitHubDesktop\bin"
+call "%~dp0CONFIGURAR_GIT.bat"
 
 where git >nul 2>nul
 if errorlevel 1 (
@@ -22,8 +22,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-for /f "delims=" %%G in ('git --exec-path') do set "GIT_EXEC_PATH=%%G"
-for %%G in ("%GIT_EXEC_PATH%\..\..\bin\git-credential-manager.exe") do set "GCM=%%~fG"
+set "GCM=%GIT_DESKTOP_ROOT%\mingw64\bin\git-credential-manager.exe"
 
 if not exist "%GCM%" (
     echo [ERRO] O gerenciador de acesso do GitHub nao foi encontrado.
