@@ -27,4 +27,5 @@ dist-ssr
 
 OliveiraVeiculos-1.10/
 Oliveiraveiculos sites/
-
+.chrome*
+mobile-*.png
