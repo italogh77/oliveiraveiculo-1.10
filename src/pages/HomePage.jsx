@@ -46,7 +46,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
         <div className="ov-hero-shell">
           <div className="ov-hero-content">
-            <span className="ov-hero-eyebrow">Maricá, RJ · Seminovos selecionados</span>
+            <span className="ov-hero-eyebrow"><MapPin size={14} /> Maricá, RJ · Seminovos selecionados</span>
             <h1>
               Seu próximo<br />
               carro está <em>aqui.</em>
@@ -75,7 +75,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* Bancos Parceiros — Barra oficial de financiamento */}
-      <section className="border-b border-gray-200 dark:border-[#262626] bg-gray-50/50 dark:bg-[#0a0a0a] py-6">
+      <section className="ov-bank-strip border-b border-gray-200 dark:border-[#262626] bg-gray-50/50 dark:bg-[#0a0a0a] py-6">
         <div className="ov-shell">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <span className="text-xs uppercase font-bold tracking-widest text-gray-500 dark:text-gray-400 shrink-0">

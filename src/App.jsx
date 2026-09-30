@@ -163,7 +163,7 @@ export default function App() {
       <MotionConfig reducedMotion="never">
         <PageTransitionOverlay isVisible={isTransitioning} />
         <div
-          className={`min-h-[100svh] ${
+          className={`ov-site-shell min-h-[100svh] ${
             isDark ? 'bg-[#0a0a0a] text-white' : 'bg-[#f7f8fa] text-gray-900'
           } selection:bg-[#cf8d3c]/20 selection:text-[#cf8d3c] overflow-x-hidden font-sans antialiased transition-colors duration-200 flex flex-col justify-between`}
         >

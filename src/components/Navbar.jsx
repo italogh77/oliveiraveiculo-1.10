@@ -59,11 +59,14 @@ export default function Navbar({ activeTab, onSelectTab }) {
           aria-label="Oliveira Veículos — início"
           className="shrink-0 cursor-pointer"
         >
+          <picture>
+            <source media="(max-width: 640px)" srcSet={publicAsset('logo-dark.png')} />
           <img
             src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
             alt="Oliveira Veículos"
             className="h-9 w-auto max-w-[170px] object-contain ov-logo-breathing"
           />
+          </picture>
         </button>
 
         <nav aria-label="Navegação principal" className="hidden lg:flex h-full items-center gap-7">
@@ -86,7 +89,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
             onClick={(e) => toggleTheme(e)}
             aria-label={isDark ? 'Alternar para tema claro' : 'Alternar para tema escuro'}
             title={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
-            className="ov-theme-toggle flex h-10 w-10 items-center justify-center rounded-xl cursor-pointer"
+            className="ov-theme-toggle ov-mobile-theme-toggle flex h-10 w-10 items-center justify-center rounded-xl cursor-pointer"
           >
             {isDark ? (
               <Sun size={19} strokeWidth={2} />

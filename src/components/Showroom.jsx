@@ -7,6 +7,7 @@ import { Reveal, Stagger } from './Reveal';
 
 export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVehicle, onClearVehicle }) {
   const { vehicles } = useVehicles();
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Internal vehicle selection if not managed externally
   const [internalSelected, setInternalSelected] = useState(null);
@@ -152,7 +153,13 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
   return (
     <section id="estoque" className="ov-showroom-section pt-24 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1600px] mx-auto w-full">
       {/* Título e Subtítulo */}
-      <Reveal className="mb-8">
+      <div className="ov-showroom-mobile-intro">
+        <span>ESTOQUE EM DESTAQUE</span>
+        <h1>Encontre seu<br />próximo carro</h1>
+        <p>Escolha para conhecer de perto e chamar de seu.</p>
+      </div>
+
+      <Reveal className="ov-showroom-desktop-heading mb-8">
         <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-950 dark:text-white tracking-tight">
           Estoque de veículos
         </h1>
@@ -161,9 +168,35 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
         </p>
       </Reveal>
 
+      <div className="ov-showroom-mobile-search">
+        <label htmlFor="mobile-filter-search" className="sr-only">Buscar marca ou modelo</label>
+        <div>
+          <Search aria-hidden="true" />
+          <input
+            id="mobile-filter-search"
+            type="search"
+            value={searchModel}
+            onChange={(e) => setSearchModel(e.target.value)}
+            placeholder="Buscar marca ou modelo"
+          />
+        </div>
+        <button
+          type="button"
+          aria-expanded={mobileFiltersOpen}
+          aria-controls="mobile-stock-filters"
+          onClick={() => setMobileFiltersOpen((isOpen) => !isOpen)}
+        >
+          <SlidersHorizontal aria-hidden="true" />
+          <span>Filtros</span>
+        </button>
+      </div>
+
       <div className="ov-showroom-layout">
         {/* Painel Filtrar Veículos à esquerda, com largura confortável */}
-        <aside className="ov-filter-panel ov-card-glass rounded-2xl p-5 sm:p-6 mb-8 lg:mb-0">
+        <aside
+          id="mobile-stock-filters"
+          className={`ov-filter-panel ov-mobile-filters ${mobileFiltersOpen ? 'is-open' : ''} ov-card-glass rounded-2xl p-5 sm:p-6 mb-8 lg:mb-0`}
+        >
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-[#dfb15b]" />
