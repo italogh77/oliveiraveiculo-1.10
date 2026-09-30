@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Clock3, Lock, ArrowUpRight } from 'lucide-react';
+import { MapPin, Phone, Clock3, Lock } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import InstagramIcon from './InstagramIcon';
 import { publicAsset } from '../lib/publicAsset';

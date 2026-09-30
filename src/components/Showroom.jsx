@@ -4,7 +4,7 @@ import { Search, ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal, Rota
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from './VehicleCard';
 import VehicleDetailView from './VehicleDetailView';
-import { Reveal, Stagger } from './Reveal';
+import { Stagger } from './Reveal';
 
 export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVehicle, onClearVehicle }) {
   const { vehicles } = useVehicles();
