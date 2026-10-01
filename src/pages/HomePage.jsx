@@ -76,12 +76,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative isolate inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/25 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-md transition-[color,border-color,box-shadow,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[#d7d9dc] hover:text-[#15171a] hover:shadow-[0_8px_28px_rgba(215,217,220,0.28)] focus-visible:border-[#d7d9dc] focus-visible:text-[#15171a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d7d9dc]/70 active:scale-95 cursor-pointer sm:text-base"
+                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/10 hover:shadow-lg active:scale-95 cursor-pointer"
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 -z-10 -translate-x-[102%] rounded-full bg-gradient-to-r from-[#b8bcc2] via-[#eef0f2] to-[#c7cbd0] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-focus-visible:translate-x-0"
-                />
                 <MessageCircle
                   size={18}
                   className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
@@ -89,7 +85,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 <span>Falar no WhatsApp</span>
                 <ArrowUpRight
                   size={18}
-                  className="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[6px] group-focus-visible:translate-x-[6px]"
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-80 group-hover:opacity-100"
                 />
               </a>
             </div>
