@@ -798,7 +798,7 @@ body {
   transform: translateX(320%) skewX(-18deg);
 }
 
-/* Card de veículo: sobe e ganha aro dourado (só em telas com mouse) */
+/* Card de veículo: sobe, ganha halo dourado e profundidade 3D no hover */
 .vehicle-card {
   --card-rotate-x: 0deg;
   --card-rotate-y: 0deg;
@@ -806,13 +806,15 @@ body {
   transform-origin: center center;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: transform 0.55s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury), border-color 0.3s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 @media (hover: hover) {
   .vehicle-card:hover {
-    transform: perspective(1000px) translate3d(0, -7px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) scale(1.012);
+    transform: perspective(1000px) translate3d(0, -8px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) scale(1.015);
+    box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.75), 0 0 28px -4px rgba(223, 177, 91, 0.22);
+    border-color: rgba(223, 177, 91, 0.55);
   }
 }
 
