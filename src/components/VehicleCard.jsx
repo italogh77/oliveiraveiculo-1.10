@@ -65,13 +65,18 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             style={photoStyle(vehicle.fotosAjustes?.[0])}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+          />
+          {/* Feixe de luz reflexivo passando pela lataria do carro ao passar o mouse */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 -translate-x-[130%] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] transition-transform duration-1000 ease-out group-hover:translate-x-[240%]"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
 
           {/* Badges de destaque em formato pílula */}
           {vehicle.tag && (
-            <span className="absolute left-3 top-3 max-w-[85%] truncate rounded-full bg-[#dfb15b] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md whitespace-nowrap">
+            <span className="absolute left-3 top-3 max-w-[85%] truncate rounded-full bg-[#dfb15b] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md whitespace-nowrap transition-transform duration-300 group-hover:scale-105">
               {vehicle.tag}
             </span>
           )}
@@ -96,9 +101,9 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               {specs.map(({ Icon, label }) => (
                 <li
                   key={String(label)}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600 dark:bg-white/5 dark:text-gray-300 border border-gray-200/50 dark:border-white/5"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600 transition-all duration-300 group-hover:bg-[#dfb15b]/10 group-hover:text-gray-900 group-hover:border-[#dfb15b]/30 dark:bg-white/5 dark:text-gray-300 dark:group-hover:text-white border border-gray-200/50 dark:border-white/5"
                 >
-                  <Icon className="h-3 w-3 text-[#dfb15b]" aria-hidden="true" />
+                  <Icon className="h-3 w-3 text-[#dfb15b] transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
                   {label}
                 </li>
               ))}
