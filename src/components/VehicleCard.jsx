@@ -47,7 +47,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
   };
 
   return (
-    <motion.div variants={staggerItem} className="h-full">
+    <motion.div variants={staggerItem} className="relative z-0 h-full hover:z-10 focus-within:z-10">
       <article
         onClick={open}
         onPointerMove={handlePointerMove}
