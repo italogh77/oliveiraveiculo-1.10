@@ -21,13 +21,21 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
   const scrollLeft = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+      const container = carouselRef.current;
+      const card = container.querySelector('.ov-carousel-item');
+      const gap = window.innerWidth >= 640 ? 24 : 16;
+      const step = card ? card.offsetWidth + gap : 380;
+      container.scrollBy({ left: -step, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+      const container = carouselRef.current;
+      const card = container.querySelector('.ov-carousel-item');
+      const gap = window.innerWidth >= 640 ? 24 : 16;
+      const step = card ? card.offsetWidth + gap : 380;
+      container.scrollBy({ left: step, behavior: 'smooth' });
     }
   };
 
