@@ -100,8 +100,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
       </section>
 
-      {/* ── Estoque em Destaque: Peek Carousel / Center Mode (Regra 3) ── */}
-      <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-12 sm:pb-16">
+      {/* ── Estoque em Destaque: Carrossel 3 colunas com avanço de 1 em 1 ── */}
+      <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-14 sm:pb-20">
         <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
@@ -146,25 +146,19 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
         </div>
 
-        {/* 
-          PEEK CAROUSEL / CENTER MODE:
-          - No celular, o card do meio fica centralizado e as bordas mostram proporcionalmente uma fatia do anterior e próximo card
-          - overflow-x: auto; scroll-snap-type: x mandatory;
-        */}
         {featuredVehicles.length ? (
           <div
             ref={carouselRef}
-            className="-mx-4 -mt-3 flex gap-4 overflow-x-auto px-6 pb-6 pt-4 scroll-smooth snap-x snap-mandatory sm:mx-0 sm:gap-6 sm:px-0"
+            className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-6 pt-2 scroll-smooth snap-x snap-mandatory sm:mx-0 sm:gap-6 sm:px-0"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
-              scrollPaddingInline: '24px',
             }}
           >
             {featuredVehicles.map((v) => (
               <div
                 key={v.id}
-                className="w-[78vw] max-w-[325px] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-center"
+                className="ov-carousel-item w-[84vw] max-w-[320px] sm:w-[calc((100%-24px)/2)] sm:max-w-none lg:w-[calc((100%-48px)/3)] shrink-0 snap-start"
               >
                 <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
               </div>
