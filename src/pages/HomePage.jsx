@@ -161,7 +161,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         {featuredVehicles.length ? (
           <div
             ref={carouselRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scroll-smooth px-6 sm:px-0 -mx-4 sm:mx-0"
+            className="-mx-4 -mt-3 flex gap-4 overflow-x-auto px-6 pb-6 pt-4 scroll-smooth snap-x snap-mandatory sm:mx-0 sm:gap-6 sm:px-0"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
