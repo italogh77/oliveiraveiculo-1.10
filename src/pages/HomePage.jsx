@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { ArrowRight, ArrowUpRight, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Navigation, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Navigation, Sparkles } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
@@ -81,6 +81,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 <span
                   aria-hidden="true"
                   className="absolute inset-0 -z-10 -translate-x-[102%] rounded-full bg-gradient-to-r from-[#b8bcc2] via-[#eef0f2] to-[#c7cbd0] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-focus-visible:translate-x-0"
+                />
+                <MessageCircle
+                  size={18}
+                  className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
                 />
                 <span>Falar no WhatsApp</span>
                 <ArrowUpRight
