@@ -122,10 +122,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               e.stopPropagation();
               open();
             }}
-            className="inline-flex min-h-[42px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-all shadow-sm active:scale-95 cursor-pointer"
+            className="btn-shine inline-flex min-h-[42px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
           >
             <span>Ver detalhes</span>
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" />
           </button>
         </div>
       </article>

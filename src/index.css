@@ -793,7 +793,8 @@ body {
 }
 
 .btn-shine:hover::before,
-.btn-shine:focus-visible::before {
+.btn-shine:focus-visible::before,
+.group:hover .btn-shine::before {
   transform: translateX(320%) skewX(-18deg);
 }
 
