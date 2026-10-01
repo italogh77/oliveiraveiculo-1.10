@@ -1989,13 +1989,21 @@ html:not(.dark) .ov-transition-logo {
   transform: scale(0.95);
 }
 
-/* Proteção contra scroll horizontal involuntário (telas de 356px até desktop) */
+/*
+ * Proteção contra scroll horizontal involuntário.
+ *
+ * `overflow-x: hidden` cria um contêiner de rolagem em cada elemento e faz
+ * o eixo vertical passar a ser `auto`. Quando isso é aplicado ao html, body,
+ * root e shell ao mesmo tempo, a roda do mouse pode tentar rolar o contêiner
+ * errado. `clip` corta somente o excesso horizontal sem prender o scroll da
+ * página.
+ */
 html,
 body,
 #root,
 .ov-site-shell {
-  overflow-x: hidden !important;
-  max-width: 100vw;
+  overflow-x: clip !important;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -2043,4 +2051,3 @@ h2 {
     box-sizing: border-box;
   }
 }
-
