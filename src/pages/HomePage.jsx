@@ -3,7 +3,6 @@ import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, Credi
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
-import BankLogos from '../components/BankLogos';
 import { publicAsset } from '../lib/publicAsset';
 
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
@@ -88,20 +87,6 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                   className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-80 group-hover:opacity-100"
                 />
               </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Bancos Parceiros ── */}
-      <section className="ov-bank-strip border-y border-white/10 bg-[#0d0e11] py-5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <span className="text-xs uppercase font-bold tracking-widest text-[#dfb15b] shrink-0">
-              Parceiros para Financiamento
-            </span>
-            <div className="flex-1 max-w-4xl">
-              <BankLogos />
             </div>
           </div>
         </div>
