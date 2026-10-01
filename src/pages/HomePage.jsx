@@ -93,7 +93,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* ── Estoque em Destaque: Peek Carousel / Center Mode (Regra 3) ── */}
-      <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-12 sm:pb-16">
         <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">

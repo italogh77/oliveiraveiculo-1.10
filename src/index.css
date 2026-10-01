@@ -1326,7 +1326,8 @@ html:not(.dark) .ov-transition-logo {
 }
 
 .ov-section {
-  padding-block: 85px;
+  padding-top: 16px;
+  padding-bottom: 60px;
 }
 
 .ov-section-top {
@@ -1897,7 +1898,8 @@ html:not(.dark) .ov-transition-logo {
   }
 
   .ov-section {
-    padding-block: 45px;
+    padding-top: 12px;
+    padding-bottom: 40px;
   }
 
   .ov-section-top {
