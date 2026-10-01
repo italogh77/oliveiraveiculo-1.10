@@ -13,9 +13,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
 
   const formatKm = (km) => km.toLocaleString('pt-BR') + ' km';
 
-  const subtitle =
+  const subtitle = (
     vehicle.subtituloCard ||
-    `${vehicle.modelo.replace(vehicle.marca, '').trim()} ${vehicle.ano} • ${formatKm(vehicle.km)}`;
+    `${vehicle.modelo.replace(vehicle.marca, '').trim()} ${vehicle.ano} • ${formatKm(vehicle.km)}`
+  ).replace(/Longitu\s+de/gi, 'Longitude');
 
   // Chips de ficha técnica
   const specs = [
@@ -52,7 +53,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
         onClick={open}
         onPointerMove={handlePointerMove}
         onPointerLeave={resetCardPosition}
-        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-xl dark:border-[#262626] dark:bg-[#131417]"
+        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#dfb15b]/40 dark:border-[#262626] dark:bg-[#131417] dark:hover:border-[#dfb15b]/40"
       >
         {/* Foto com Badges em Pílula */}
         <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800 sm:aspect-[16/10]">
@@ -70,12 +71,12 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
 
           {/* Badges de destaque em formato pílula */}
           {vehicle.tag && (
-            <span className="absolute left-3 top-3 rounded-full bg-[#dfb15b] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md">
+            <span className="absolute left-3 top-3 max-w-[85%] truncate rounded-full bg-[#dfb15b] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md whitespace-nowrap">
               {vehicle.tag}
             </span>
           )}
           {vehicle.categoria && (
-            <span className="absolute bottom-3 left-3 rounded-full bg-black/70 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-md border border-white/10">
+            <span className="absolute bottom-3 left-3 rounded-full bg-black/75 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-md border border-white/10 whitespace-nowrap">
               {vehicle.categoria}
             </span>
           )}
