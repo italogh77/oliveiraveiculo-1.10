@@ -935,6 +935,18 @@ body {
   outline-offset: 2px;
 }
 
+/* Garante remoção absoluta de qualquer linha amarela em volta dos cards de veículos */
+.vehicle-card,
+.vehicle-card:focus,
+.vehicle-card:focus-visible,
+.vehicle-card *,
+.ov-carousel-item,
+.ov-carousel-item:focus,
+.ov-carousel-item:focus-visible,
+.ov-carousel-item * {
+  outline: none !important;
+}
+
 /* Oliveira — visual preto/cinza e dourado */
 :root {
   --ov-ink: #111111;
