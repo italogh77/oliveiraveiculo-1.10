@@ -34,8 +34,15 @@ function sanitizeVehicles(list) {
 }
 
 export function VehiclesProvider({ children }) {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [vehicles, setVehicles] = useState(() => {
+    try {
+      const localSaved = sanitizeVehicles(JSON.parse(localStorage.getItem('localVehicles') || 'null'));
+      return localSaved && localSaved.length > 0 ? localSaved : VEHICLES_DATA;
+    } catch (_) {
+      return VEHICLES_DATA;
+    }
+  });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [useLocalMode, setUseLocalMode] = useState(false);
 
