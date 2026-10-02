@@ -149,10 +149,11 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         {featuredVehicles.length ? (
           <div
             ref={carouselRef}
-            className="-mx-4 -my-4 flex gap-4 overflow-x-auto px-4 py-6 scroll-smooth snap-x snap-mandatory sm:mx-0 sm:gap-6 sm:px-2 sm:py-6"
+            className="-mx-4 sm:-mx-6 -my-4 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 py-6 scroll-smooth snap-x snap-mandatory"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
+              scrollPaddingLeft: '24px',
             }}
           >
             {featuredVehicles.map((v) => (
