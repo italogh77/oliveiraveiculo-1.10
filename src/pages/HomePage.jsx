@@ -87,7 +87,59 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return diff;
   };
 
-  const getCardStyle = (diff) => {
+  // No início (activeIndex === 0) no desktop: exibe exatamente os 3 carros nivelados em 3 colunas (3x3).
+  // A partir de activeIndex > 0: ativa o Coverflow 3D com o card central em foco (spotlight),
+  // o anterior à esquerda (o que já passou) e o próximo à direita.
+  const isInitial3x3 = activeIndex === 0 && isDesktop;
+
+  const getCardStyle = (idx) => {
+    if (isInitial3x3) {
+      if (idx === 0) {
+        return {
+          transform: 'translate(calc(-50% - 390px), -50%) scale(1) rotateY(0deg)',
+          zIndex: 20,
+          opacity: 1,
+          filter: 'none',
+          pointerEvents: 'auto',
+        };
+      }
+      if (idx === 1) {
+        return {
+          transform: 'translate(-50%, -50%) scale(1) rotateY(0deg)',
+          zIndex: 20,
+          opacity: 1,
+          filter: 'none',
+          pointerEvents: 'auto',
+        };
+      }
+      if (idx === 2) {
+        return {
+          transform: 'translate(calc(-50% + 390px), -50%) scale(1) rotateY(0deg)',
+          zIndex: 20,
+          opacity: 1,
+          filter: 'none',
+          pointerEvents: 'auto',
+        };
+      }
+      if (idx === 3) {
+        return {
+          transform: 'translate(calc(-50% + 780px), -50%) scale(0.74) rotateY(-14deg)',
+          zIndex: 10,
+          opacity: 0.15,
+          filter: 'brightness(0.5)',
+          pointerEvents: 'auto',
+        };
+      }
+      return {
+        transform: 'translate(calc(-50% + 1100px), -50%) scale(0.5)',
+        zIndex: 5,
+        opacity: 0,
+        pointerEvents: 'none',
+      };
+    }
+
+    const diff = getDiff(idx);
+
     if (diff === 0) {
       return {
         transform: 'translate(-50%, -50%) scale(1.05) translateZ(40px)',
