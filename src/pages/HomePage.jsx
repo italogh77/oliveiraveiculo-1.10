@@ -183,10 +183,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-            {/* Contador elegante no padrão 02 / 06 */}
+            {/* Contador elegante no padrão 02 / 04 */}
             {featuredVehicles.length > 0 && (
               <span className="text-xs font-mono font-bold text-[#dfb15b] bg-[#dfb15b]/10 border border-[#dfb15b]/30 px-3 py-1.5 rounded-full shadow-inner">
-                {String(currentDisplayNumber).padStart(2, '0')} / {String(featuredVehicles.length).padStart(2, '0')}
+                {String(stepIndex + 1).padStart(2, '0')} / {String(totalSteps).padStart(2, '0')}
               </span>
             )}
 
@@ -231,45 +231,49 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
         {featuredVehicles.length ? (
           <div>
+            {/* 
+              4 Cantos e Espaçamentos devidamente ajustados:
+              - Top (pt-8 sm:pt-10): Espaço livre acima para elevação e respiro dos cards
+              - Bottom (pb-12 sm:pb-14): Espaço livre abaixo para difusão suave do feixe de luz dourada
+              - Left/Right (px-4 sm:px-6 lg:px-8): Alinhamento lateral com o grid da loja
+              - Gap entre cards (gap-4 sm:gap-5 lg:gap-6): Espaçamento uniforme
+            */}
             <div
               ref={carouselRef}
               onScroll={handleScroll}
-              className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 lg:px-8 py-8 scroll-smooth items-center"
+              className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 scroll-smooth items-center"
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
               }}
             >
               {featuredVehicles.map((v, idx) => {
-                const isSpotlight = idx === spotlightIndex;
-                const isPassed = spotlightIndex !== -1 && idx < spotlightIndex;
-                const isUpcoming = spotlightIndex !== -1 && idx > spotlightIndex;
+                const isForeground = idx >= stepIndex && idx < stepIndex + foregroundSize;
+                const isPassed = idx < stepIndex;
 
                 return (
                   <div
                     key={v.id}
-                    className={`ov-carousel-item relative shrink-0 transition-all duration-500 ease-out w-[84vw] max-w-[340px] sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] ${
-                      isSpotlight
-                        ? 'scale-[1.035] -translate-y-1.5 z-20 opacity-100'
+                    className={`ov-carousel-item relative shrink-0 transition-all duration-500 ease-out w-[82vw] max-w-[335px] sm:w-[calc((100%-24px)/2)] lg:w-[320px] xl:w-[340px] ${
+                      isForeground
+                        ? 'scale-100 translate-y-0 z-20 opacity-100'
                         : isPassed
-                        ? 'scale-100 translate-y-0 opacity-80 hover:opacity-100 z-10'
-                        : isUpcoming
-                        ? 'scale-100 translate-y-0 opacity-90 hover:opacity-100 z-10'
-                        : 'scale-100 translate-y-0 opacity-100 z-10'
+                        ? 'scale-[0.88] translate-y-1 z-10 opacity-55 hover:opacity-85 brightness-90'
+                        : 'scale-[0.88] translate-y-1 z-10 opacity-55 hover:opacity-85 brightness-90'
                     }`}
                   >
-                    {/* Halo de luz dourada atmosférica ativo exclusivamente quando o carro entra em spotlight */}
-                    {isSpotlight && (
+                    {/* Halo de luz dourada atmosférica na base dos cards em destaque (idêntico à imagem de referência) */}
+                    {isForeground && (
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-xl opacity-100 transition-opacity duration-500"
+                        className="pointer-events-none absolute -inset-x-3 -bottom-3.5 h-14 -z-10 rounded-full bg-[#dfb15b]/35 blur-xl opacity-100 transition-opacity duration-500"
                       />
                     )}
 
                     <div
                       className={`h-full w-full rounded-2xl transition-all duration-500 ${
-                        isSpotlight
-                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_48px_rgba(0,0,0,0.85),0_0_30px_rgba(223,177,91,0.25)]'
+                        isForeground
+                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_45px_rgba(0,0,0,0.85),0_0_24px_rgba(223,177,91,0.22)]'
                           : 'shadow-md border border-white/5'
                       }`}
                     >
@@ -282,7 +286,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
             {/* Indicadores de Paginação em Pílulas */}
             <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
-              {Array.from({ length: totalSteps + 1 }).map((_, idx) => {
+              {Array.from({ length: totalSteps }).map((_, idx) => {
                 const isActive = idx === stepIndex;
                 return (
                   <button
@@ -291,7 +295,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                     aria-label={`Ir para etapa ${idx + 1}`}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       isActive
-                        ? 'w-8 h-2 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                        ? 'w-8 h-2 bg-[#dfb15b] shadow-[0_0_14px_rgba(223,177,91,0.65)]'
                         : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                     }`}
                   />
