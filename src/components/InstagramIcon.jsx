@@ -19,7 +19,7 @@ export default function InstagramIcon({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      className={`ig-icon ${className}`}
       {...props}
     >
       <defs>
