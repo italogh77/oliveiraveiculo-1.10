@@ -33,10 +33,14 @@ export default function Footer({ onSelectTab }) {
               rel="noopener noreferrer"
               aria-label="Instagram da Oliveira Veículos"
               title="Instagram da Oliveira Veículos"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 hover:border-[#dfb15b] hover:text-[#dfb15b] px-4 py-2 text-xs font-semibold text-gray-300 transition-all active:scale-95"
+              className="btn-shine-instagram group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/15 bg-white/5 hover:border-pink-500/50 hover:bg-gradient-to-r hover:from-[#fa7e1e]/10 hover:via-[#d62976]/15 hover:to-[#962fbf]/10 px-4 py-2 text-xs font-semibold text-gray-300 hover:text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(214,41,118,0.25)] active:scale-95 cursor-pointer"
             >
-              <InstagramIcon size={16} />
-              <span>@oliveiraveiculosmarica</span>
+              <InstagramIcon
+                size={16}
+                useGradient
+                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0 drop-shadow-[0_0_6px_rgba(214,41,118,0.4)]"
+              />
+              <span className="transition-colors duration-300">@oliveiraveiculosmarica</span>
             </a>
           </div>
 

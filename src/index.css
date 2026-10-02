@@ -798,6 +798,49 @@ body {
   transform: translateX(320%) skewX(-18deg);
 }
 
+/* Brilho reluzente com espectro de arco-íris oficial do Instagram */
+.btn-shine-instagram {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-shine-instagram > * {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-shine-instagram::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 65%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(254, 218, 117, 0.7) 16%, /* Amarelo ouro IG */
+    rgba(250, 126, 30, 0.8) 32%,   /* Laranja pôr do sol IG */
+    rgba(214, 41, 118, 0.9) 52%,  /* Rosa magenta vibrante IG */
+    rgba(150, 47, 191, 0.8) 72%,   /* Roxo ametista IG */
+    rgba(79, 91, 213, 0.7) 88%,    /* Azul royal IG */
+    transparent 100%
+  );
+  filter: blur(1px);
+  transform: translateX(-160%) skewX(-20deg);
+  transition: transform 0.85s var(--ease-spring);
+}
+
+.btn-shine-instagram:hover::before,
+.btn-shine-instagram:focus-visible::before,
+.group:hover .btn-shine-instagram::before,
+.group:hover.btn-shine-instagram::before {
+  transform: translateX(350%) skewX(-20deg);
+}
+
 /* Card de veículo: levitação sutil e sombra elegante */
 .vehicle-card {
   --card-rotate-x: 0deg;
