@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Navigation, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
@@ -9,14 +9,15 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const { vehicles } = useVehicles();
   const carouselContainerRef = useRef(null);
 
-  // Filtra destaques escolhidos pelo Admin ou completa com os primeiros
+  // Filtra destaques escolhidos pelo Admin ou completa com os primeiros (até 6 veículos)
   const featuredVehicles = useMemo(() => {
     if (!vehicles.length) return [];
     const custom = vehicles.filter((v) => v.destaqueHome);
     if (custom.length >= 3) return custom;
     const customIds = new Set(custom.map((v) => v.id));
     const rest = vehicles.filter((v) => !customIds.has(v.id));
-    return [...custom, ...rest];
+    const combined = [...custom, ...rest];
+    return combined.slice(0, 6);
   }, [vehicles]);
 
   const N = featuredVehicles.length || 1;
@@ -36,35 +37,46 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
-  // Atualiza a largura do container responsivamente
+  // Atualiza a largura do container responsivamente via ResizeObserver
   useEffect(() => {
-    const updateWidth = () => {
+    if (!carouselContainerRef.current) return;
+    const update = () => {
       if (carouselContainerRef.current) {
         setContainerWidth(carouselContainerRef.current.offsetWidth);
-      } else {
-        setContainerWidth(window.innerWidth);
       }
     };
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+    update();
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect.width > 0) {
+          setContainerWidth(entry.contentRect.width);
+        }
+      }
+    });
+    observer.observe(carouselContainerRef.current);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, [featuredVehicles.length]);
 
   // Responsividade dos cards:
-  // Desktop (>= 1024px): 3 cards no centro, 1 peeking na esquerda, 1 peeking na direita
-  // Tablet (640-1023px): 2 cards no centro, 1 peeking na esquerda, 1 peeking na direita
-  // Mobile (< 640px): 1 card no centro, 1 peeking na esquerda, 1 peeking na direita
+  // Desktop (>= 1280px): 3 cards no centro (~310px cada) + cards peeking visíveis nas pontas (~100px)
+  // Laptop (1024-1279px): 3 cards no centro (~275px cada) + peeking nas pontas (~70px)
+  // Tablet (640-1023px): 2 cards no centro (~290px cada) + peeking nas pontas
+  // Mobile (< 640px): 1 card no centro (~78% da tela) + peeking nas pontas
   const { cardWidth, gap, centerCount } = useMemo(() => {
     if (containerWidth >= 1280) {
-      return { cardWidth: 330, gap: 24, centerCount: 3 };
+      return { cardWidth: 310, gap: 20, centerCount: 3 };
     }
     if (containerWidth >= 1024) {
-      return { cardWidth: 300, gap: 20, centerCount: 3 };
+      return { cardWidth: 275, gap: 16, centerCount: 3 };
     }
     if (containerWidth >= 640) {
-      return { cardWidth: 290, gap: 20, centerCount: 2 };
+      return { cardWidth: 290, gap: 16, centerCount: 2 };
     }
-    return { cardWidth: Math.min(320, Math.floor(containerWidth * 0.78)), gap: 16, centerCount: 1 };
+    return { cardWidth: Math.min(310, Math.floor(containerWidth * 0.78)), gap: 14, centerCount: 1 };
   }, [containerWidth]);
 
   // Se N mudar (ex: carregamento assíncrono dos veículos), sincroniza centerIndex
@@ -197,7 +209,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
       </section>
 
-      {/* ── Estoque em Destaque: Carrossel 3 colunas com avanço de 1 em 1 ── */}
+      {/* ── Estoque em Destaque: Carrossel com pontas retas (sem inclinação 3D) e sem linhas amarelas ── */}
       <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-14 sm:pb-20">
         <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
@@ -214,45 +226,9 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-            {/* Contador elegante no padrão 02 / 04 */}
-            {featuredVehicles.length > 0 && (
-              <span className="text-xs font-mono font-bold text-[#dfb15b] bg-[#dfb15b]/10 border border-[#dfb15b]/30 px-3 py-1.5 rounded-full shadow-inner">
-                {String(stepIndex + 1).padStart(2, '0')} / {String(totalSteps).padStart(2, '0')}
-              </span>
-            )}
-
-            {/* Setas de navegação */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                aria-label="Veículo anterior"
-                className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
-                  !canScrollLeft
-                    ? 'opacity-30 cursor-not-allowed'
-                    : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
-                }`}
-              >
-                <ChevronLeft size={18} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                aria-label="Próximo veículo"
-                className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
-                  !canScrollRight
-                    ? 'opacity-30 cursor-not-allowed'
-                    : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
-                }`}
-              >
-                <ChevronRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
-            </div>
-
-            {/* Botão Ver todos em Pílula */}
             <button
               onClick={onGoToEstoque}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-4 py-2 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
             >
               <span>Ver todos ({vehicles.length})</span>
               <ArrowRight size={15} />
@@ -261,72 +237,91 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
 
         {featuredVehicles.length ? (
-          <div>
-            {/* 
-              4 Cantos e Espaçamentos devidamente ajustados:
-              - Top (pt-8 sm:pt-10): Espaço livre acima para elevação e respiro dos cards
-              - Bottom (pb-12 sm:pb-14): Espaço livre abaixo para difusão suave do feixe de luz dourada
-              - Left/Right (px-4 sm:px-6 lg:px-8): Alinhamento lateral com o grid da loja
-              - Gap entre cards (gap-4 sm:gap-5 lg:gap-6): Espaçamento uniforme
-            */}
+          <div className="relative w-full">
+            {/* Container com overflow-hidden para corte perfeito das pontas */}
             <div
-              ref={carouselRef}
-              onScroll={handleScroll}
-              className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 flex gap-4 sm:gap-5 lg:gap-6 overflow-x-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 scroll-smooth items-center"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-              }}
+              ref={carouselContainerRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full overflow-hidden py-4 sm:py-6"
             >
-              {featuredVehicles.map((v, idx) => {
-                const isForeground = idx >= stepIndex && idx < stepIndex + foregroundSize;
-                const isPassed = idx < stepIndex;
+              {/* Botão anterior flutuante sobre o card peeking da esquerda */}
+              <button
+                onClick={prevSlide}
+                aria-label="Veículo anterior"
+                className="btn-shine group absolute left-1.5 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white flex items-center justify-center shadow-2xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+              >
+                <ChevronLeft size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
+              </button>
 
-                return (
-                  <div
-                    key={v.id}
-                    className={`ov-carousel-item relative shrink-0 transition-all duration-500 ease-out w-[82vw] max-w-[335px] sm:w-[calc((100%-24px)/2)] lg:w-[320px] xl:w-[340px] ${
-                      isForeground
-                        ? 'scale-100 translate-y-0 z-20 opacity-100'
-                        : isPassed
-                        ? 'scale-[0.88] translate-y-1 z-10 opacity-55 hover:opacity-85 brightness-90'
-                        : 'scale-[0.88] translate-y-1 z-10 opacity-55 hover:opacity-85 brightness-90'
-                    }`}
-                  >
-                    {/* Halo de luz dourada atmosférica na base dos cards em destaque (idêntico à imagem de referência) */}
-                    {isForeground && (
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -inset-x-3 -bottom-3.5 h-14 -z-10 rounded-full bg-[#dfb15b]/35 blur-xl opacity-100 transition-opacity duration-500"
-                      />
-                    )}
+              {/* Botão próximo flutuante sobre o card peeking da direita */}
+              <button
+                onClick={nextSlide}
+                aria-label="Próximo veículo"
+                className="btn-shine group absolute right-1.5 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white flex items-center justify-center shadow-2xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+              >
+                <ChevronRight size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
+              </button>
 
+              {/* Trilho de deslizamento com cards RETOS (sem inclinação 3D) e SEM linhas amarelas */}
+              <div
+                onTransitionEnd={handleTransitionEnd}
+                className="flex items-center"
+                style={{
+                  transform: `translateX(${translateX}px)`,
+                  transition: isTransitioning ? 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+                  gap: `${gap}px`,
+                }}
+              >
+                {extendedVehicles.map((v, trackIdx) => {
+                  const isCenter = trackIdx >= centerIndex && trackIdx < centerIndex + centerCount;
+                  const isLeftEdge = trackIdx === centerIndex - 1;
+                  const isRightEdge = trackIdx === centerIndex + centerCount;
+                  const isEdge = isLeftEdge || isRightEdge;
+
+                  return (
                     <div
-                      className={`h-full w-full rounded-2xl transition-all duration-500 ${
-                        isForeground
-                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_45px_rgba(0,0,0,0.85),0_0_24px_rgba(223,177,91,0.22)]'
-                          : 'shadow-md border border-white/5'
+                      key={`track-${v.id}-${trackIdx}`}
+                      onClick={isEdge ? (isLeftEdge ? prevSlide : nextSlide) : undefined}
+                      style={{
+                        width: `${cardWidth}px`,
+                        transform: 'none', // RETOS! Sem inclinação para dentro!
+                      }}
+                      className={`ov-carousel-item relative shrink-0 select-none transition-all duration-400 ease-out ${
+                        isCenter
+                          ? 'opacity-100 z-10'
+                          : isEdge
+                          ? 'opacity-40 hover:opacity-75 cursor-pointer z-0 filter brightness-90'
+                          : 'opacity-0 pointer-events-none z-0'
                       }`}
                     >
-                      <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
+                      {/* Card com acabamento nativo escuro: SEM linhas amarelas, SEM anéis amarelos */}
+                      <div
+                        className={`h-full w-full rounded-2xl border border-white/10 dark:border-[#262626] bg-[#131417] shadow-xl overflow-hidden ${
+                          isEdge ? 'pointer-events-none' : ''
+                        }`}
+                      >
+                        <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Indicadores de Paginação em Pílulas */}
+            {/* Indicadores de Paginação em Dots */}
             <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
-              {Array.from({ length: totalSteps }).map((_, idx) => {
-                const isActive = idx === stepIndex;
+              {featuredVehicles.map((_, idx) => {
+                const isActive = idx === activeDot;
                 return (
                   <button
                     key={`dot-${idx}`}
-                    onClick={() => scrollToStep(idx)}
-                    aria-label={`Ir para etapa ${idx + 1}`}
+                    onClick={() => goToSlide(idx)}
+                    aria-label={`Ir para destaque ${idx + 1}`}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       isActive
-                        ? 'w-8 h-2 bg-[#dfb15b] shadow-[0_0_14px_rgba(223,177,91,0.65)]'
+                        ? 'w-7 sm:w-8 h-2 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
                         : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                     }`}
                   />
