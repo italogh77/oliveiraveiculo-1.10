@@ -9,14 +9,21 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const { vehicles } = useVehicles();
   const carouselRef = useRef(null);
   const [stepIndex, setStepIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [screenMode, setScreenMode] = useState('desktop'); // 'mobile' | 'tablet' | 'desktop'
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Detecta se a tela está em desktop (3 colunas) ou mobile/tablet
+  // Detecta se a tela está em desktop (3 colunas em destaque), tablet (2) ou mobile (1)
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setScreenMode('desktop');
+      } else if (width >= 640) {
+        setScreenMode('tablet');
+      } else {
+        setScreenMode('mobile');
+      }
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -33,24 +40,26 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return [...custom, ...rest];
   }, [vehicles]);
 
-  // spotlightIndex:
-  // - No desktop: se stepIndex === 0 (estado inicial 3x3), nenhum card fica forçado em spotlight (todos no padrão clássico nivelados).
-  //   Se stepIndex > 0: o próximo carro no centro (stepIndex + 1) entra em destaque com halo e ampliação,
-  //   o da esquerda (idx < spotlightIndex) fica como 'o que já passou' retornando ao padrão, e o da direita como 'o que vai passar'.
-  // - No mobile: o card ativo no centro da visualização recebe o destaque.
-  const spotlightIndex = useMemo(() => {
-    if (isDesktop) {
-      if (stepIndex === 0) return -1; // 3x3 inicial nivelado
-      return stepIndex + 1; // Card central em destaque
-    }
-    return stepIndex; // Mobile: card atual
-  }, [isDesktop, stepIndex]);
+  // Quantidade de cards que ficam no primeiro plano em destaque com o halo dourado:
+  // - Desktop: 3 cards em destaque no centro (trio como 02, 03, 04 na referência visual)
+  // - Tablet: 2 cards
+  // - Mobile: 1 card
+  const foregroundSize = useMemo(() => {
+    if (screenMode === 'desktop') return 3;
+    if (screenMode === 'tablet') return 2;
+    return 1;
+  }, [screenMode]);
+
+  const totalSteps = useMemo(() => {
+    if (!featuredVehicles.length) return 0;
+    return Math.max(1, featuredVehicles.length - foregroundSize + 1);
+  }, [featuredVehicles.length, foregroundSize]);
 
   const getStepWidth = useCallback(() => {
     if (!carouselRef.current) return 360;
     const item = carouselRef.current.querySelector('.ov-carousel-item');
     if (!item) return 360;
-    const gap = window.innerWidth >= 640 ? 24 : 16;
+    const gap = window.innerWidth >= 1024 ? 24 : (window.innerWidth >= 640 ? 20 : 16);
     return item.offsetWidth + gap;
   }, []);
 
@@ -78,14 +87,13 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     if (!stepWidth) return;
 
     const currentStep = Math.round(container.scrollLeft / stepWidth);
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    const maxSteps = Math.ceil(maxScroll / stepWidth);
-    const clampedStep = Math.max(0, Math.min(maxSteps, currentStep));
+    const clampedStep = Math.max(0, Math.min(totalSteps - 1, currentStep));
 
     setStepIndex(clampedStep);
     setCanScrollLeft(container.scrollLeft > 10);
+    const maxScroll = container.scrollWidth - container.clientWidth;
     setCanScrollRight(container.scrollLeft < maxScroll - 15);
-  }, [getStepWidth]);
+  }, [getStepWidth, totalSteps]);
 
   const scrollLeft = useCallback(() => {
     const nextStep = Math.max(0, stepIndex - 1);
@@ -93,30 +101,9 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   }, [stepIndex, scrollToStep]);
 
   const scrollRight = useCallback(() => {
-    if (!carouselRef.current) return;
-    const container = carouselRef.current;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    const stepWidth = getStepWidth();
-    const maxSteps = Math.ceil(maxScroll / stepWidth);
-    const nextStep = Math.min(maxSteps, stepIndex + 1);
+    const nextStep = Math.min(totalSteps - 1, stepIndex + 1);
     scrollToStep(nextStep);
-  }, [stepIndex, scrollToStep, getStepWidth]);
-
-  const totalSteps = useMemo(() => {
-    if (!featuredVehicles.length) return 0;
-    if (isDesktop) {
-      return Math.max(1, featuredVehicles.length - 2);
-    }
-    return Math.max(1, featuredVehicles.length - 1);
-  }, [featuredVehicles.length, isDesktop]);
-
-  const currentDisplayNumber = useMemo(() => {
-    if (!featuredVehicles.length) return 1;
-    if (isDesktop) {
-      return stepIndex === 0 ? 1 : Math.min(featuredVehicles.length, stepIndex + 2);
-    }
-    return Math.min(featuredVehicles.length, stepIndex + 1);
-  }, [featuredVehicles.length, isDesktop, stepIndex]);
+  }, [stepIndex, scrollToStep, totalSteps]);
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
