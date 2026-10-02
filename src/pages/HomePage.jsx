@@ -8,7 +8,20 @@ import { publicAsset } from '../lib/publicAsset';
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
   const carouselRef = useRef(null);
-  const [activeCenterIndex, setActiveCenterIndex] = useState(0);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // Detecta se a tela está em desktop (3 colunas) ou mobile/tablet
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Filtra destaques escolhidos pelo Admin ou completa com os primeiros
   const featuredVehicles = useMemo(() => {
@@ -20,67 +33,90 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return [...custom, ...rest];
   }, [vehicles]);
 
-  // Identifica qual card está no centro da visualização durante o scroll
+  // spotlightIndex:
+  // - No desktop: se stepIndex === 0 (estado inicial 3x3), nenhum card fica forçado em spotlight (todos no padrão clássico nivelados).
+  //   Se stepIndex > 0: o próximo carro no centro (stepIndex + 1) entra em destaque com halo e ampliação,
+  //   o da esquerda (idx < spotlightIndex) fica como 'o que já passou' retornando ao padrão, e o da direita como 'o que vai passar'.
+  // - No mobile: o card ativo no centro da visualização recebe o destaque.
+  const spotlightIndex = useMemo(() => {
+    if (isDesktop) {
+      if (stepIndex === 0) return -1; // 3x3 inicial nivelado
+      return stepIndex + 1; // Card central em destaque
+    }
+    return stepIndex; // Mobile: card atual
+  }, [isDesktop, stepIndex]);
+
+  const getStepWidth = useCallback(() => {
+    if (!carouselRef.current) return 360;
+    const item = carouselRef.current.querySelector('.ov-carousel-item');
+    if (!item) return 360;
+    const gap = window.innerWidth >= 640 ? 24 : 16;
+    return item.offsetWidth + gap;
+  }, []);
+
+  const scrollToStep = useCallback(
+    (step) => {
+      if (!carouselRef.current) return;
+      const container = carouselRef.current;
+      const stepWidth = getStepWidth();
+      const targetLeft = step * stepWidth;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      const clamped = Math.max(0, Math.min(maxScroll, targetLeft));
+
+      container.scrollTo({
+        left: clamped,
+        behavior: 'smooth',
+      });
+    },
+    [getStepWidth]
+  );
+
   const handleScroll = useCallback(() => {
     if (!carouselRef.current) return;
     const container = carouselRef.current;
-    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
-    const items = container.querySelectorAll('.ov-carousel-item');
+    const stepWidth = getStepWidth();
+    if (!stepWidth) return;
 
-    let closestIdx = 0;
-    let minDistance = Infinity;
+    const currentStep = Math.round(container.scrollLeft / stepWidth);
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const maxSteps = Math.ceil(maxScroll / stepWidth);
+    const clampedStep = Math.max(0, Math.min(maxSteps, currentStep));
 
-    items.forEach((item, idx) => {
-      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-      const distance = Math.abs(containerCenter - itemCenter);
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIdx = idx;
-      }
-    });
+    setStepIndex(clampedStep);
+    setCanScrollLeft(container.scrollLeft > 10);
+    setCanScrollRight(container.scrollLeft < maxScroll - 15);
+  }, [getStepWidth]);
 
-    setActiveCenterIndex(closestIdx);
-  }, []);
+  const scrollLeft = useCallback(() => {
+    const nextStep = Math.max(0, stepIndex - 1);
+    scrollToStep(nextStep);
+  }, [stepIndex, scrollToStep]);
 
-  const scrollLeft = () => {
+  const scrollRight = useCallback(() => {
     if (!carouselRef.current) return;
     const container = carouselRef.current;
-    const items = container.querySelectorAll('.ov-carousel-item');
-    const targetIdx = Math.max(0, activeCenterIndex - 1);
-    if (items[targetIdx]) {
-      items[targetIdx].scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      });
-    }
-  };
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const stepWidth = getStepWidth();
+    const maxSteps = Math.ceil(maxScroll / stepWidth);
+    const nextStep = Math.min(maxSteps, stepIndex + 1);
+    scrollToStep(nextStep);
+  }, [stepIndex, scrollToStep, getStepWidth]);
 
-  const scrollRight = () => {
-    if (!carouselRef.current) return;
-    const container = carouselRef.current;
-    const items = container.querySelectorAll('.ov-carousel-item');
-    const targetIdx = Math.min(items.length - 1, activeCenterIndex + 1);
-    if (items[targetIdx]) {
-      items[targetIdx].scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      });
+  const totalSteps = useMemo(() => {
+    if (!featuredVehicles.length) return 0;
+    if (isDesktop) {
+      return Math.max(1, featuredVehicles.length - 2);
     }
-  };
+    return Math.max(1, featuredVehicles.length - 1);
+  }, [featuredVehicles.length, isDesktop]);
 
-  const scrollToIdx = (idx) => {
-    if (!carouselRef.current) return;
-    const items = carouselRef.current.querySelectorAll('.ov-carousel-item');
-    if (items[idx]) {
-      items[idx].scrollIntoView({
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      });
+  const currentDisplayNumber = useMemo(() => {
+    if (!featuredVehicles.length) return 1;
+    if (isDesktop) {
+      return stepIndex === 0 ? 1 : Math.min(featuredVehicles.length, stepIndex + 2);
     }
-  };
+    return Math.min(featuredVehicles.length, stepIndex + 1);
+  }, [featuredVehicles.length, isDesktop, stepIndex]);
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
