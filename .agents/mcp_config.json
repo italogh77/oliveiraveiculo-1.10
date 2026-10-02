@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "obsidian": {
+      "command": "cmd.exe",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\user1\\DOCUME~1\\OBSIDI~1",
+        "C:\\Users\\user1\\Documents\\Obsidian Vault",
+        "C:\\Users\\user1\\Downloads\\oliveiraveiculo-1.10"
+      ]
+    }
+  }
+}
