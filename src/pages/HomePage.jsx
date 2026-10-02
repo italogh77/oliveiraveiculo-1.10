@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Sparkles, Navigation } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
