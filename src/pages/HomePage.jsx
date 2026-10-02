@@ -186,11 +186,14 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               Estamos em Maricá para ajudar você a comparar opções, tirar dúvidas e encontrar uma condição que faça sentido.
             </p>
             <button
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-[#dfb15b] hover:text-black border border-white/15 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-white transition-all active:scale-95 cursor-pointer shadow-sm"
+              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/10 hover:bg-[#dfb15b] hover:text-black border border-white/15 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
               onClick={onGoToSobre}
             >
               <span>Conheça nossa loja</span>
-              <ArrowRight size={16} />
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+              />
             </button>
           </div>
 
@@ -277,11 +280,17 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                   href={COMPANY_DATA.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-transform duration-150 active:scale-95 shadow-md cursor-pointer"
+                  className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
                 >
-                  <Navigation size={16} />
+                  <Navigation
+                    size={16}
+                    className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+                  />
                   <span>Ver no Google Maps</span>
-                  <ArrowUpRight size={16} className="stroke-[2.5]" />
+                  <ArrowUpRight
+                    size={16}
+                    className="stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-90 group-hover:opacity-100"
+                  />
                 </a>
               </div>
             </div>
