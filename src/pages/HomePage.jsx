@@ -157,15 +157,18 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
-      {/* ── Hero Section ── */}
-      <section className="ov-hero relative min-h-[82svh] sm:min-h-[86svh] flex items-end overflow-hidden pb-10 pt-20">
+      {/* ── Hero Section 100% Tela Cheia ── */}
+      <section
+        id="inicio-hero"
+        className="ov-hero relative w-full min-h-[100svh] h-[100svh] flex items-end overflow-hidden pb-12 sm:pb-16 pt-20"
+      >
         <img
-          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[52%_top]"
+          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[52%_center] sm:object-[50%_38%]"
           src={publicAsset('loja-oliveira-hero-original.jpg')}
           alt="Fachada e veículos da Oliveira Veículos em Maricá"
           fetchPriority="high"
         />
-        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/80 to-[#090a0b]/40" />
+        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/75 to-[#090a0b]/35" />
 
         <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="ov-hero-content max-w-2xl">
@@ -214,6 +217,24 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
           </div>
         </div>
+
+        {/* Indicador sutil de rolagem para o estoque */}
+        <button
+          type="button"
+          onClick={() => {
+            const target = document.getElementById('estoque-destaque');
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          aria-label="Rolar para o estoque em destaque"
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/70 hover:text-[#dfb15b] transition-colors cursor-pointer group pb-1"
+        >
+          <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-white/50 group-hover:text-[#dfb15b] transition-colors">
+            Rolar para o estoque
+          </span>
+          <ChevronDown size={18} className="animate-bounce text-[#dfb15b]" />
+        </button>
       </section>
 
       {/* ── Estoque em Destaque: Carrossel com pontas simétricas, setas laterais e espaçamento refinado ── */}
