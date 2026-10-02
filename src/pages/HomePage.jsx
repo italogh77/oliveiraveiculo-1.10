@@ -62,21 +62,28 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   }, [featuredVehicles.length]);
 
   // Responsividade dos cards:
-  // Desktop (>= 1280px): 3 cards no centro (~310px cada) + cards peeking visíveis nas pontas (~100px)
-  // Laptop (1024-1279px): 3 cards no centro (~275px cada) + peeking nas pontas (~70px)
-  // Tablet (640-1023px): 2 cards no centro (~290px cada) + peeking nas pontas
-  // Mobile (< 640px): 1 card no centro (~78% da tela) + peeking nas pontas
+  // Desktop (>= 1280px): 3 cards completos no centro + cards anterior e seguinte simétricos nas pontas
+  // Laptop (1024-1279px): 3 cards completos no centro + cards laterais simétricos
+  // Tablet (640-1023px): 2 cards completos no centro + cards laterais simétricos
+  // Mobile (< 640px): 1 card principal no centro (~75% da tela) + partes simétricas nas duas laterais
   const { cardWidth, gap, centerCount } = useMemo(() => {
     if (containerWidth >= 1280) {
-      return { cardWidth: 310, gap: 20, centerCount: 3 };
+      const targetWidth = Math.min(345, Math.floor((containerWidth - 2 * 20) * 0.285));
+      return { cardWidth: targetWidth, gap: 20, centerCount: 3 };
     }
     if (containerWidth >= 1024) {
-      return { cardWidth: 275, gap: 16, centerCount: 3 };
+      const targetWidth = Math.min(300, Math.floor((containerWidth - 2 * 16) * 0.29));
+      return { cardWidth: targetWidth, gap: 16, centerCount: 3 };
     }
     if (containerWidth >= 640) {
-      return { cardWidth: 290, gap: 16, centerCount: 2 };
+      const targetWidth = Math.min(320, Math.floor((containerWidth - 16) * 0.44));
+      return { cardWidth: targetWidth, gap: 16, centerCount: 2 };
     }
-    return { cardWidth: Math.min(310, Math.floor(containerWidth * 0.78)), gap: 14, centerCount: 1 };
+    return {
+      cardWidth: Math.min(310, Math.floor(containerWidth * 0.75)),
+      gap: 12,
+      centerCount: 1,
+    };
   }, [containerWidth]);
 
   // Se N mudar (ex: carregamento assíncrono dos veículos), sincroniza centerIndex
