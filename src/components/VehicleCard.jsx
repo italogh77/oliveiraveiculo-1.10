@@ -63,8 +63,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             width={coverDimensions.width}
             height={coverDimensions.height}
             style={photoStyle(vehicle.fotosAjustes?.[0])}
-            loading="lazy"
-            decoding="async"
+            loading="eager"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           {/* Feixe de luz reflexivo suave na lataria ao passar o mouse */}
