@@ -53,10 +53,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
         onClick={open}
         onPointerMove={handlePointerMove}
         onPointerLeave={resetCardPosition}
-        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-2xl dark:border-[#262626] dark:bg-[#131417] dark:hover:border-[#383a42]"
+        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#131417] shadow-xl transition-all duration-300 hover:border-white/25 hover:shadow-2xl dark:border-white/10 dark:bg-[#131417] dark:hover:border-white/25"
       >
-        {/* Foto com Badges em Pílula */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800 sm:aspect-[16/10]">
+        {/* Foto com proporção padronizada 16/10 e Badges em Pílula */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#18191d]">
           <img
             src={photoThumbUrl(coverPhoto)}
             alt={vehicle.modelo}
@@ -65,59 +65,59 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             style={photoStyle(vehicle.fotosAjustes?.[0])}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          {/* Feixe de luz reflexivo passando pela lataria do carro ao passar o mouse */}
+          {/* Feixe de luz reflexivo suave na lataria ao passar o mouse */}
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-10 -translate-x-[130%] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] transition-transform duration-1000 ease-out group-hover:translate-x-[240%]"
+            className="pointer-events-none absolute inset-0 z-10 -translate-x-[130%] bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg] transition-transform duration-1000 ease-out group-hover:translate-x-[240%]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#131417]/85 to-transparent" />
 
-          {/* Badges de destaque em formato pílula */}
+          {/* Badges de destaque padronizadas em tamanho e posição */}
           {vehicle.tag && (
-            <span className="absolute left-3 top-3 max-w-[85%] truncate rounded-full bg-[#dfb15b] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md whitespace-nowrap transition-transform duration-300 group-hover:scale-105">
+            <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-[#dfb15b] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-md whitespace-nowrap">
               {vehicle.tag}
             </span>
           )}
           {vehicle.categoria && (
-            <span className="absolute bottom-3 left-3 rounded-full bg-black/75 px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur-md border border-white/10 whitespace-nowrap">
+            <span className="absolute bottom-2.5 left-3 rounded-full bg-black/80 backdrop-blur-md px-2.5 py-0.5 text-[11px] font-semibold text-gray-200 border border-white/10 whitespace-nowrap">
               {vehicle.categoria}
             </span>
           )}
         </div>
 
-        {/* Título e Ficha Técnica */}
-        <div className="p-4 pb-2 sm:p-5 sm:pb-2">
-          <h3 className="font-display line-clamp-1 text-xl sm:text-2xl font-bold text-gray-900 transition-colors group-hover:text-[#dfb15b] dark:text-white">
+        {/* Título com tipografia limpa em branco e especificações de alto contraste */}
+        <div className="flex flex-col flex-grow p-4 pb-3 sm:p-5 sm:pb-3">
+          <h3 className="font-sans line-clamp-1 text-lg sm:text-xl font-semibold tracking-tight text-white">
             {vehicle.tituloCard || vehicle.modelo}
           </h3>
-          <p className="mt-1 line-clamp-1 text-xs font-medium text-gray-500 dark:text-gray-400 sm:text-sm">
+          <p className="mt-1 line-clamp-1 text-xs sm:text-[13px] font-medium text-gray-300">
             {subtitle}
           </p>
 
           {specs.length > 0 && (
-            <ul className="mt-3 flex flex-wrap gap-1.5">
-              {specs.map(({ Icon, label }) => (
+            <ul className="mt-3.5 grid grid-cols-2 gap-1.5">
+              {specs.slice(0, 4).map(({ Icon, label }) => (
                 <li
                   key={String(label)}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600 transition-all duration-300 group-hover:bg-[#dfb15b]/10 group-hover:text-gray-900 group-hover:border-[#dfb15b]/30 dark:bg-white/5 dark:text-gray-300 dark:group-hover:text-white border border-gray-200/50 dark:border-white/5"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-gray-300 border border-white/5 transition-colors group-hover:border-white/10"
                 >
-                  <Icon className="h-3 w-3 text-[#dfb15b] transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
-                  {label}
+                  <Icon className="h-3.5 w-3.5 text-[#dfb15b] shrink-0" aria-hidden="true" />
+                  <span className="truncate">{label}</span>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        {/* Preço + Botão Pílula na Base */}
-        <div className="mt-2 flex items-center justify-between gap-3 border-t border-gray-100 p-4 pt-3 dark:border-white/5 sm:p-5 sm:pt-3">
-          <div>
-            <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-400 dark:text-gray-500">
+        {/* Preço e Botão Ver detalhes sempre alinhados na mesma altura na base */}
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/10 p-4 pt-3.5 sm:p-5 sm:pt-3.5">
+          <div className="min-w-0">
+            <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-400">
               Preço
             </span>
-            <span className="text-xl font-extrabold tracking-tight text-gray-950 dark:text-white sm:text-2xl">
+            <span className="block text-xl sm:text-2xl font-bold tracking-tight text-white whitespace-nowrap">
               {formatPrice(vehicle.preco)}
             </span>
           </div>
@@ -128,10 +128,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               e.stopPropagation();
               open();
             }}
-            className="btn-shine inline-flex min-h-[42px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
+            className="btn-shine inline-flex min-h-[40px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
           >
             <span>Ver detalhes</span>
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:scale-110" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </div>
       </article>
