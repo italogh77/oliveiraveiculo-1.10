@@ -61,26 +61,31 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     };
   }, [featuredVehicles.length]);
 
-  // Responsividade dos cards:
-  // Desktop (>= 1280px): 3 cards completos no centro + cards anterior e seguinte simétricos nas pontas
+  // Responsividade dos cards para layout Sangrado (Full-Bleed):
+  // Telas ultra-wide / grandes (>= 1600px): 3 cards completos no centro + cards peeking amplos até as bordas
+  // Desktop padrão (1280-1599px): 3 cards completos no centro + cards peeking estendidos
   // Laptop (1024-1279px): 3 cards completos no centro + cards laterais simétricos
-  // Tablet (640-1023px): 2 cards completos no centro + cards laterais simétricos
-  // Mobile (< 640px): 1 card principal no centro (~75% da tela) + partes simétricas nas duas laterais
+  // Tablet (640-1023px): 2 cards completos no centro + cards laterais
+  // Mobile (< 640px): 1 card principal no centro (~80% da tela) + laterais peeking
   const { cardWidth, gap, centerCount } = useMemo(() => {
+    if (containerWidth >= 1600) {
+      const targetWidth = Math.min(370, Math.floor(containerWidth * 0.22));
+      return { cardWidth: Math.max(340, targetWidth), gap: 24, centerCount: 3 };
+    }
     if (containerWidth >= 1280) {
-      const targetWidth = Math.min(345, Math.floor((containerWidth - 2 * 20) * 0.285));
-      return { cardWidth: targetWidth, gap: 20, centerCount: 3 };
+      const targetWidth = Math.min(350, Math.floor(containerWidth * 0.25));
+      return { cardWidth: Math.max(320, targetWidth), gap: 20, centerCount: 3 };
     }
     if (containerWidth >= 1024) {
-      const targetWidth = Math.min(300, Math.floor((containerWidth - 2 * 16) * 0.29));
-      return { cardWidth: targetWidth, gap: 16, centerCount: 3 };
+      const targetWidth = Math.min(320, Math.floor(containerWidth * 0.28));
+      return { cardWidth: Math.max(290, targetWidth), gap: 16, centerCount: 3 };
     }
     if (containerWidth >= 640) {
-      const targetWidth = Math.min(320, Math.floor((containerWidth - 16) * 0.44));
+      const targetWidth = Math.min(330, Math.floor(containerWidth * 0.42));
       return { cardWidth: targetWidth, gap: 16, centerCount: 2 };
     }
     return {
-      cardWidth: Math.min(310, Math.floor(containerWidth * 0.75)),
+      cardWidth: Math.min(320, Math.floor(containerWidth * 0.80)),
       gap: 12,
       centerCount: 1,
     };
@@ -218,13 +223,15 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
         </div>
 
-        {/* Indicador sutil de rolagem para o estoque */}
+        {/* Indicador sutil de rolagem para o estoque com compensação do navbar */}
         <button
           type="button"
           onClick={() => {
             const target = document.getElementById('estoque-destaque');
             if (target) {
-              target.scrollIntoView({ behavior: 'smooth' });
+              const navOffset = window.innerWidth >= 640 ? 80 : 70;
+              const y = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+              window.scrollTo({ top: y, behavior: 'smooth' });
             }
           }}
           aria-label="Rolar para o estoque em destaque"
@@ -237,63 +244,71 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </button>
       </section>
 
-      {/* ── Estoque em Destaque: Carrossel com pontas simétricas, setas laterais e espaçamento refinado ── */}
+      {/* ── Estoque em Destaque: Carrossel Sangrado (Full-Bleed até o final da tela) ── */}
       <section
         id="estoque-destaque"
-        className="ov-section scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-12 sm:pb-16"
+        className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-14 sm:pt-20 lg:pt-24 pb-14 sm:pb-20 overflow-hidden"
       >
-        <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4 sm:mb-5">
-          <div className="text-left">
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
-              <Sparkles size={13} className="text-[#dfb15b]" />
-              <span>ESTOQUE EM DESTAQUE</span>
-            </span>
-            <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-white leading-tight">
-              Encontre seu próximo carro
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
-              Escolhas selecionadas para conhecer de perto e chamar de suas.
-            </p>
-          </div>
+        {/* Cabeçalho alinhado ao grid central da loja */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+          <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="text-left">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                <Sparkles size={13} className="text-[#dfb15b]" />
+                <span>ESTOQUE EM DESTAQUE</span>
+              </span>
+              <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-white leading-tight">
+                Encontre seu próximo carro
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+                Escolhas selecionadas para conhecer de perto e chamar de suas.
+              </p>
+            </div>
 
-          <div className="flex items-center justify-start sm:justify-end shrink-0">
-            <button
-              onClick={onGoToEstoque}
-              className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
-            >
-              <span>Ver todos ({vehicles.length})</span>
-              <ArrowRight size={15} />
-            </button>
+            <div className="flex items-center justify-start sm:justify-end shrink-0">
+              <button
+                onClick={onGoToEstoque}
+                className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
+              >
+                <span>Ver todos ({vehicles.length})</span>
+                <ArrowRight size={15} />
+              </button>
+            </div>
           </div>
         </div>
 
         {featuredVehicles.length ? (
           <div className="relative w-full">
-            {/* Botão anterior: posicionado na lateral esquerda, centralizado verticalmente */}
-            <button
-              onClick={prevSlide}
-              aria-label="Veículo anterior"
-              className="group absolute -left-2 sm:-left-3 lg:-left-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
-            >
-              <ChevronLeft size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
-            </button>
+            {/* Vinhetas de fade cinematográficas nas bordas extremas do monitor */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-r from-[#090a0b] via-[#090a0b]/70 to-transparent z-20" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-l from-[#090a0b] via-[#090a0b]/70 to-transparent z-20" />
 
-            {/* Botão próximo: posicionado na lateral direita, centralizado verticalmente */}
-            <button
-              onClick={nextSlide}
-              aria-label="Próximo veículo"
-              className="group absolute -right-2 sm:-right-3 lg:-right-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
-            >
-              <ChevronRight size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
+            {/* Botões de navegação flutuantes sobre as laterais */}
+            <div className="pointer-events-none absolute inset-y-0 inset-x-0 z-30 flex items-center justify-between px-3 sm:px-6 lg:px-10">
+              <button
+                onClick={prevSlide}
+                aria-label="Veículo anterior"
+                className="pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#131417]/90 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+              >
+                <ChevronLeft size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
+              </button>
 
-            {/* Container do carrossel */}
+              <button
+                onClick={nextSlide}
+                aria-label="Próximo veículo"
+                className="pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#131417]/90 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+              >
+                <ChevronRight size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
+              </button>
+            </div>
+
+            {/* Container do carrossel full-bleed (sangrado até o final da tela) */}
             <div
               ref={carouselContainerRef}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className="relative w-full overflow-hidden py-2 sm:py-3 touch-pan-y"
+              className="relative w-full overflow-hidden py-3 sm:py-4 touch-pan-y"
             >
               {/* Trilho de deslizamento com cards RETOS */}
               <div
@@ -323,8 +338,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                         isCenter
                           ? 'opacity-100 z-10'
                           : isEdge
-                          ? 'opacity-40 hover:opacity-75 cursor-pointer z-0 filter brightness-75'
-                          : 'opacity-0 pointer-events-none z-0'
+                          ? 'opacity-50 hover:opacity-85 cursor-pointer z-0 filter brightness-90'
+                          : 'opacity-25 pointer-events-none z-0 filter brightness-75'
                       }`}
                     >
                       <div className="h-full w-full">
@@ -337,7 +352,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
 
             {/* Indicadores de Paginação em Dots */}
-            <div className="flex items-center justify-center gap-2 mt-4 sm:mt-5">
+            <div className="flex items-center justify-center gap-2 mt-5 sm:mt-7">
               {featuredVehicles.map((_, idx) => {
                 const isActive = idx === activeDot;
                 return (
@@ -364,8 +379,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
           </div>
         ) : (
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-400">
-            O estoque está sendo atualizado. Fale com a equipe para conhecer as opções disponíveis.
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-400">
+              O estoque está sendo atualizado. Fale com a equipe para conhecer as opções disponíveis.
+            </div>
           </div>
         )}
       </section>
