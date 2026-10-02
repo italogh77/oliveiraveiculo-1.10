@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Navigation, Sparkles } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
@@ -7,7 +7,19 @@ import { publicAsset } from '../lib/publicAsset';
 
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
-  const carouselRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
+  );
+
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Filtra destaques escolhidos pelo Admin ou completa com os primeiros
   const featuredVehicles = useMemo(() => {
@@ -19,24 +31,126 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return [...custom, ...rest];
   }, [vehicles]);
 
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      const container = carouselRef.current;
-      const card = container.querySelector('.ov-carousel-item');
-      const gap = window.innerWidth >= 640 ? 24 : 16;
-      const step = card ? card.offsetWidth + gap : 380;
-      container.scrollBy({ left: -step, behavior: 'smooth' });
+  // Garante que displayVehicles tenha pelo menos 3 itens para profundidade do coverflow
+  const displayVehicles = useMemo(() => {
+    if (!featuredVehicles.length) return [];
+    if (featuredVehicles.length === 1) return featuredVehicles;
+    if (featuredVehicles.length === 2) return [...featuredVehicles, ...featuredVehicles];
+    return featuredVehicles;
+  }, [featuredVehicles]);
+
+  const count = displayVehicles.length;
+
+  const handlePrev = useCallback(() => {
+    if (count <= 1) return;
+    setActiveIndex((prev) => (prev - 1 + count) % count);
+  }, [count]);
+
+  const handleNext = useCallback(() => {
+    if (count <= 1) return;
+    setActiveIndex((prev) => (prev + 1) % count);
+  }, [count]);
+
+  // Navegação por teclado (setas esquerda e direita)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'ArrowRight') handleNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handlePrev, handleNext]);
+
+  // Gestos de toque no mobile
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+
+  const handleTouchMove = (e) => {
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchDeltaX.current < -40) {
+      handleNext();
+    } else if (touchDeltaX.current > 40) {
+      handlePrev();
     }
   };
 
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      const container = carouselRef.current;
-      const card = container.querySelector('.ov-carousel-item');
-      const gap = window.innerWidth >= 640 ? 24 : 16;
-      const step = card ? card.offsetWidth + gap : 380;
-      container.scrollBy({ left: step, behavior: 'smooth' });
+  // Cálculo de posição relativa circular (offset)
+  const getDiff = (idx) => {
+    let diff = idx - activeIndex;
+    while (diff > count / 2) diff -= count;
+    while (diff < -count / 2) diff += count;
+    return diff;
+  };
+
+  const getCardStyle = (diff) => {
+    if (diff === 0) {
+      return {
+        transform: 'translate(-50%, -50%) scale(1.05) translateZ(40px)',
+        zIndex: 30,
+        opacity: 1,
+        pointerEvents: 'auto',
+      };
     }
+
+    if (diff === 1) {
+      return {
+        transform: isDesktop
+          ? 'translate(calc(-50% + 380px), -50%) scale(0.88) perspective(1000px) rotateY(-8deg)'
+          : 'translate(calc(-50% + 78%), -50%) scale(0.86) perspective(1000px) rotateY(-6deg)',
+        zIndex: 20,
+        opacity: 0.6,
+        filter: 'brightness(0.8) contrast(0.95)',
+        pointerEvents: 'auto',
+      };
+    }
+
+    if (diff === -1) {
+      return {
+        transform: isDesktop
+          ? 'translate(calc(-50% - 380px), -50%) scale(0.88) perspective(1000px) rotateY(8deg)'
+          : 'translate(calc(-50% - 78%), -50%) scale(0.86) perspective(1000px) rotateY(6deg)',
+        zIndex: 20,
+        opacity: 0.6,
+        filter: 'brightness(0.8) contrast(0.95)',
+        pointerEvents: 'auto',
+      };
+    }
+
+    if (diff === 2) {
+      return {
+        transform: isDesktop
+          ? 'translate(calc(-50% + 720px), -50%) scale(0.74) perspective(1000px) rotateY(-14deg)'
+          : 'translate(calc(-50% + 150%), -50%) scale(0.68)',
+        zIndex: 10,
+        opacity: isDesktop ? 0.2 : 0,
+        filter: 'brightness(0.5)',
+        pointerEvents: isDesktop ? 'auto' : 'none',
+      };
+    }
+
+    if (diff === -2) {
+      return {
+        transform: isDesktop
+          ? 'translate(calc(-50% - 720px), -50%) scale(0.74) perspective(1000px) rotateY(14deg)'
+          : 'translate(calc(-50% - 150%), -50%) scale(0.68)',
+        zIndex: 10,
+        opacity: isDesktop ? 0.2 : 0,
+        filter: 'brightness(0.5)',
+        pointerEvents: isDesktop ? 'auto' : 'none',
+      };
+    }
+
+    return {
+      transform: `translate(calc(-50% + ${diff > 0 ? 1100 : -1100}px), -50%) scale(0.5)`,
+      zIndex: 5,
+      opacity: 0,
+      pointerEvents: 'none',
+    };
   };
 
   return (
@@ -117,28 +231,35 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+            {/* Contador estilizado no padrão 02 / 06 */}
+            {count > 0 && (
+              <span className="text-xs font-mono font-bold text-[#dfb15b] bg-[#dfb15b]/10 border border-[#dfb15b]/30 px-3 py-1.5 rounded-full shadow-inner">
+                {String(activeIndex + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+              </span>
+            )}
+
             {/* Setas de navegação */}
             <div className="flex items-center gap-2">
               <button
-                onClick={scrollLeft}
-                aria-label="Rolar para esquerda"
-                className="h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
+                onClick={handlePrev}
+                aria-label="Veículo anterior"
+                className="btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={18} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
               </button>
               <button
-                onClick={scrollRight}
-                aria-label="Rolar para direita"
-                className="h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
+                onClick={handleNext}
+                aria-label="Próximo veículo"
+                className="btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
               >
-                <ChevronRight size={18} />
+                <ChevronRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
             </div>
 
             {/* Botão Ver todos em Pílula */}
             <button
               onClick={onGoToEstoque}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-4 py-2 min-h-[42px] transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-4 py-2 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
             >
               <span>Ver todos ({vehicles.length})</span>
               <ArrowRight size={15} />
@@ -146,24 +267,77 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
         </div>
 
-        {featuredVehicles.length ? (
-          <div
-            ref={carouselRef}
-            className="-mx-4 sm:-mx-6 -my-4 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 py-6 scroll-smooth snap-x snap-mandatory"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              scrollPaddingLeft: '24px',
-            }}
-          >
-            {featuredVehicles.map((v) => (
-              <div
-                key={v.id}
-                className="ov-carousel-item w-[84vw] max-w-[320px] sm:w-[calc((100%-24px)/2)] sm:max-w-none lg:w-[calc((100%-48px)/3)] shrink-0 snap-start"
-              >
-                <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
-              </div>
-            ))}
+        {displayVehicles.length ? (
+          <div className="relative w-full">
+            {/* Stage do Carrossel 3D Coverflow */}
+            <div
+              className="ov-coverflow-stage relative mx-auto flex items-center justify-center h-[520px] sm:h-[550px] w-full overflow-hidden select-none"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              {displayVehicles.map((v, idx) => {
+                const diff = getDiff(idx);
+                const isCenter = diff === 0;
+                const style = getCardStyle(diff);
+
+                return (
+                  <div
+                    key={`${v.id}-${idx}`}
+                    className="ov-coverflow-card absolute top-1/2 left-1/2 w-[82vw] max-w-[340px] sm:w-[350px] lg:w-[370px] h-[460px] sm:h-[480px]"
+                    style={style}
+                  >
+                    {/* Halo de luz dourada atmosférica embaixo e ao redor do card central em foco */}
+                    {isCenter && (
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-2xl opacity-90 transition-opacity duration-500"
+                      />
+                    )}
+
+                    {/* Card de veículo */}
+                    <div
+                      className={`h-full w-full rounded-2xl transition-all duration-500 ${
+                        isCenter
+                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(223,177,91,0.25)]'
+                          : ''
+                      }`}
+                    >
+                      <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
+                    </div>
+
+                    {/* Overlay para cards laterais: ao tocar traz o card diretamente para o centro */}
+                    {!isCenter && (
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(idx)}
+                        aria-label={`Ver ${v.modelo || 'veículo'}`}
+                        className="absolute inset-0 z-30 cursor-pointer rounded-2xl bg-black/20 hover:bg-black/5 transition-colors"
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Indicadores de Paginação em Pílulas */}
+            <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
+              {displayVehicles.map((v, idx) => {
+                const isActive = idx === activeIndex;
+                return (
+                  <button
+                    key={`dot-${v.id}-${idx}`}
+                    onClick={() => setActiveIndex(idx)}
+                    aria-label={`Ir para ${v.modelo || `veículo ${idx + 1}`}`}
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${
+                      isActive
+                        ? 'w-8 h-2 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                );
+              })}
+            </div>
           </div>
         ) : (
           <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-400">
