@@ -1,0 +1,27 @@
+// Regras do Firestore — Oliveira Veículos
+// Onde colar: Firebase Console → Firestore Database → Regras → Publicar.
+//
+// UID do administrador já preenchido abaixo.
+// (Console → Authentication → Usuários → coluna "UID de usuário").
+// Assim só a sua conta consegue cadastrar/editar/excluir veículos, mesmo que
+// alguém crie outra conta pelo botão "Primeiro Acesso".
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'wRmeQXxy18cgZudMMXDmAVh0KYI3';
+    }
+
+    // Vitrine pública: qualquer visitante lê; só o admin escreve.
+    match /vehicles/{vehicleId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Todo o resto fica fechado.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+================================================================================
+          COMO ADICIONAR FOTOS E VÍDEOS DOS CARROS NO SITE
+================================================================================
+
+Você pode colocar as fotos e vídeos dos carros diretamente nesta pasta!
+
+PASSO A PASSO SIMPLES:
+--------------------------------------------------------------------------------
+1. COPIE AS FOTOS E VÍDEOS PARA ESTA PASTA:
+   Caminho: public/carros/
+
+   Exemplo de nomes recomendados (letras minúsculas e sem espaços):
+     - renegade-1.jpg (Foto principal)
+     - renegade-2.jpg (Lateral)
+     - renegade-3.jpg (Interior / Painel)
+     - renegade-video.mp4 (Vídeo feito no celular ou câmera)
+
+2. COMO COLOCAR NO SITE:
+   Abra o arquivo: src/data/vehiclesData.js
+
+   Dentro do carro desejado, basta preencher assim:
+
+   {
+     id: 1,
+     marca: "Jeep",
+     modelo: "Renegade Longitude 1.3 Turbo",
+     ...
+     foto: "/carros/renegade-1.jpg",  // Foto de capa que aparece no card
+     fotos: [                         // Galeria que aparece no modal
+       "/carros/renegade-1.jpg",
+       "/carros/renegade-2.jpg",
+       "/carros/renegade-3.jpg"
+     ],
+     video: "/carros/renegade-video.mp4", // Vídeo local MP4 ou link do YouTube!
+     ...
+   }
+
+3. DICAS IMPORTANTES:
+   - Formatos recomendados de foto: .jpg, .jpeg, .png, .webp
+   - Formatos recomendados de vídeo: .mp4 ou link de vídeo do YouTube (ex: https://www.youtube.com/watch?v=...)
+   - Se o carro tiver vídeo, o site adiciona automaticamente o botão "Assistir Vídeo" e selo "Vídeo Disponível"!
+================================================================================

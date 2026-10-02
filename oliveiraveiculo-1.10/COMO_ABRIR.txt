@@ -1,0 +1,43 @@
+OLIVEIRA VEICULOS - COMO ABRIR O SITE
+
+1. Instale o Node.js se ainda nao tiver:
+   https://nodejs.org/
+
+   O projeto precisa de Node 20.19+ ou 22.12+.
+
+2. Extraia esta pasta inteira antes de executar.
+   Nao rode o site diretamente dentro do arquivo ZIP.
+
+3. Clique duas vezes em:
+   ABRIR_SITE.bat
+
+4. Na primeira execucao, o npm vai instalar as dependencias.
+
+5. Depois, o site deve abrir em:
+   http://localhost:5173/
+
+ALTERNATIVA PELO TERMINAL:
+
+Abra o CMD/PowerShell nesta pasta e rode:
+
+npm install
+npm run dev
+
+Ao abrir pelo ABRIR_SITE.bat ou executar npm run dev, o projeto verifica
+automaticamente se existe uma versao mais recente no GitHub antes de iniciar.
+Se houver alteracoes locais ainda nao salvas, a atualizacao sera ignorada para
+nao sobrescrever seu trabalho.
+
+Depois abra no navegador o endereco mostrado pelo Vite.
+
+EDICAO COM ATUALIZACAO AUTOMATICA:
+
+Deixe ABRIR_SITE.bat aberto enquanto edita. Ao salvar um arquivo em src
+ou public, a pagina aberta no navegador atualiza automaticamente.
+Nao precisa reiniciar o servidor nem criar outro ZIP para testar no PC.
+
+Para ver no celular, use TESTAR_NO_CELULAR.bat, com PC e celular no
+mesmo Wi-Fi. Mantenha a janela aberta durante o teste.
+
+IMPORTANTE: isso atualiza a visualizacao LOCAL. Um site publicado na
+internet so muda depois de enviar/publicar uma nova versao no servidor.

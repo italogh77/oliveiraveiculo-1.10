@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        env:
+          VITE_FIREBASE_API_KEY: AIzaSyBFgCL8NZJmNSQ-IbnIfszOEQRaZ03e2L8
+          VITE_FIREBASE_AUTH_DOMAIN: oliveira-veiculos.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: oliveira-veiculos
+          VITE_FIREBASE_STORAGE_BUCKET: oliveira-veiculos.firebasestorage.app
+          VITE_FIREBASE_MESSAGING_SENDER_ID: "1039186424923"
+          VITE_FIREBASE_APP_ID: "1:1039186424923:web:4cdf61b2d07f54a75cfb7e"
+          VITE_FIREBASE_MEASUREMENT_ID: G-8HY8D3VQ1X
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

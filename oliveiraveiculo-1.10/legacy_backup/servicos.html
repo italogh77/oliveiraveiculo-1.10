@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serviços — Oliveira Veículos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="headbar">
+    <div class="brand">OLIVEIRA<span>.</span>VEÍCULOS<span class="brand-sub">de Maricá</span></div>
+    <nav id="main-nav">
+      <a href="index.html">Início</a>
+      <a href="estoque.html">Estoque</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    <div class="head-right">
+      <button class="fav-pill" id="fav-pill">♥ <span id="fav-count">0</span> favoritos</button>
+      <a class="head-cta" href="https://wa.me/5521900000000">Falar no WhatsApp</a>
+      <button class="menu-btn" id="menu-btn">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Início</a>
+    <a href="estoque.html">Estoque</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="contato.html">Contato</a>
+    <a href="https://wa.me/5521900000000" style="color:var(--amber)">Falar no WhatsApp</a>
+  </div>
+</header>
+
+<div class="strip" style="min-height: calc(100vh - 170px);">
+  <div class="a" id="vender">
+    <h3>Quer vender ou trocar seu veículo?</h3>
+    <p>Avaliação sem compromisso. Você manda a placa e as fotos, a gente responde com uma proposta em até 1 dia útil.</p>
+    <a class="btn btn-primary" href="https://wa.me/5521900000000">Avaliar meu carro</a>
+  </div>
+  <div class="b" id="financiamento">
+    <h3>Financiamento em até 48x</h3>
+    <p>Trabalhamos com os principais bancos e financeiras. Simule sem compromisso e saia hoje com o carro novo.</p>
+    <a class="btn btn-outline" href="contato.html">Simular financiamento</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="brand" style="font-size:16px;">OLIVEIRA<span style="color:var(--amber)">.</span>VEÍCULOS<span class="brand-sub">de Maricá</span></div>
+    <div>© 2026 Oliveira Veículos de Maricá — Maricá/RJ</div>
+    <a href="#" class="team-link" id="team-link">Acesso da equipe</a>
+  </div>
+</footer>
+
+<a class="whats-float" href="https://wa.me/5521900000000" title="Falar no WhatsApp">☎</a>
+
+<!-- ÁREA DA EQUIPE -->
+<div class="modal-backdrop" id="pw-backdrop">
+  <div class="modal pw-modal">
+    <h3>Área da equipe</h3>
+    <p>Espaço para editar o estoque e ver o painel de interesse.</p>
+    <div class="pw-error" id="pw-error">Senha incorreta.</div>
+    <input type="password" id="pw-input" placeholder="Senha de acesso">
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-outline" id="pw-cancel" style="flex:1; justify-content:center;">Cancelar</button>
+      <button class="btn btn-primary" id="pw-enter" style="flex:1; justify-content:center;">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-overlay" id="admin-overlay">
+  <div class="admin-topbar">
+    <div class="brand">OLIVEIRA<span>.</span>VEÍCULOS <span class="admin-badge">MODO EQUIPE</span></div>
+    <button class="admin-exit" id="admin-exit">Voltar ao site ↩</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="estoque">Gerenciar estoque</button>
+      <button class="admin-tab" data-tab="dash">Painel de interesse</button>
+    </div>
+    <div id="tab-estoque">
+      <h2>Gerenciar estoque</h2>
+      <p class="admin-sub">Clique na foto pra trocar. Os campos editam o anúncio em tempo real no site.</p>
+      <div class="admin-config">
+        <label>URL do Google Apps Script (planilha)</label>
+        <input type="text" id="sheet-url" placeholder="https://script.google.com/macros/s/.../exec">
+        <div class="admin-sync-row">
+          <button class="admin-sync" id="sync-estoque">Sincronizar estoque com a planilha</button>
+          <span class="sync-status" id="sync-status"></span>
+        </div>
+      </div>
+      <button class="admin-add" id="admin-add">+ Adicionar veículo</button>
+      <div id="admin-list"></div>
+    </div>
+    <div id="tab-dash" style="display:none;">
+      <h2>Painel de interesse</h2>
+      <p class="admin-sub">Quantas pessoas abriram cada carro pra ver, e quantas chamaram no WhatsApp.</p>
+      <div class="dash-summary" id="dash-summary"></div>
+      <table class="dash-table">
+        <thead><tr><th>Veículo</th><th>Visualizações</th><th>Contatos via WhatsApp</th></tr></thead>
+        <tbody id="dash-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="photo-input" accept="image/*" style="display:none;">
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, ChevronDown, Sparkles, Navigation } from 'lucide-react';
+import { COMPANY_DATA } from '../data/companyData';
+import { useVehicles } from '../context/VehiclesContext';
+import VehicleCard from '../components/VehicleCard';
+import { publicAsset } from '../lib/publicAsset';
+
+export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
+  const { vehicles } = useVehicles();
+  const carouselContainerRef = useRef(null);
+
+  // Filtra destaques escolhidos pelo Admin ou completa com os primeiros (até 6 veículos)
+  const featuredVehicles = useMemo(() => {
+    if (!vehicles.length) return [];
+    const custom = vehicles.filter((v) => v.destaqueHome);
+    if (custom.length >= 3) return custom;
+    const customIds = new Set(custom.map((v) => v.id));
+    const rest = vehicles.filter((v) => !customIds.has(v.id));
+    const combined = [...custom, ...rest];
+    return combined.slice(0, 6);
+  }, [vehicles]);
+
+  const N = featuredVehicles.length || 1;
+
+  // Triplicamos a lista para suporte a loop infinito fluido sem travas
+  const extendedVehicles = useMemo(() => {
+    if (!featuredVehicles.length) return [];
+    return [...featuredVehicles, ...featuredVehicles, ...featuredVehicles];
+  }, [featuredVehicles]);
+
+  // centerIndex inicia exatamente no início da segunda cópia (offset N)
+  const [centerIndex, setCenterIndex] = useState(N);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [containerWidth, setContainerWidth] = useState(1200);
+
+  // Touch swipe refs
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
+  // Atualiza a largura do container responsivamente via ResizeObserver
+  useEffect(() => {
+    if (!carouselContainerRef.current) return;
+    const update = () => {
+      if (carouselContainerRef.current) {
+        setContainerWidth(carouselContainerRef.current.offsetWidth);
+      }
+    };
+    update();
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect.width > 0) {
+          setContainerWidth(entry.contentRect.width);
+        }
+      }
+    });
+    observer.observe(carouselContainerRef.current);
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, [featuredVehicles.length]);
+
+  // Responsividade dos cards:
+  // Desktop (>= 1280px): 3 cards completos no centro + cards anterior e seguinte simétricos nas pontas
+  // Laptop (1024-1279px): 3 cards completos no centro + cards laterais simétricos
+  // Tablet (640-1023px): 2 cards completos no centro + cards laterais simétricos
+  // Mobile (< 640px): 1 card principal no centro (~75% da tela) + partes simétricas nas duas laterais
+  const { cardWidth, gap, centerCount } = useMemo(() => {
+    if (containerWidth >= 1280) {
+      const targetWidth = Math.min(345, Math.floor((containerWidth - 2 * 20) * 0.285));
+      return { cardWidth: targetWidth, gap: 20, centerCount: 3 };
+    }
+    if (containerWidth >= 1024) {
+      const targetWidth = Math.min(300, Math.floor((containerWidth - 2 * 16) * 0.29));
+      return { cardWidth: targetWidth, gap: 16, centerCount: 3 };
+    }
+    if (containerWidth >= 640) {
+      const targetWidth = Math.min(320, Math.floor((containerWidth - 16) * 0.44));
+      return { cardWidth: targetWidth, gap: 16, centerCount: 2 };
+    }
+    return {
+      cardWidth: Math.min(310, Math.floor(containerWidth * 0.75)),
+      gap: 12,
+      centerCount: 1,
+    };
+  }, [containerWidth]);
+
+  // Se N mudar (ex: carregamento assíncrono dos veículos), sincroniza centerIndex
+  useEffect(() => {
+    if (N > 1) {
+      setCenterIndex(N);
+    }
+  }, [N]);
+
+  // Tratamento do loop infinito seamless ao terminar a animação
+  const handleTransitionEnd = useCallback(() => {
+    if (centerIndex >= 2 * N) {
+      setIsTransitioning(false);
+      setCenterIndex((prev) => prev - N);
+    } else if (centerIndex < N) {
+      setIsTransitioning(false);
+      setCenterIndex((prev) => prev + N);
+    }
+  }, [centerIndex, N]);
+
+  // Reativa transição após reset silencioso
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = requestAnimationFrame(() => {
+        setIsTransitioning(true);
+      });
+      return () => cancelAnimationFrame(timer);
+    }
+  }, [isTransitioning]);
+
+  const nextSlide = useCallback(() => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex((prev) => prev + 1);
+  }, [isTransitioning]);
+
+  const prevSlide = useCallback(() => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex((prev) => prev - 1);
+  }, [isTransitioning]);
+
+  const goToSlide = useCallback((dotIdx) => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex(N + dotIdx);
+  }, [isTransitioning, N]);
+
+  // Suporte a arrasto no touch
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  // Cálculo da posição de centralização do trio ativo
+  const trioWidth = centerCount * cardWidth + (centerCount - 1) * gap;
+  const step = cardWidth + gap;
+  const translateX = containerWidth / 2 - (centerIndex * step + trioWidth / 2);
+
+  // Índice ativo para paginação por dots
+  const activeDot = ((centerIndex % N) + N) % N;
+
+  return (
+    <div className="ov-home text-white bg-[#090a0b]">
+      {/* ── Hero Section 100% Tela Cheia ── */}
+      <section
+        id="inicio-hero"
+        className="ov-hero"
+        aria-labelledby="inicio-titulo"
+      >
+        <img
+          className="ov-hero-image"
+          src={publicAsset('loja-oliveira-hero-1.11.jpg')}
+          alt="Fachada e veículos da Oliveira Veículos em Maricá"
+          fetchPriority="high"
+          loading="eager"
+          width="2048"
+          height="911"
+        />
+        <div className="ov-hero-overlay" aria-hidden="true" />
+
+        <div className="ov-hero-shell">
+          <div className="ov-hero-content">
+            {/* Tag em pílula */}
+            <span className="ov-hero-eyebrow">
+              <MapPin size={13} className="text-[#dfb15b]" />
+              <span>Maricá, RJ · Seminovos selecionados</span>
+            </span>
+
+            {/* Headline com clamp para nunca estourar */}
+            <h1 id="inicio-titulo">
+              Seu próximo<br />
+              carro está <em className="text-[#dfb15b] not-italic">aqui.</em>
+            </h1>
+
+            <p className="text-sm sm:text-base text-gray-300 max-w-xl leading-relaxed mb-6 font-medium">
+              Encontre o carro certo para o seu momento, com atendimento próximo e informações claras em cada etapa.
+            </p>
+
+            {/* CTAs em formato Pílula (Regra 1 do Design System) */}
+            <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <button
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-lg active:scale-95 cursor-pointer"
+                onClick={onGoToEstoque}
+              >
+                <span>Explorar veículos</span>
+                <ArrowRight size={18} />
+              </button>
+
+              <a
+                href={COMPANY_DATA.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/10 hover:shadow-lg active:scale-95 cursor-pointer"
+              >
+                <MessageCircle
+                  size={18}
+                  className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+                />
+                <span>Falar no WhatsApp</span>
+                <ArrowUpRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-80 group-hover:opacity-100"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Indicador sutil de rolagem para o estoque */}
+        <button
+          type="button"
+          onClick={() => {
+            const target = document.getElementById('estoque-destaque');
+            if (target) {
+              target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+            }
+          }}
+          aria-label="Rolar para o estoque em destaque"
+          className="ov-hero-scroll absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/70 hover:text-[#dfb15b] transition-colors cursor-pointer group pb-1"
+        >
+          <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-white/50 group-hover:text-[#dfb15b] transition-colors">
+            Rolar para o estoque
+          </span>
+          <ChevronDown size={18} className="animate-bounce text-[#dfb15b]" />
+        </button>
+      </section>
+
+      {/* ── Estoque em Destaque: Carrossel com pontas simétricas, setas laterais e espaçamento refinado ── */}
+      <section
+        id="estoque-destaque"
+        className="ov-section scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-12 sm:pb-16"
+      >
+        <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4 sm:mb-5">
+          <div className="text-left">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+              <Sparkles size={13} className="text-[#dfb15b]" />
+              <span>ESTOQUE EM DESTAQUE</span>
+            </span>
+            <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-white leading-tight">
+              Encontre seu próximo carro
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+              Escolhas selecionadas para conhecer de perto e chamar de suas.
+            </p>
+          </div>
+
+          <div className="flex items-center justify-start sm:justify-end shrink-0">
+            <button
+              onClick={onGoToEstoque}
+              className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
+            >
+              <span>Ver todos ({vehicles.length})</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        </div>
+
+        {featuredVehicles.length ? (
+          <div className="relative w-full">
+            {/* Botão anterior: posicionado na lateral esquerda, centralizado verticalmente */}
+            <button
+              onClick={prevSlide}
+              aria-label="Veículo anterior"
+              className="group absolute -left-2 sm:-left-3 lg:-left-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+            >
+              <ChevronLeft size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
+            </button>
+
+            {/* Botão próximo: posicionado na lateral direita, centralizado verticalmente */}
+            <button
+              onClick={nextSlide}
+              aria-label="Próximo veículo"
+              className="group absolute -right-2 sm:-right-3 lg:-right-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+            >
+              <ChevronRight size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
+            </button>
+
+            {/* Container do carrossel */}
+            <div
+              ref={carouselContainerRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full overflow-hidden py-2 sm:py-3 touch-pan-y"
+            >
+              {/* Trilho de deslizamento com cards RETOS */}
+              <div
+                onTransitionEnd={handleTransitionEnd}
+                className="flex items-stretch"
+                style={{
+                  transform: `translateX(${translateX}px)`,
+                  transition: isTransitioning ? 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+                  gap: `${gap}px`,
+                }}
+              >
+                {extendedVehicles.map((v, trackIdx) => {
+                  const isCenter = trackIdx >= centerIndex && trackIdx < centerIndex + centerCount;
+                  const isLeftEdge = trackIdx === centerIndex - 1;
+                  const isRightEdge = trackIdx === centerIndex + centerCount;
+                  const isEdge = isLeftEdge || isRightEdge;
+
+                  return (
+                    <div
+                      key={`track-${v.id}-${trackIdx}`}
+                      onClick={isEdge ? (isLeftEdge ? prevSlide : nextSlide) : undefined}
+                      style={{
+                        width: `${cardWidth}px`,
+                        transform: 'none',
+                      }}
+                      className={`ov-carousel-item relative shrink-0 select-none transition-all duration-300 ease-out ${
+                        isCenter
+                          ? 'opacity-100 z-10'
+                          : isEdge
+                          ? 'opacity-40 hover:opacity-75 cursor-pointer z-0 filter brightness-75'
+                          : 'opacity-0 pointer-events-none z-0'
+                      }`}
+                    >
+                      <div className="h-full w-full">
+                        <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Indicadores de Paginação em Dots */}
+            <div className="flex items-center justify-center gap-2 mt-4 sm:mt-5">
+              {featuredVehicles.map((_, idx) => {
+                const isActive = idx === activeDot;
+                return (
+                  <button
+                    key={`dot-${idx}`}
+                    type="button"
+                    onClick={() => goToSlide(idx)}
+                    aria-label={`Ir para destaque ${idx + 1}`}
+                    style={{
+                      height: '7px',
+                      minHeight: '7px',
+                      maxHeight: '7px',
+                      padding: 0,
+                      border: 'none',
+                    }}
+                    className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${
+                      isActive
+                        ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                        : 'w-2 bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-400">
+            O estoque está sendo atualizado. Fale com a equipe para conhecer as opções disponíveis.
+          </div>
+        )}
+      </section>
+
+      {/* ── Valores da Loja ── */}
+      <section className="ov-values border-y border-white/10 bg-[#0d0e11] py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="lg:col-span-5">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
+              <span>A OLIVEIRA VEÍCULOS</span>
+            </span>
+            <h2 className="text-[clamp(1.6rem,5vw,2.75rem)] font-black tracking-tight text-white leading-tight mb-3">
+              Mais que uma revenda. Um caminho para sua próxima conquista.
+            </h2>
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 font-medium">
+              Estamos em Maricá para ajudar você a comparar opções, tirar dúvidas e encontrar uma condição que faça sentido.
+            </p>
+            <button
+              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/10 hover:bg-[#dfb15b] hover:text-black border border-white/15 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+              onClick={onGoToSobre}
+            >
+              <span>Conheça nossa loja</span>
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+              />
+            </button>
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
+                <ShieldCheck size={22} />
+              </div>
+              <div>
+                <strong className="block text-sm font-bold text-white mb-1">Garantia de Motor e Caixa</strong>
+                <p className="text-xs text-gray-400 leading-relaxed">Veículos com garantia de motor e caixa ou 3 mil km rodados.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
+                <CreditCard size={22} />
+              </div>
+              <div>
+                <strong className="block text-sm font-bold text-white mb-1">Financiamento</strong>
+                <p className="text-xs text-gray-400 leading-relaxed">Simulações com os principais bancos parceiros da loja.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
+                <BadgeCheck size={22} />
+              </div>
+              <div>
+                <strong className="block text-sm font-bold text-white mb-1">Atendimento de verdade</strong>
+                <p className="text-xs text-gray-400 leading-relaxed">Converse com nossa equipe antes de decidir.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
+                <MapPin size={22} />
+              </div>
+              <div>
+                <strong className="block text-sm font-bold text-white mb-1">Perto de você</strong>
+                <p className="text-xs text-gray-400 leading-relaxed">Visite nosso espaço na Rodovia Amaral Peixoto em Maricá, RJ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 7. SEÇÃO DE LOCALIZAÇÃO: "Venha nos Visitar" (Regra 7) ── */}
+      <section className="ov-visit max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-[#141518] to-[#0c0d0f] p-5 sm:p-8 lg:p-10 shadow-2xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Coluna de Informações e Chamada */}
+            <div className="lg:col-span-6 flex flex-col justify-between">
+              <div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
+                  <MapPin size={13} />
+                  <span>NOSSA LOCALIZAÇÃO</span>
+                </span>
+
+                {/* Título com correção textual e clamp anti-estouro */}
+                <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-white tracking-tight leading-tight break-words mb-3">
+                  Estamos prontos para receber você
+                </h2>
+
+                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6 font-medium">
+                  {COMPANY_DATA.address}
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
+                    <div className="w-2 h-2 rounded-full bg-[#dfb15b] shrink-0" />
+                    <span>Segunda a Sexta: 08:30 às 18:30 · Sábado: 08:30 às 14:00</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                    <span>Estacionamento no local e atendimento com consultores</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botão Pílula ocupando largura total no mobile com ícone externo */}
+              <div className="pt-2">
+                <a
+                  href={COMPANY_DATA.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
+                >
+                  <Navigation
+                    size={16}
+                    className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+                  />
+                  <span>Ver no Google Maps</span>
+                  <ArrowUpRight
+                    size={16}
+                    className="stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-90 group-hover:opacity-100"
+                  />
+                </a>
+              </div>
+            </div>
+
+            {/* Coluna do Mapa com bordas 2xl e proporção fluida */}
+            <div className="lg:col-span-6">
+              <div className="relative aspect-video sm:h-72 w-full rounded-2xl overflow-hidden border border-white/10 shadow-inner bg-black">
+                <iframe
+                  title="Mapa Oliveira Veículos Maricá"
+                  src="https://maps.google.com/maps?q=-22.9033231,-42.7993074&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  className="w-full h-full border-0 filter invert-[90%] hue-rotate-180 contrast-[115%]"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <div className="absolute top-3 left-3 bg-[#0a0a0a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 shadow-md flex items-center gap-2 pointer-events-none">
+                  <span className="w-2 h-2 rounded-full bg-[#dfb15b] animate-ping" />
+                  <span className="text-[11px] font-bold text-white">Oliveira Veículos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
