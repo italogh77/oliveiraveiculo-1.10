@@ -294,8 +294,13 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrev}
+                disabled={activeIndex === 0}
                 aria-label="Veículo anterior"
-                className="btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
+                className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
+                  activeIndex === 0
+                    ? 'opacity-30 cursor-not-allowed'
+                    : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
+                }`}
               >
                 <ChevronLeft size={18} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
               </button>
@@ -330,8 +335,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             >
               {displayVehicles.map((v, idx) => {
                 const diff = getDiff(idx);
-                const isCenter = diff === 0;
-                const style = getCardStyle(diff);
+                const isInitial3x3 = activeIndex === 0 && isDesktop;
+                const isCenter = !isInitial3x3 && diff === 0;
+                const canDirectClick = isInitial3x3 ? idx < 3 : isCenter;
+                const style = getCardStyle(idx);
 
                 return (
                   <div
@@ -339,7 +346,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                     className="ov-coverflow-card absolute top-1/2 left-1/2 w-[82vw] max-w-[340px] sm:w-[350px] lg:w-[370px] h-[460px] sm:h-[480px]"
                     style={style}
                   >
-                    {/* Halo de luz dourada atmosférica embaixo e ao redor do card central em foco */}
+                    {/* Halo de luz dourada atmosférica embaixo e ao redor do card central em foco (ativo no modo coverflow) */}
                     {isCenter && (
                       <div
                         aria-hidden="true"
@@ -358,8 +365,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                       <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
                     </div>
 
-                    {/* Overlay para cards laterais: ao tocar traz o card diretamente para o centro */}
-                    {!isCenter && (
+                    {/* Overlay para cards laterais no modo coverflow: ao tocar traz o card diretamente para o centro */}
+                    {!canDirectClick && (
                       <button
                         type="button"
                         onClick={() => setActiveIndex(idx)}
