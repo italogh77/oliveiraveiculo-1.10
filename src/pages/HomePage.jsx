@@ -322,12 +322,20 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 return (
                   <button
                     key={`dot-${idx}`}
+                    type="button"
                     onClick={() => goToSlide(idx)}
                     aria-label={`Ir para destaque ${idx + 1}`}
-                    className={`transition-all duration-300 rounded-full cursor-pointer ${
+                    style={{
+                      height: '7px',
+                      minHeight: '7px',
+                      maxHeight: '7px',
+                      padding: 0,
+                      border: 'none',
+                    }}
+                    className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${
                       isActive
-                        ? 'w-7 sm:w-8 h-2 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
-                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                        ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                        : 'w-2 bg-white/20 hover:bg-white/40'
                     }`}
                   />
                 );
