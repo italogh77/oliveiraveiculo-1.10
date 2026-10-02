@@ -350,8 +350,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 <ShieldCheck size={22} />
               </div>
               <div>
-                <strong className="block text-sm font-bold text-white mb-1">Procedência Garantida</strong>
-                <p className="text-xs text-gray-400 leading-relaxed">Veículos revisados e inspecionados. Sem leilão, sem sinistro.</p>
+                <strong className="block text-sm font-bold text-white mb-1">Garantia de Motor e Caixa</strong>
+                <p className="text-xs text-gray-400 leading-relaxed">Veículos com garantia de motor e caixa ou 3 mil km rodados.</p>
               </div>
             </div>
 
