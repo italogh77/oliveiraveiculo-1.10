@@ -1034,28 +1034,39 @@ body {
 
 .ov-nav-link {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   height: 100%;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   white-space: nowrap;
   color: inherit;
-  opacity: .78;
+  opacity: .82;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ov-nav-link:hover,
+.ov-nav-link:hover {
+  opacity: 1;
+  color: #dfb15b;
+}
+
 .ov-nav-link.active {
   opacity: 1;
+  color: #dfb15b;
+  font-weight: 600;
 }
 
 .ov-nav-link.active:after {
   content: "";
   position: absolute;
-  height: 2px;
+  height: 2.5px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: currentColor;
+  background: #dfb15b;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 0 10px rgba(223, 177, 91, 0.6);
 }
 
 .ov-mobile-nav {
