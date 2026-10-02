@@ -7,28 +7,7 @@ import { publicAsset } from '../lib/publicAsset';
 
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
-  const carouselRef = useRef(null);
-  const [stepIndex, setStepIndex] = useState(0);
-  const [screenMode, setScreenMode] = useState('desktop'); // 'mobile' | 'tablet' | 'desktop'
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  // Detecta se a tela está em desktop (3 colunas em destaque), tablet (2) ou mobile (1)
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width >= 1024) {
-        setScreenMode('desktop');
-      } else if (width >= 640) {
-        setScreenMode('tablet');
-      } else {
-        setScreenMode('mobile');
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const carouselContainerRef = useRef(null);
 
   // Filtra destaques escolhidos pelo Admin ou completa com os primeiros
   const featuredVehicles = useMemo(() => {
@@ -40,70 +19,122 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return [...custom, ...rest];
   }, [vehicles]);
 
-  // Quantidade de cards que ficam no primeiro plano em destaque com o halo dourado:
-  // - Desktop: 3 cards em destaque no centro (trio como 02, 03, 04 na referência visual)
-  // - Tablet: 2 cards
-  // - Mobile: 1 card
-  const foregroundSize = useMemo(() => {
-    if (screenMode === 'desktop') return 3;
-    if (screenMode === 'tablet') return 2;
-    return 1;
-  }, [screenMode]);
+  const N = featuredVehicles.length || 1;
 
-  const totalSteps = useMemo(() => {
-    if (!featuredVehicles.length) return 0;
-    return Math.max(1, featuredVehicles.length - foregroundSize + 1);
-  }, [featuredVehicles.length, foregroundSize]);
+  // Triplicamos a lista para suporte a loop infinito fluido sem travas
+  const extendedVehicles = useMemo(() => {
+    if (!featuredVehicles.length) return [];
+    return [...featuredVehicles, ...featuredVehicles, ...featuredVehicles];
+  }, [featuredVehicles]);
 
-  const getStepWidth = useCallback(() => {
-    if (!carouselRef.current) return 360;
-    const item = carouselRef.current.querySelector('.ov-carousel-item');
-    if (!item) return 360;
-    const gap = window.innerWidth >= 1024 ? 24 : (window.innerWidth >= 640 ? 20 : 16);
-    return item.offsetWidth + gap;
+  // centerIndex inicia exatamente no início da segunda cópia (offset N)
+  const [centerIndex, setCenterIndex] = useState(N);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [containerWidth, setContainerWidth] = useState(1200);
+
+  // Touch swipe refs
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
+  // Atualiza a largura do container responsivamente
+  useEffect(() => {
+    const updateWidth = () => {
+      if (carouselContainerRef.current) {
+        setContainerWidth(carouselContainerRef.current.offsetWidth);
+      } else {
+        setContainerWidth(window.innerWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
-  const scrollToStep = useCallback(
-    (step) => {
-      if (!carouselRef.current) return;
-      const container = carouselRef.current;
-      const stepWidth = getStepWidth();
-      const targetLeft = step * stepWidth;
-      const maxScroll = container.scrollWidth - container.clientWidth;
-      const clamped = Math.max(0, Math.min(maxScroll, targetLeft));
+  // Responsividade dos cards:
+  // Desktop (>= 1024px): 3 cards no centro, 1 peeking na esquerda, 1 peeking na direita
+  // Tablet (640-1023px): 2 cards no centro, 1 peeking na esquerda, 1 peeking na direita
+  // Mobile (< 640px): 1 card no centro, 1 peeking na esquerda, 1 peeking na direita
+  const { cardWidth, gap, centerCount } = useMemo(() => {
+    if (containerWidth >= 1280) {
+      return { cardWidth: 330, gap: 24, centerCount: 3 };
+    }
+    if (containerWidth >= 1024) {
+      return { cardWidth: 300, gap: 20, centerCount: 3 };
+    }
+    if (containerWidth >= 640) {
+      return { cardWidth: 290, gap: 20, centerCount: 2 };
+    }
+    return { cardWidth: Math.min(320, Math.floor(containerWidth * 0.78)), gap: 16, centerCount: 1 };
+  }, [containerWidth]);
 
-      container.scrollTo({
-        left: clamped,
-        behavior: 'smooth',
+  // Se N mudar (ex: carregamento assíncrono dos veículos), sincroniza centerIndex
+  useEffect(() => {
+    if (N > 1) {
+      setCenterIndex(N);
+    }
+  }, [N]);
+
+  // Tratamento do loop infinito seamless ao terminar a animação
+  const handleTransitionEnd = useCallback(() => {
+    if (centerIndex >= 2 * N) {
+      setIsTransitioning(false);
+      setCenterIndex((prev) => prev - N);
+    } else if (centerIndex < N) {
+      setIsTransitioning(false);
+      setCenterIndex((prev) => prev + N);
+    }
+  }, [centerIndex, N]);
+
+  // Reativa transição após reset silencioso
+  useEffect(() => {
+    if (!isTransitioning) {
+      const timer = requestAnimationFrame(() => {
+        setIsTransitioning(true);
       });
-    },
-    [getStepWidth]
-  );
+      return () => cancelAnimationFrame(timer);
+    }
+  }, [isTransitioning]);
 
-  const handleScroll = useCallback(() => {
-    if (!carouselRef.current) return;
-    const container = carouselRef.current;
-    const stepWidth = getStepWidth();
-    if (!stepWidth) return;
+  const nextSlide = useCallback(() => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex((prev) => prev + 1);
+  }, [isTransitioning]);
 
-    const currentStep = Math.round(container.scrollLeft / stepWidth);
-    const clampedStep = Math.max(0, Math.min(totalSteps - 1, currentStep));
+  const prevSlide = useCallback(() => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex((prev) => prev - 1);
+  }, [isTransitioning]);
 
-    setStepIndex(clampedStep);
-    setCanScrollLeft(container.scrollLeft > 10);
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    setCanScrollRight(container.scrollLeft < maxScroll - 15);
-  }, [getStepWidth, totalSteps]);
+  const goToSlide = useCallback((dotIdx) => {
+    if (!isTransitioning) setIsTransitioning(true);
+    setCenterIndex(N + dotIdx);
+  }, [isTransitioning, N]);
 
-  const scrollLeft = useCallback(() => {
-    const nextStep = Math.max(0, stepIndex - 1);
-    scrollToStep(nextStep);
-  }, [stepIndex, scrollToStep]);
+  // Suporte a arrasto no touch
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
 
-  const scrollRight = useCallback(() => {
-    const nextStep = Math.min(totalSteps - 1, stepIndex + 1);
-    scrollToStep(nextStep);
-  }, [stepIndex, scrollToStep, totalSteps]);
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) nextSlide();
+    if (diff < -50) prevSlide();
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  // Cálculo da posição de centralização do trio ativo
+  const trioWidth = centerCount * cardWidth + (centerCount - 1) * gap;
+  const step = cardWidth + gap;
+  const translateX = containerWidth / 2 - (centerIndex * step + trioWidth / 2);
+
+  // Índice ativo para paginação por dots
+  const activeDot = ((centerIndex % N) + N) % N;
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
