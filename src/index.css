@@ -798,47 +798,93 @@ body {
   transform: translateX(320%) skewX(-18deg);
 }
 
-/* Brilho reluzente com espectro de arco-íris oficial do Instagram */
+/* Botão Instagram Oficial: preenchimento gradual com degradê arco-íris, ícone branco e feixe reluzente */
+.btn-instagram,
 .btn-shine-instagram {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  transition: all 0.4s var(--ease-spring);
 }
 
+.btn-instagram > *,
 .btn-shine-instagram > * {
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  transition: all 0.3s ease;
 }
 
+/* Camada interna de preenchimento com o degradê oficial do Instagram */
+.btn-instagram::after,
+.btn-shine-instagram::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    #feda75 0%,
+    #fa7e1e 22%,
+    #d62976 48%,
+    #962fbf 74%,
+    #4f5bd5 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-instagram:hover::after,
+.btn-instagram:focus-visible::after,
+.btn-shine-instagram:hover::after,
+.btn-shine-instagram:focus-visible::after {
+  opacity: 1;
+}
+
+/* Lâmina de feixe de luz reluzente que cruza o botão preenchido */
+.btn-instagram::before,
 .btn-shine-instagram::before {
   content: '';
   position: absolute;
-  top: -25%;
-  bottom: -25%;
-  left: 0;
-  width: 65%;
-  z-index: 1;
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(254, 218, 117, 0.7) 16%, /* Amarelo ouro IG */
-    rgba(250, 126, 30, 0.8) 32%,   /* Laranja pôr do sol IG */
-    rgba(214, 41, 118, 0.9) 52%,  /* Rosa magenta vibrante IG */
-    rgba(150, 47, 191, 0.8) 72%,   /* Roxo ametista IG */
-    rgba(79, 91, 213, 0.7) 88%,    /* Azul royal IG */
-    transparent 100%
-  );
-  filter: blur(1px);
-  transform: translateX(-160%) skewX(-20deg);
-  transition: transform 0.85s var(--ease-spring);
+  width: 50%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.7) 50%, transparent 80%);
+  transform: translateX(-140%) skewX(-18deg);
+  transition: transform 0.8s var(--ease-spring);
 }
 
+.btn-instagram:hover::before,
+.btn-instagram:focus-visible::before,
 .btn-shine-instagram:hover::before,
-.btn-shine-instagram:focus-visible::before,
-.group:hover .btn-shine-instagram::before,
-.group:hover.btn-shine-instagram::before {
-  transform: translateX(350%) skewX(-20deg);
+.btn-shine-instagram:focus-visible::before {
+  transform: translateX(340%) skewX(-18deg);
+}
+
+.btn-instagram:hover,
+.btn-instagram:focus-visible,
+.btn-shine-instagram:hover,
+.btn-shine-instagram:focus-visible {
+  border-color: transparent !important;
+  box-shadow: 0 0 28px rgba(214, 41, 118, 0.55), 0 8px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Ícone do Instagram vira branco puro no hover */
+.btn-instagram:hover .ig-icon,
+.btn-instagram:hover svg,
+.btn-shine-instagram:hover .ig-icon,
+.btn-shine-instagram:hover svg,
+.group:hover .ig-icon {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+}
+
+.btn-instagram:hover span,
+.btn-shine-instagram:hover span {
+  color: #ffffff !important;
+  font-weight: 700;
 }
 
 /* ── Carrossel 3D Coverflow com Foco Central e Profundidade ── */
