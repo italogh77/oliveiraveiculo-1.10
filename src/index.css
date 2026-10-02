@@ -798,7 +798,7 @@ body {
   transform: translateX(320%) skewX(-18deg);
 }
 
-/* Card de veículo: sobe, ganha halo dourado e profundidade 3D no hover */
+/* Card de veículo: levitação sutil e sombra elegante */
 .vehicle-card {
   --card-rotate-x: 0deg;
   --card-rotate-y: 0deg;
@@ -806,21 +806,15 @@ body {
   transform-origin: center center;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-tap-highlight-color: transparent;
 }
 
 @media (hover: hover) {
   .vehicle-card:hover {
-    transform: perspective(1000px) translate3d(0, -8px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y)) scale(1.015);
-    box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.75), 0 0 28px -4px rgba(223, 177, 91, 0.22);
-    border-color: rgba(223, 177, 91, 0.55);
+    transform: perspective(1000px) translate3d(0, -5px, 0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y));
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
   }
-}
-
-.vehicle-card:focus-visible {
-  outline: 2px solid #dfb15b;
-  outline-offset: 3px;
 }
 
 /* Texto dourado com gradiente */
