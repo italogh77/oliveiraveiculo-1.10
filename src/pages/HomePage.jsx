@@ -216,26 +216,29 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
       </section>
 
-      {/* ── Estoque em Destaque: Carrossel com pontas retas (sem inclinação 3D) e sem linhas amarelas ── */}
-      <section className="ov-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-14 sm:pb-20">
-        <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-          <div>
+      {/* ── Estoque em Destaque: Carrossel com pontas simétricas, setas laterais e espaçamento refinado ── */}
+      <section
+        id="estoque-destaque"
+        className="ov-section scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-12 sm:pb-16"
+      >
+        <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4 sm:mb-5">
+          <div className="text-left">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
-              <Sparkles size={13} />
+              <Sparkles size={13} className="text-[#dfb15b]" />
               <span>ESTOQUE EM DESTAQUE</span>
             </span>
-            <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold tracking-tight text-white">
+            <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-white leading-tight">
               Encontre seu próximo carro
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
               Escolhas selecionadas para conhecer de perto e chamar de suas.
             </p>
           </div>
 
-          <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+          <div className="flex items-center justify-start sm:justify-end shrink-0">
             <button
               onClick={onGoToEstoque}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
+              className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
             >
               <span>Ver todos ({vehicles.length})</span>
               <ArrowRight size={15} />
@@ -245,36 +248,36 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
         {featuredVehicles.length ? (
           <div className="relative w-full">
-            {/* Container com overflow-hidden para corte perfeito das pontas */}
+            {/* Botão anterior: posicionado na lateral esquerda, centralizado verticalmente */}
+            <button
+              onClick={prevSlide}
+              aria-label="Veículo anterior"
+              className="group absolute -left-2 sm:-left-3 lg:-left-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+            >
+              <ChevronLeft size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
+            </button>
+
+            {/* Botão próximo: posicionado na lateral direita, centralizado verticalmente */}
+            <button
+              onClick={nextSlide}
+              aria-label="Próximo veículo"
+              className="group absolute -right-2 sm:-right-3 lg:-right-5 top-[44%] -translate-y-1/2 z-30 h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-[#131417]/95 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+            >
+              <ChevronRight size={20} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
+            </button>
+
+            {/* Container do carrossel */}
             <div
               ref={carouselContainerRef}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              className="relative w-full overflow-hidden py-4 sm:py-6"
+              className="relative w-full overflow-hidden py-2 sm:py-3 touch-pan-y"
             >
-              {/* Botão anterior flutuante sobre o card peeking da esquerda */}
-              <button
-                onClick={prevSlide}
-                aria-label="Veículo anterior"
-                className="btn-shine group absolute left-1.5 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white flex items-center justify-center shadow-2xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
-              >
-                <ChevronLeft size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
-              </button>
-
-              {/* Botão próximo flutuante sobre o card peeking da direita */}
-              <button
-                onClick={nextSlide}
-                aria-label="Próximo veículo"
-                className="btn-shine group absolute right-1.5 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white flex items-center justify-center shadow-2xl active:scale-95 transition-all cursor-pointer backdrop-blur-md"
-              >
-                <ChevronRight size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
-
-              {/* Trilho de deslizamento com cards RETOS (sem inclinação 3D) e SEM linhas amarelas */}
+              {/* Trilho de deslizamento com cards RETOS */}
               <div
                 onTransitionEnd={handleTransitionEnd}
-                className="flex items-center"
+                className="flex items-stretch"
                 style={{
                   transform: `translateX(${translateX}px)`,
                   transition: isTransitioning ? 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
@@ -293,22 +296,17 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                       onClick={isEdge ? (isLeftEdge ? prevSlide : nextSlide) : undefined}
                       style={{
                         width: `${cardWidth}px`,
-                        transform: 'none', // RETOS! Sem inclinação para dentro!
+                        transform: 'none',
                       }}
-                      className={`ov-carousel-item relative shrink-0 select-none transition-all duration-400 ease-out ${
+                      className={`ov-carousel-item relative shrink-0 select-none transition-all duration-300 ease-out ${
                         isCenter
                           ? 'opacity-100 z-10'
                           : isEdge
-                          ? 'opacity-40 hover:opacity-75 cursor-pointer z-0 filter brightness-90'
+                          ? 'opacity-40 hover:opacity-75 cursor-pointer z-0 filter brightness-75'
                           : 'opacity-0 pointer-events-none z-0'
                       }`}
                     >
-                      {/* Card com acabamento nativo escuro: SEM linhas amarelas, SEM anéis amarelos */}
-                      <div
-                        className={`h-full w-full rounded-2xl border border-white/10 dark:border-[#262626] bg-[#131417] shadow-xl overflow-hidden ${
-                          isEdge ? 'pointer-events-none' : ''
-                        }`}
-                      >
+                      <div className="h-full w-full">
                         <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
                       </div>
                     </div>
@@ -318,7 +316,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
 
             {/* Indicadores de Paginação em Dots */}
-            <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
+            <div className="flex items-center justify-center gap-2 mt-4 sm:mt-5">
               {featuredVehicles.map((_, idx) => {
                 const isActive = idx === activeDot;
                 return (
