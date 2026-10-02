@@ -7,19 +7,8 @@ import { publicAsset } from '../lib/publicAsset';
 
 export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(
-    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
-  );
-
-  const touchStartX = useRef(0);
-  const touchDeltaX = useRef(0);
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const carouselRef = useRef(null);
+  const [activeCenterIndex, setActiveCenterIndex] = useState(0);
 
   // Filtra destaques escolhidos pelo Admin ou completa com os primeiros
   const featuredVehicles = useMemo(() => {
@@ -31,178 +20,66 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return [...custom, ...rest];
   }, [vehicles]);
 
-  // Garante que displayVehicles tenha pelo menos 3 itens para profundidade do coverflow
-  const displayVehicles = useMemo(() => {
-    if (!featuredVehicles.length) return [];
-    if (featuredVehicles.length === 1) return featuredVehicles;
-    if (featuredVehicles.length === 2) return [...featuredVehicles, ...featuredVehicles];
-    return featuredVehicles;
-  }, [featuredVehicles]);
+  // Identifica qual card está no centro da visualização durante o scroll
+  const handleScroll = useCallback(() => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+    const items = container.querySelectorAll('.ov-carousel-item');
 
-  const count = displayVehicles.length;
+    let closestIdx = 0;
+    let minDistance = Infinity;
 
-  const handlePrev = useCallback(() => {
-    if (count <= 1) return;
-    setActiveIndex((prev) => (prev - 1 + count) % count);
-  }, [count]);
+    items.forEach((item, idx) => {
+      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+      const distance = Math.abs(containerCenter - itemCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
 
-  const handleNext = useCallback(() => {
-    if (count <= 1) return;
-    setActiveIndex((prev) => (prev + 1) % count);
-  }, [count]);
+    setActiveCenterIndex(closestIdx);
+  }, []);
 
-  // Navegação por teclado (setas esquerda e direita)
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') handlePrev();
-      if (e.key === 'ArrowRight') handleNext();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handlePrev, handleNext]);
-
-  // Gestos de toque no mobile
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchDeltaX.current = 0;
-  };
-
-  const handleTouchMove = (e) => {
-    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchDeltaX.current < -40) {
-      handleNext();
-    } else if (touchDeltaX.current > 40) {
-      handlePrev();
+  const scrollLeft = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const items = container.querySelectorAll('.ov-carousel-item');
+    const targetIdx = Math.max(0, activeCenterIndex - 1);
+    if (items[targetIdx]) {
+      items[targetIdx].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
     }
   };
 
-  // Cálculo de posição relativa circular (offset)
-  const getDiff = (idx) => {
-    let diff = idx - activeIndex;
-    while (diff > count / 2) diff -= count;
-    while (diff < -count / 2) diff += count;
-    return diff;
+  const scrollRight = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const items = container.querySelectorAll('.ov-carousel-item');
+    const targetIdx = Math.min(items.length - 1, activeCenterIndex + 1);
+    if (items[targetIdx]) {
+      items[targetIdx].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
   };
 
-  // No início (activeIndex === 0) no desktop: exibe exatamente os 3 carros nivelados em 3 colunas (3x3).
-  // A partir de activeIndex > 0: ativa o Coverflow 3D com o card central em foco (spotlight),
-  // o anterior à esquerda (o que já passou) e o próximo à direita.
-  const isInitial3x3 = activeIndex === 0 && isDesktop;
-
-  const getCardStyle = (idx) => {
-    if (isInitial3x3) {
-      if (idx === 0) {
-        return {
-          transform: 'translate(calc(-50% - 390px), -50%) scale(1) rotateY(0deg)',
-          zIndex: 20,
-          opacity: 1,
-          filter: 'none',
-          pointerEvents: 'auto',
-        };
-      }
-      if (idx === 1) {
-        return {
-          transform: 'translate(-50%, -50%) scale(1) rotateY(0deg)',
-          zIndex: 20,
-          opacity: 1,
-          filter: 'none',
-          pointerEvents: 'auto',
-        };
-      }
-      if (idx === 2) {
-        return {
-          transform: 'translate(calc(-50% + 390px), -50%) scale(1) rotateY(0deg)',
-          zIndex: 20,
-          opacity: 1,
-          filter: 'none',
-          pointerEvents: 'auto',
-        };
-      }
-      if (idx === 3) {
-        return {
-          transform: 'translate(calc(-50% + 780px), -50%) scale(0.74) rotateY(-14deg)',
-          zIndex: 10,
-          opacity: 0.15,
-          filter: 'brightness(0.5)',
-          pointerEvents: 'auto',
-        };
-      }
-      return {
-        transform: 'translate(calc(-50% + 1100px), -50%) scale(0.5)',
-        zIndex: 5,
-        opacity: 0,
-        pointerEvents: 'none',
-      };
+  const scrollToIdx = (idx) => {
+    if (!carouselRef.current) return;
+    const items = carouselRef.current.querySelectorAll('.ov-carousel-item');
+    if (items[idx]) {
+      items[idx].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
     }
-
-    const diff = getDiff(idx);
-
-    if (diff === 0) {
-      return {
-        transform: 'translate(-50%, -50%) scale(1.05) translateZ(40px)',
-        zIndex: 30,
-        opacity: 1,
-        pointerEvents: 'auto',
-      };
-    }
-
-    if (diff === 1) {
-      return {
-        transform: isDesktop
-          ? 'translate(calc(-50% + 380px), -50%) scale(0.88) perspective(1000px) rotateY(-8deg)'
-          : 'translate(calc(-50% + 78%), -50%) scale(0.86) perspective(1000px) rotateY(-6deg)',
-        zIndex: 20,
-        opacity: 0.6,
-        filter: 'brightness(0.8) contrast(0.95)',
-        pointerEvents: 'auto',
-      };
-    }
-
-    if (diff === -1) {
-      return {
-        transform: isDesktop
-          ? 'translate(calc(-50% - 380px), -50%) scale(0.88) perspective(1000px) rotateY(8deg)'
-          : 'translate(calc(-50% - 78%), -50%) scale(0.86) perspective(1000px) rotateY(6deg)',
-        zIndex: 20,
-        opacity: 0.6,
-        filter: 'brightness(0.8) contrast(0.95)',
-        pointerEvents: 'auto',
-      };
-    }
-
-    if (diff === 2) {
-      return {
-        transform: isDesktop
-          ? 'translate(calc(-50% + 720px), -50%) scale(0.74) perspective(1000px) rotateY(-14deg)'
-          : 'translate(calc(-50% + 150%), -50%) scale(0.68)',
-        zIndex: 10,
-        opacity: isDesktop ? 0.2 : 0,
-        filter: 'brightness(0.5)',
-        pointerEvents: isDesktop ? 'auto' : 'none',
-      };
-    }
-
-    if (diff === -2) {
-      return {
-        transform: isDesktop
-          ? 'translate(calc(-50% - 720px), -50%) scale(0.74) perspective(1000px) rotateY(14deg)'
-          : 'translate(calc(-50% - 150%), -50%) scale(0.68)',
-        zIndex: 10,
-        opacity: isDesktop ? 0.2 : 0,
-        filter: 'brightness(0.5)',
-        pointerEvents: isDesktop ? 'auto' : 'none',
-      };
-    }
-
-    return {
-      transform: `translate(calc(-50% + ${diff > 0 ? 1100 : -1100}px), -50%) scale(0.5)`,
-      zIndex: 5,
-      opacity: 0,
-      pointerEvents: 'none',
-    };
   };
 
   return (
@@ -283,21 +160,21 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-            {/* Contador estilizado no padrão 02 / 06 */}
-            {count > 0 && (
+            {/* Contador elegante no padrão 02 / 06 */}
+            {featuredVehicles.length > 0 && (
               <span className="text-xs font-mono font-bold text-[#dfb15b] bg-[#dfb15b]/10 border border-[#dfb15b]/30 px-3 py-1.5 rounded-full shadow-inner">
-                {String(activeIndex + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+                {String(activeCenterIndex + 1).padStart(2, '0')} / {String(featuredVehicles.length).padStart(2, '0')}
               </span>
             )}
 
             {/* Setas de navegação */}
             <div className="flex items-center gap-2">
               <button
-                onClick={handlePrev}
-                disabled={activeIndex === 0}
+                onClick={scrollLeft}
+                disabled={activeCenterIndex === 0}
                 aria-label="Veículo anterior"
                 className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
-                  activeIndex === 0
+                  activeCenterIndex === 0
                     ? 'opacity-30 cursor-not-allowed'
                     : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
                 }`}
@@ -305,9 +182,14 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 <ChevronLeft size={18} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
               </button>
               <button
-                onClick={handleNext}
+                onClick={scrollRight}
+                disabled={activeCenterIndex === featuredVehicles.length - 1}
                 aria-label="Próximo veículo"
-                className="btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white hover:border-[#dfb15b] hover:text-[#dfb15b] transition-all flex items-center justify-center cursor-pointer shadow-sm active:scale-95"
+                className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
+                  activeCenterIndex === featuredVehicles.length - 1
+                    ? 'opacity-30 cursor-not-allowed'
+                    : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
+                }`}
               >
                 <ChevronRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
@@ -324,56 +206,46 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
         </div>
 
-        {displayVehicles.length ? (
-          <div className="relative w-full">
-            {/* Stage do Carrossel 3D Coverflow */}
+        {featuredVehicles.length ? (
+          <div>
             <div
-              className="ov-coverflow-stage relative mx-auto flex items-center justify-center h-[520px] sm:h-[550px] w-full overflow-hidden select-none"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
+              ref={carouselRef}
+              onScroll={handleScroll}
+              className="-mx-4 sm:-mx-6 -my-4 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 py-8 scroll-smooth snap-x snap-mandatory items-center"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+              }}
             >
-              {displayVehicles.map((v, idx) => {
-                const diff = getDiff(idx);
-                const isInitial3x3 = activeIndex === 0 && isDesktop;
-                const isCenter = !isInitial3x3 && diff === 0;
-                const canDirectClick = isInitial3x3 ? idx < 3 : isCenter;
-                const style = getCardStyle(idx);
+              {featuredVehicles.map((v, idx) => {
+                const isCenter = idx === activeCenterIndex;
 
                 return (
                   <div
-                    key={`${v.id}-${idx}`}
-                    className="ov-coverflow-card absolute top-1/2 left-1/2 w-[82vw] max-w-[340px] sm:w-[350px] lg:w-[370px] h-[460px] sm:h-[480px]"
-                    style={style}
+                    key={v.id}
+                    className={`ov-carousel-item relative shrink-0 snap-center transition-all duration-500 ease-out w-[84vw] max-w-[340px] sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] ${
+                      isCenter
+                        ? 'scale-[1.03] z-20 opacity-100'
+                        : 'scale-100 opacity-90 hover:opacity-100 z-10'
+                    }`}
                   >
-                    {/* Halo de luz dourada atmosférica embaixo e ao redor do card central em foco (ativo no modo coverflow) */}
+                    {/* Halo de luz dourada atmosférica ativo exclusivamente quando o carro passa pelo centro */}
                     {isCenter && (
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-2xl opacity-90 transition-opacity duration-500"
+                        className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-xl opacity-90 transition-opacity duration-500"
                       />
                     )}
 
-                    {/* Card de veículo */}
                     <div
                       className={`h-full w-full rounded-2xl transition-all duration-500 ${
                         isCenter
-                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(223,177,91,0.25)]'
-                          : ''
+                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_20px_45px_rgba(0,0,0,0.85),0_0_30px_rgba(223,177,91,0.22)]'
+                          : 'shadow-md'
                       }`}
                     >
                       <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
                     </div>
-
-                    {/* Overlay para cards laterais no modo coverflow: ao tocar traz o card diretamente para o centro */}
-                    {!canDirectClick && (
-                      <button
-                        type="button"
-                        onClick={() => setActiveIndex(idx)}
-                        aria-label={`Ver ${v.modelo || 'veículo'}`}
-                        className="absolute inset-0 z-30 cursor-pointer rounded-2xl bg-black/20 hover:bg-black/5 transition-colors"
-                      />
-                    )}
                   </div>
                 );
               })}
@@ -381,12 +253,12 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
             {/* Indicadores de Paginação em Pílulas */}
             <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
-              {displayVehicles.map((v, idx) => {
-                const isActive = idx === activeIndex;
+              {featuredVehicles.map((v, idx) => {
+                const isActive = idx === activeCenterIndex;
                 return (
                   <button
                     key={`dot-${v.id}-${idx}`}
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => scrollToIdx(idx)}
                     aria-label={`Ir para ${v.modelo || `veículo ${idx + 1}`}`}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       isActive
