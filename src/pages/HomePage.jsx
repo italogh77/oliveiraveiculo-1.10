@@ -199,7 +199,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             {/* Contador elegante no padrão 02 / 06 */}
             {featuredVehicles.length > 0 && (
               <span className="text-xs font-mono font-bold text-[#dfb15b] bg-[#dfb15b]/10 border border-[#dfb15b]/30 px-3 py-1.5 rounded-full shadow-inner">
-                {String(activeCenterIndex + 1).padStart(2, '0')} / {String(featuredVehicles.length).padStart(2, '0')}
+                {String(currentDisplayNumber).padStart(2, '0')} / {String(featuredVehicles.length).padStart(2, '0')}
               </span>
             )}
 
@@ -207,10 +207,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             <div className="flex items-center gap-2">
               <button
                 onClick={scrollLeft}
-                disabled={activeCenterIndex === 0}
+                disabled={!canScrollLeft}
                 aria-label="Veículo anterior"
                 className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
-                  activeCenterIndex === 0
+                  !canScrollLeft
                     ? 'opacity-30 cursor-not-allowed'
                     : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
                 }`}
@@ -219,10 +219,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               </button>
               <button
                 onClick={scrollRight}
-                disabled={activeCenterIndex === featuredVehicles.length - 1}
+                disabled={!canScrollRight}
                 aria-label="Próximo veículo"
                 className={`btn-shine group h-10 w-10 rounded-full border border-white/10 bg-white/5 text-white transition-all flex items-center justify-center shadow-sm ${
-                  activeCenterIndex === featuredVehicles.length - 1
+                  !canScrollRight
                     ? 'opacity-30 cursor-not-allowed'
                     : 'hover:border-[#dfb15b] hover:text-[#dfb15b] cursor-pointer active:scale-95'
                 }`}
@@ -247,37 +247,43 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             <div
               ref={carouselRef}
               onScroll={handleScroll}
-              className="-mx-4 sm:-mx-6 -my-4 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 py-8 scroll-smooth snap-x snap-mandatory items-center"
+              className="-mx-4 sm:-mx-6 lg:-mx-8 -my-6 flex gap-4 sm:gap-6 overflow-x-auto px-4 sm:px-6 lg:px-8 py-8 scroll-smooth items-center"
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
               }}
             >
               {featuredVehicles.map((v, idx) => {
-                const isCenter = idx === activeCenterIndex;
+                const isSpotlight = idx === spotlightIndex;
+                const isPassed = spotlightIndex !== -1 && idx < spotlightIndex;
+                const isUpcoming = spotlightIndex !== -1 && idx > spotlightIndex;
 
                 return (
                   <div
                     key={v.id}
-                    className={`ov-carousel-item relative shrink-0 snap-center transition-all duration-500 ease-out w-[84vw] max-w-[340px] sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] ${
-                      isCenter
-                        ? 'scale-[1.03] z-20 opacity-100'
-                        : 'scale-100 opacity-90 hover:opacity-100 z-10'
+                    className={`ov-carousel-item relative shrink-0 transition-all duration-500 ease-out w-[84vw] max-w-[340px] sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] ${
+                      isSpotlight
+                        ? 'scale-[1.035] -translate-y-1.5 z-20 opacity-100'
+                        : isPassed
+                        ? 'scale-100 translate-y-0 opacity-80 hover:opacity-100 z-10'
+                        : isUpcoming
+                        ? 'scale-100 translate-y-0 opacity-90 hover:opacity-100 z-10'
+                        : 'scale-100 translate-y-0 opacity-100 z-10'
                     }`}
                   >
-                    {/* Halo de luz dourada atmosférica ativo exclusivamente quando o carro passa pelo centro */}
-                    {isCenter && (
+                    {/* Halo de luz dourada atmosférica ativo exclusivamente quando o carro entra em spotlight */}
+                    {isSpotlight && (
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-xl opacity-90 transition-opacity duration-500"
+                        className="pointer-events-none absolute -inset-3 -z-10 rounded-3xl bg-[#dfb15b]/25 blur-xl opacity-100 transition-opacity duration-500"
                       />
                     )}
 
                     <div
                       className={`h-full w-full rounded-2xl transition-all duration-500 ${
-                        isCenter
-                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_20px_45px_rgba(0,0,0,0.85),0_0_30px_rgba(223,177,91,0.22)]'
-                          : 'shadow-md'
+                        isSpotlight
+                          ? 'ring-1 ring-[#dfb15b]/60 shadow-[0_22px_48px_rgba(0,0,0,0.85),0_0_30px_rgba(223,177,91,0.25)]'
+                          : 'shadow-md border border-white/5'
                       }`}
                     >
                       <VehicleCard vehicle={v} onSelectVehicle={onSelectVehicle} />
@@ -289,13 +295,13 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
             {/* Indicadores de Paginação em Pílulas */}
             <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
-              {featuredVehicles.map((v, idx) => {
-                const isActive = idx === activeCenterIndex;
+              {Array.from({ length: totalSteps + 1 }).map((_, idx) => {
+                const isActive = idx === stepIndex;
                 return (
                   <button
-                    key={`dot-${v.id}-${idx}`}
-                    onClick={() => scrollToIdx(idx)}
-                    aria-label={`Ir para ${v.modelo || `veículo ${idx + 1}`}`}
+                    key={`dot-${idx}`}
+                    onClick={() => scrollToStep(idx)}
+                    aria-label={`Ir para etapa ${idx + 1}`}
                     className={`transition-all duration-300 rounded-full cursor-pointer ${
                       isActive
                         ? 'w-8 h-2 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
