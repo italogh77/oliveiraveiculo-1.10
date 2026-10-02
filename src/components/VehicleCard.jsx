@@ -53,7 +53,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
         onClick={open}
         onPointerMove={handlePointerMove}
         onPointerLeave={resetCardPosition}
-        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#dfb15b]/40 dark:border-[#262626] dark:bg-[#131417] dark:hover:border-[#dfb15b]/40"
+        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:shadow-2xl dark:border-[#262626] dark:bg-[#131417] dark:hover:border-[#383a42]"
       >
         {/* Foto com Badges em Pílula */}
         <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800 sm:aspect-[16/10]">
