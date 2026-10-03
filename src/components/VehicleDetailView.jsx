@@ -20,6 +20,11 @@ import {
   ExternalLink,
   ShieldCheck,
   Sparkles,
+  Car,
+  Calculator,
+  Award,
+  FileCheck,
+  Wrench,
 } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { formatVideoUrl } from '../lib/driveUtils';
