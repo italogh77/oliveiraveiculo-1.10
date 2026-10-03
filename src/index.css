@@ -768,11 +768,12 @@ body {
    DESIGN — botões, cards e detalhes
    ================================================================ */
 
-/* Brilho que atravessa o botão ao passar o mouse / tocar */
+/* Brilho reflexivo padronizado que atravessa o botão em pílula ao passar o mouse / tocar */
 .btn-shine {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.3s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .btn-shine > * {
@@ -783,19 +784,31 @@ body {
 .btn-shine::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
   z-index: 1;
   pointer-events: none;
-  width: 45%;
-  background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%);
-  transform: translateX(-140%) skewX(-18deg);
-  transition: transform 0.8s var(--ease-spring);
+  background: linear-gradient(105deg, transparent 15%, rgba(255, 255, 255, 0.45) 50%, transparent 85%);
+  transform: translateX(-160%) skewX(-20deg);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-shine:hover::before,
 .btn-shine:focus-visible::before,
 .group:hover .btn-shine::before {
-  transform: translateX(320%) skewX(-18deg);
+  transform: translateX(350%) skewX(-20deg);
+}
+
+/* Efeito de clique tátil e halo dourado elegante em botões pílula dourados */
+.btn-shine:active {
+  transform: scale(0.95);
+}
+
+.btn-shine.bg-\[\#dfb15b\]:hover,
+.btn-shine.bg-gold:hover {
+  box-shadow: 0 10px 25px -4px rgba(223, 177, 91, 0.4), 0 6px 12px -4px rgba(223, 177, 91, 0.25);
 }
 
 /* Botão Instagram Oficial: preenchimento gradual com degradê arco-íris, ícone branco e feixe reluzente */
