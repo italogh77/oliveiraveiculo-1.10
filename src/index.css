@@ -1387,7 +1387,7 @@ html:not(.dark) .ov-transition-logo {
 
 html.light .ov-hero,
 html:not(.dark) .ov-hero {
-  background: #f7f8fa;
+  background: #090a0b;
 }
 
 @media (min-width: 1024px) {
@@ -1418,12 +1418,6 @@ html:not(.dark) .ov-hero {
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(10, 10, 10, .35) 0%, transparent 22%, transparent 60%, rgba(9, 10, 11, .85) 86%, #090a0b 100%);
-}
-
-html.light .ov-hero-overlay,
-html:not(.dark) .ov-hero-overlay {
-  background:
-    linear-gradient(180deg, rgba(10, 10, 10, .2) 0%, transparent 22%, transparent 60%, rgba(247, 248, 250, .85) 88%, #f7f8fa 100%);
 }
 
 .ov-hero-shell {
