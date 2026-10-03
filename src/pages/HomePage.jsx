@@ -380,7 +380,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               </div>
               <div>
                 <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Garantia de Motor e Caixa</strong>
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Veículos com garantia de motor e caixa ou 3 mil km rodados.</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Veículos revisados com garantia de motor e caixa de câmbio.</p>
               </div>
             </div>
 
