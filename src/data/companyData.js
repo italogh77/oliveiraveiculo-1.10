@@ -32,12 +32,12 @@ export const COMPANY_DATA = {
     },
     {
       id: 2,
-      name: "Consultor de Vendas “Montan”",
-      shortName: "Montan",
+      name: "Consultor de Vendas “Moatan”",
+      shortName: "Moatan",
       role: "Consultor de Vendas",
       phone: "(21) 99801-6913",
       whatsappNumber: "5521998016913",
-      whatsappLink: "https://wa.me/5521998016913?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20consultor%20Montan%20da%20Oliveira%20Ve%C3%ADculos.",
+      whatsappLink: "https://wa.me/5521998016913?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20consultor%20Moatan%20da%20Oliveira%20Ve%C3%ADculos.",
     },
     {
       id: 3,
