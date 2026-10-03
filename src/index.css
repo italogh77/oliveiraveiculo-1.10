@@ -1370,7 +1370,7 @@ html:not(.dark) .ov-transition-logo {
   min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  padding: 80px 0 48px;
+  padding: 80px 0 12px;
   overflow: hidden;
   background: #0a0a0a;
   color: white;
@@ -1386,7 +1386,7 @@ html:not(.dark) .ov-transition-logo {
 
 .ov-hero-image {
   object-fit: cover !important;
-  object-position: center 40%;
+  object-position: center 30%;
   z-index: -2;
   pointer-events: none;
   user-select: none;
@@ -1968,7 +1968,7 @@ html:not(.dark) .ov-transition-logo {
     min-height: 100svh;
     display: flex;
     align-items: flex-end;
-    padding: 70px 0 36px;
+    padding: 70px 0 12px;
   }
 
   .ov-hero-shell {
@@ -1982,7 +1982,7 @@ html:not(.dark) .ov-transition-logo {
 
   .ov-hero-image {
     object-fit: cover !important;
-    object-position: center 38%;
+    object-position: center 28%;
   }
 
   .ov-hero-overlay {
