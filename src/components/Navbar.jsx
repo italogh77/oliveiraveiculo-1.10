@@ -100,12 +100,12 @@ export default function Navbar({ activeTab, onSelectTab }) {
           {/* Botão Encontrar meu carro no canto direito */}
           <button
             onClick={() => navigate('estoque')}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-[38px] sm:min-h-[42px] transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer btn-shine"
+            className="btn-shine group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-[38px] sm:min-h-[42px] transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
             aria-label="Encontrar meu carro no estoque"
           >
             <span className="hidden min-[420px]:inline">Encontrar meu carro</span>
             <span className="inline min-[420px]:hidden">Encontrar</span>
-            <ArrowUpRight size={14} className="shrink-0 text-black stroke-[2.5]" />
+            <ArrowUpRight size={14} className="shrink-0 text-black stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
           {/* Alternador de tema (Versão Clara / Escura) */}
