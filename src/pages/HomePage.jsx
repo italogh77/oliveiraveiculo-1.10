@@ -55,23 +55,23 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   // Responsividade dos cards para layout Sangrado (Full-Bleed):
   const { cardWidth, gap, centerCount } = useMemo(() => {
     if (containerWidth >= 1600) {
-      const targetWidth = Math.min(370, Math.floor(containerWidth * 0.22));
-      return { cardWidth: Math.max(340, targetWidth), gap: 24, centerCount: 3 };
+      const targetWidth = Math.min(380, Math.floor(containerWidth * 0.22));
+      return { cardWidth: Math.max(350, targetWidth), gap: 24, centerCount: 3 };
     }
     if (containerWidth >= 1280) {
-      const targetWidth = Math.min(350, Math.floor(containerWidth * 0.25));
-      return { cardWidth: Math.max(320, targetWidth), gap: 20, centerCount: 3 };
+      const targetWidth = Math.min(360, Math.floor(containerWidth * 0.26));
+      return { cardWidth: Math.max(330, targetWidth), gap: 20, centerCount: 3 };
     }
     if (containerWidth >= 1024) {
-      const targetWidth = Math.min(320, Math.floor(containerWidth * 0.28));
-      return { cardWidth: Math.max(290, targetWidth), gap: 16, centerCount: 3 };
+      const targetWidth = Math.min(345, Math.floor(containerWidth * 0.30));
+      return { cardWidth: Math.max(315, targetWidth), gap: 16, centerCount: 3 };
     }
     if (containerWidth >= 640) {
-      const targetWidth = Math.min(330, Math.floor(containerWidth * 0.42));
+      const targetWidth = Math.min(340, Math.floor(containerWidth * 0.44));
       return { cardWidth: targetWidth, gap: 16, centerCount: 2 };
     }
     return {
-      cardWidth: Math.min(320, Math.floor(containerWidth * 0.80)),
+      cardWidth: Math.min(330, Math.floor(containerWidth * 0.82)),
       gap: 12,
       centerCount: 1,
     };
