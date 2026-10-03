@@ -368,7 +368,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
               </div>
 
               {/* Bloco de Preço com Rótulo e Parcelamento */}
-              <div className="mt-5">
+              <div id="secao-preco" className="mt-5">
                 <span className="block text-[11px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">
                   Valor à vista
                 </span>
