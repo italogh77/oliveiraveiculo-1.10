@@ -235,19 +235,29 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             {/* Botões de navegação flutuantes sobre as laterais */}
             <div className="pointer-events-none absolute inset-y-0 inset-x-0 z-30 flex items-center justify-between px-3 sm:px-6 lg:px-10">
               <button
-                onClick={prevSlide}
+                onClick={canPrev ? prevSlide : undefined}
+                disabled={!canPrev}
                 aria-label="Veículo anterior"
-                className="pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#131417]/90 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+                className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
+                  canPrev
+                    ? 'bg-[#131417]/90 hover:bg-[#dfb15b] border-white/20 hover:border-[#dfb15b] text-white hover:text-black shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
+                    : 'bg-[#131417]/40 border-white/5 text-white/20 cursor-not-allowed opacity-25 shadow-none'
+                }`}
               >
-                <ChevronLeft size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:-translate-x-0.5" />
+                <ChevronLeft size={22} className={`stroke-[2.5] transition-transform duration-200 ${canPrev ? 'group-hover:-translate-x-0.5' : ''}`} />
               </button>
 
               <button
-                onClick={nextSlide}
+                onClick={canNext ? nextSlide : undefined}
+                disabled={!canNext}
                 aria-label="Próximo veículo"
-                className="pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-[#131417]/90 hover:bg-[#dfb15b] border border-white/20 hover:border-[#dfb15b] text-white hover:text-black flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+                className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
+                  canNext
+                    ? 'bg-[#131417]/90 hover:bg-[#dfb15b] border-white/20 hover:border-[#dfb15b] text-white hover:text-black shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
+                    : 'bg-[#131417]/40 border-white/5 text-white/20 cursor-not-allowed opacity-25 shadow-none'
+                }`}
               >
-                <ChevronRight size={22} className="stroke-[2.5] transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ChevronRight size={22} className={`stroke-[2.5] transition-transform duration-200 ${canNext ? 'group-hover:translate-x-0.5' : ''}`} />
               </button>
             </div>
 
@@ -261,23 +271,22 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             >
               {/* Trilho de deslizamento com cards RETOS */}
               <div
-                onTransitionEnd={handleTransitionEnd}
                 className="flex items-stretch"
                 style={{
                   transform: `translateX(${translateX}px)`,
-                  transition: isTransitioning ? 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+                  transition: 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)',
                   gap: `${gap}px`,
                 }}
               >
-                {extendedVehicles.map((v, trackIdx) => {
-                  const isCenter = trackIdx >= centerIndex && trackIdx < centerIndex + centerCount;
-                  const isLeftEdge = trackIdx === centerIndex - 1;
-                  const isRightEdge = trackIdx === centerIndex + centerCount;
+                {featuredVehicles.map((v, trackIdx) => {
+                  const isCenter = trackIdx >= currentIndex && trackIdx < currentIndex + centerCount;
+                  const isLeftEdge = trackIdx === currentIndex - 1;
+                  const isRightEdge = trackIdx === currentIndex + centerCount;
                   const isEdge = isLeftEdge || isRightEdge;
 
                   return (
                     <div
-                      key={`track-${v.id}-${trackIdx}`}
+                      key={`featured-${v.id}-${trackIdx}`}
                       onClick={isEdge ? (isLeftEdge ? prevSlide : nextSlide) : undefined}
                       style={{
                         width: `${cardWidth}px`,
