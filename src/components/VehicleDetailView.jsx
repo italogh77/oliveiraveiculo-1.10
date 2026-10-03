@@ -604,66 +604,6 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
               </div>
             </div>
 
-            {/* ── Seção de Financiamento & Simulação ── */}
-            <div id="secao-financiamento" className="py-6 border-t border-gray-100 dark:border-white/10">
-              <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
-                <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                    <Calculator size={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
-                      Simulação de Financiamento
-                    </h3>
-                    <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                      Aprovação facilitada em até 15 minutos com os maiores bancos parceiros
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 p-5 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200/60 dark:border-white/5">
-                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    Estimativa de Parcela
-                  </span>
-                  <div className="mt-1 text-2xl sm:text-3xl font-black text-gray-950 dark:text-[#dfb15b]">
-                    {vehicle.parcela ? `R$ ${vehicle.parcela}/mês` : 'Consulte condições'}
-                  </div>
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                    *Valores sujeitos a análise de crédito e entrada conforme tabela bancária.
-                  </p>
-                </div>
-
-                <div className="mt-6">
-                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-3">
-                    BANCOS PARCEIROS
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {COMPANY_DATA.banks.map((bank, i) => (
-                      <span
-                        key={i}
-                        className="rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3.5 py-1.5 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm"
-                      >
-                        {bank}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-8">
-                  <a
-                    href={`https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
-                      `Olá! Gostaria de simular um financiamento para o ${vehicle.modelo} (${year}) anunciado por ${formatPrice(vehicle.preco)}.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-shine inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3 text-sm font-extrabold text-black shadow-lg transition-all active:scale-95 cursor-pointer"
-                  >
-                    <MessageSquare size={16} className="fill-black text-black" />
-                    <span>Simular Financiamento no WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
 
             {/* ── Seção da Loja & Consultores de Vendas ── */}
             <div id="secao-vendedor" className="py-6 border-t border-gray-100 dark:border-white/10">
