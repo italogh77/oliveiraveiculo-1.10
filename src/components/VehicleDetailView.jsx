@@ -344,14 +344,25 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                 </span>
               </div>
 
-              {/* Título e Versão */}
-              <div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
-                  {vehicle.modelo}
-                </h1>
-                <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
-                </p>
+              {/* Título, Versão e Botão de Compartilhar */}
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
+                    {vehicle.modelo}
+                  </h1>
+                  <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                    {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  aria-label="Compartilhar anúncio"
+                  className="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
+                >
+                  {copied ? <Check size={18} className="text-emerald-500" /> : <Share2 size={18} />}
+                </button>
               </div>
 
               {/* Bloco de Preço com Rótulo e Parcelamento */}
