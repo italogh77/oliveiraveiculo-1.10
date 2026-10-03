@@ -157,68 +157,119 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
   }
 
   const specs = [
-    { Icon: Calendar, label: 'Ano', value: vehicle.ano },
+    { Icon: Calendar, label: 'Ano / Modelo', value: vehicle.anoModelo || vehicle.ano },
     { Icon: Gauge, label: 'Quilometragem', value: formatKm(vehicle.km) },
     { Icon: Cog, label: 'Câmbio', value: vehicle.cambio },
     { Icon: Fuel, label: 'Combustível', value: vehicle.combustivel },
     { Icon: Palette, label: 'Cor', value: vehicle.cor },
+    { Icon: Car, label: 'Carroceria', value: vehicle.categoria || 'Hatch' },
   ].filter((s) => s.value);
 
-  // Painel de preço e contato: aparece logo abaixo da galeria no celular e fixo ao lado no computador
-  const pricePanel = (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-[#262626] dark:bg-[#141414] sm:p-7">
-      <span className="block text-xs font-semibold text-gray-500 dark:text-gray-400">Preço</span>
-      <div className="mb-5 text-3xl font-extrabold tracking-tight text-[#dfb15b] sm:text-4xl">
-        {formatPrice(vehicle.preco)}
-      </div>
+  // Painel Comercial Unificado: Preço, Financiamento, Ações, Destaques do Veículo e Garantia
+  const unifiedPanel = (
+    <div className="relative overflow-hidden rounded-3xl border border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#131417]/95 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all">
+      {/* Barra de destaque sutil superior em degradê dourado */}
+      <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#dfb15b] to-transparent" />
 
-      <div className="space-y-3">
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-3.5 text-sm font-bold text-black shadow-md transition-transform duration-150 active:scale-95"
-        >
-          <MessageSquare className="h-4 w-4 fill-black text-black" />
-          <span>Falar sobre este carro</span>
-        </a>
-        <a
-          href={scheduleVisitUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full border border-[#dfb15b] px-5 py-3.5 text-sm font-bold text-[#dfb15b] transition-transform duration-150 hover:bg-[#dfb15b]/10 active:scale-95"
-        >
-          <Calendar className="h-4 w-4" />
-          <span>Agendar visita</span>
-        </a>
-      </div>
+      <div className="p-5 sm:p-7">
+        {/* Cabeçalho do Card com Badges */}
+        <div className="mb-4 flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/35 bg-[#dfb15b]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#dfb15b]">
+            <Sparkles size={11} className="text-[#dfb15b]" />
+            <span>{vehicle.tag || 'Seminovo Selecionado'}</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Pronta Entrega
+          </span>
+        </div>
 
-      <div className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-gray-500 dark:text-gray-400">
-        <ShieldCheck className="h-3.5 w-3.5 text-[#dfb15b]" />
-        <span>Garantia de 90 dias • Procedência Verificada</span>
-      </div>
-    </div>
-  );
+        {/* Bloco de Preço & Financiamento */}
+        <div className="mb-5">
+          <span className="block text-[11px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">
+            Valor à vista
+          </span>
+          <div className="text-3xl sm:text-[2.35rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
+            {formatPrice(vehicle.preco)}
+          </div>
+          {vehicle.parcela && (
+            <div className="mt-2.5 flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 bg-gray-100/80 dark:bg-white/[0.04] px-3 py-2 rounded-xl border border-gray-200/60 dark:border-white/5">
+              <Calculator size={14} className="text-[#dfb15b] shrink-0" />
+              <span>
+                ou entrada + parcelas a partir de{' '}
+                <strong className="text-gray-950 dark:text-white font-extrabold">
+                  R$ {vehicle.parcela}/mês
+                </strong>
+              </span>
+            </div>
+          )}
+        </div>
 
-  // Painel de destaques/itens opcionais posicionado abaixo do card de preço
-  const destaquesPanel = vehicle.destaques?.length > 0 && (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-[#262626] dark:bg-[#141414] sm:p-6 transition-all">
-      <div className="mb-3.5 flex items-center gap-2">
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#dfb15b]/15 text-[#dfb15b]">
-          <CheckCircle2 className="h-4 w-4 text-[#dfb15b]" />
-        </span>
-        <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-white">
-          Destaques deste veículo
-        </h3>
+        {/* Ações Principais (Botões em Pílula com .btn-shine) */}
+        <div className="space-y-3">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-shine group relative flex min-h-[50px] w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-3.5 text-sm font-extrabold text-black shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+          >
+            <MessageSquare className="h-4 w-4 fill-black text-black transition-transform group-hover:scale-110" />
+            <span>Falar sobre este carro</span>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+
+          <a
+            href={scheduleVisitUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-[#dfb15b]/40 bg-transparent hover:bg-[#dfb15b]/10 px-5 py-3 text-sm font-bold text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer"
+          >
+            <Calendar className="h-4 w-4 text-[#dfb15b]" />
+            <span>Agendar visita na loja</span>
+          </a>
+        </div>
+
+        {/* Destaques do Veículo Integrados no Painel */}
+        {vehicle.destaques?.length > 0 && (
+          <div className="mt-6 border-t border-gray-100 dark:border-white/10 pt-5">
+            <div className="mb-3.5 flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-gray-900 dark:text-white">
+                <CheckCircle2 size={15} className="text-[#dfb15b]" />
+                <span>Destaques deste carro</span>
+              </span>
+              <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded-full">
+                {vehicle.destaques.length} itens
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2">
+              {vehicle.destaques.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.03] px-3 py-2 text-xs font-semibold text-gray-800 dark:text-gray-200 transition-colors hover:border-[#dfb15b]/40"
+                >
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/15 text-[#dfb15b]">
+                    <Check size={11} className="stroke-[3]" />
+                  </span>
+                  <span className="truncate">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Garantias & Procedência na Base do Card */}
+        <div className="mt-6 border-t border-gray-100 dark:border-white/10 pt-4 flex flex-col gap-2">
+          <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+            <ShieldCheck size={14} className="text-[#dfb15b] shrink-0" />
+            <span>Garantia de 90 dias para motor e caixa</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+            <Award size={14} className="text-[#dfb15b] shrink-0" />
+            <span>100% periciado • Sem leilão ou sinistro</span>
+          </div>
+        </div>
       </div>
-      <ul className="space-y-2.5">
-        {vehicle.destaques.map((item, i) => (
-          <li key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#dfb15b] shrink-0" />
-            <span className="font-medium">{item}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 
