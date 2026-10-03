@@ -160,101 +160,53 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
     }
   }
 
-  // ── Painel Comercial Unificado (Desktop Lateral) ──
+  // ── Painel Lateral de Destaques & Procedência (Desktop Lateral) ──
   const unifiedPanel = (
     <div className="relative overflow-hidden rounded-3xl border border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#131417]/95 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all">
       {/* Barra de destaque sutil superior em degradê dourado */}
       <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#dfb15b] to-transparent" />
 
       <div className="p-5 sm:p-7">
-        {/* Cabeçalho do Card com Badges */}
-        <div className="mb-4 flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/35 bg-[#dfb15b]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#dfb15b]">
-            <Sparkles size={11} className="text-[#dfb15b]" />
-            <span>{vehicle.tag || 'Seminovo Selecionado'}</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Online / Pronta Entrega
-          </span>
-        </div>
-
-        {/* Bloco de Preço & Financiamento */}
-        <div className="mb-5">
-          <span className="block text-[11px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">
-            Valor à vista
-          </span>
-          <div className="text-3xl sm:text-[2.35rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
-            {formatPrice(vehicle.preco)}
+        {/* Cabeçalho do Card */}
+        <div className="mb-4 flex items-center justify-between gap-2 border-b border-gray-100 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+              <Sparkles size={14} />
+            </span>
+            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-gray-950 dark:text-white">
+              Destaques deste carro
+            </h3>
           </div>
-          {vehicle.parcela && (
-            <div className="mt-2.5 flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 bg-gray-100/80 dark:bg-white/[0.04] px-3 py-2 rounded-xl border border-gray-200/60 dark:border-white/5">
-              <Calculator size={14} className="text-[#dfb15b] shrink-0" />
-              <span>
-                ou entrada + parcelas a partir de{' '}
-                <strong className="text-gray-950 dark:text-white font-extrabold">
-                  R$ {vehicle.parcela}/mês
-                </strong>
-              </span>
-            </div>
+          {vehicle.destaques?.length > 0 && (
+            <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-white/5 px-2.5 py-1 rounded-full">
+              {vehicle.destaques.length} itens
+            </span>
           )}
         </div>
 
-        {/* Ações Principais (Botões em Pílula com .btn-shine) */}
-        <div className="space-y-3">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-shine group relative flex min-h-[50px] w-full items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-3.5 text-sm font-extrabold text-black shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <MessageSquare className="h-4 w-4 fill-black text-black transition-transform group-hover:scale-110" />
-            <span>Falar sobre este carro</span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
-
-          <a
-            href={scheduleVisitUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-[#dfb15b]/40 bg-transparent hover:bg-[#dfb15b]/10 px-5 py-3 text-sm font-bold text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <Calendar className="h-4 w-4 text-[#dfb15b]" />
-            <span>Agendar visita na loja</span>
-          </a>
-        </div>
-
-        {/* Destaques do Veículo Integrados no Painel */}
-        {vehicle.destaques?.length > 0 && (
-          <div className="mt-6 border-t border-gray-100 dark:border-white/10 pt-5">
-            <div className="mb-3.5 flex items-center justify-between">
-              <span className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-gray-900 dark:text-white">
-                <CheckCircle2 size={15} className="text-[#dfb15b]" />
-                <span>Destaques deste carro</span>
-              </span>
-              <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded-full">
-                {vehicle.destaques.length} itens
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 gap-2">
-              {vehicle.destaques.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.03] px-3 py-2 text-xs font-semibold text-gray-800 dark:text-gray-200 transition-colors hover:border-[#dfb15b]/40"
-                >
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/15 text-[#dfb15b]">
-                    <Check size={11} className="stroke-[3]" />
-                  </span>
-                  <span className="truncate">{item}</span>
-                </div>
-              ))}
-            </div>
+        {/* Destaques do Veículo */}
+        {vehicle.destaques?.length > 0 ? (
+          <div className="grid grid-cols-1 gap-2">
+            {vehicle.destaques.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.03] px-3.5 py-2.5 text-xs font-semibold text-gray-800 dark:text-gray-200 transition-colors hover:border-[#dfb15b]/40"
+              >
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/15 text-[#dfb15b]">
+                  <Check size={11} className="stroke-[3]" />
+                </span>
+                <span className="truncate">{item}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.03] p-4 text-center text-xs text-gray-400">
+            Veículo revisado com procedência e garantia total de qualidade.
           </div>
         )}
 
         {/* Garantias & Procedência na Base do Card */}
-        <div className="mt-6 border-t border-gray-100 dark:border-white/10 pt-4 flex flex-col gap-2">
+        <div className="mt-6 border-t border-gray-100 dark:border-white/10 pt-4 flex flex-col gap-2.5">
           <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
             <ShieldCheck size={14} className="text-[#dfb15b] shrink-0" />
             <span>Garantia de 90 dias para motor e caixa</span>
@@ -262,6 +214,39 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
             <Award size={14} className="text-[#dfb15b] shrink-0" />
             <span>Procedência rigorosamente inspecionada</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
+            <Wrench size={14} className="text-[#dfb15b] shrink-0" />
+            <span>Revisão preventiva em mais de 40 itens</span>
+          </div>
+        </div>
+
+        {/* Atendimento & Localização Rápida */}
+        <div className="mt-5 rounded-2xl border border-gray-200/60 dark:border-white/5 bg-gray-50/80 dark:bg-white/[0.02] p-3.5 text-xs">
+          <div className="flex items-center gap-2 font-bold text-gray-900 dark:text-white mb-1">
+            <Building2 size={14} className="text-[#dfb15b]" />
+            <span>Oliveira Veículos • Maricá</span>
+          </div>
+          <p className="text-[11px] text-gray-500 dark:text-gray-400">
+            {COMPANY_DATA.address}
+          </p>
+          <div className="mt-2.5 flex items-center justify-between border-t border-gray-200/50 dark:border-white/5 pt-2 text-[11px]">
+            <a
+              href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`}
+              className="inline-flex items-center gap-1 font-bold text-gray-800 dark:text-gray-200 hover:text-[#dfb15b]"
+            >
+              <Phone size={12} className="text-[#dfb15b]" />
+              <span>{COMPANY_DATA.phone}</span>
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-[#dfb15b] hover:underline"
+            >
+              <span>WhatsApp</span>
+              <ChevronRight size={12} />
+            </a>
           </div>
         </div>
       </div>
