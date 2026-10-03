@@ -9,7 +9,7 @@ import { Reveal } from '../components/Reveal';
 
 export default function AboutPage({ onGoToEstoque }) {
   return (
-    <div className="ov-about pt-20 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full text-white">
+    <div className="ov-about pt-20 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full text-gray-900 dark:text-white transition-colors duration-300">
       {/* ── 1. APRESENTAÇÃO DA LOJA (COM ANIMAÇÃO DE ENTRADA SUAVE) ── */}
       <Reveal className="text-center max-w-4xl mx-auto mb-16 sm:mb-20">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#dfb15b]/15 text-[#dfb15b] text-xs font-bold uppercase tracking-widest mb-4 border border-[#dfb15b]/30">
@@ -17,11 +17,11 @@ export default function AboutPage({ onGoToEstoque }) {
           <span>CONHEÇA A OLIVEIRA VEÍCULOS</span>
         </div>
 
-        <h1 className="text-[clamp(1.85rem,6vw,3.25rem)] font-black text-white tracking-tight leading-[1.12] max-w-4xl mx-auto">
+        <h1 className="text-[clamp(1.85rem,6vw,3.25rem)] font-black text-gray-950 dark:text-white tracking-tight leading-[1.12] max-w-4xl mx-auto">
           Tradição, Procedência e as Melhores Taxas de Maricá
         </h1>
 
-        <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-gray-300 leading-relaxed font-normal max-w-3xl mx-auto">
+        <p className="mt-4 sm:mt-5 text-sm sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-normal max-w-3xl mx-auto">
           Na Oliveira Veículos, ajudamos você a conquistar seu próximo carro com transparência, respeito e atendimento próximo. Conheça nossa loja e converse com nossa equipe sobre as opções de veículos e as condições de financiamento disponíveis para você.
         </p>
 
@@ -41,7 +41,7 @@ export default function AboutPage({ onGoToEstoque }) {
             href={COMPANY_DATA.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] rounded-full text-sm sm:text-base font-bold text-white border border-white/20 bg-white/5 hover:bg-white/10 active:scale-95 transition-all cursor-pointer backdrop-blur-md"
+            className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] rounded-full text-sm sm:text-base font-bold text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer backdrop-blur-md shadow-sm"
           >
             <MessageSquare className="w-5 h-5 text-[#dfb15b]" />
             <span>Falar com um Consultor</span>
@@ -52,14 +52,14 @@ export default function AboutPage({ onGoToEstoque }) {
       {/* ── 2. DIFERENCIAIS DA LOJA (GARANTIA E SEGURANÇA) ──────────── */}
       <Reveal className="mb-20 sm:mb-24">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#dfb15b] text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[#dfb15b] text-xs font-bold uppercase tracking-wider mb-2">
             <ShieldCheck className="w-4 h-4 text-[#dfb15b]" />
             <span>GARANTIA E SEGURANÇA</span>
           </div>
-          <h2 className="text-[clamp(1.5rem,5vw,2.5rem)] font-extrabold text-white tracking-tight">
+          <h2 className="text-[clamp(1.5rem,5vw,2.5rem)] font-extrabold text-gray-950 dark:text-white tracking-tight">
             Nossos Diferenciais Exclusivos
           </h2>
-          <p className="mt-2 text-xs sm:text-base text-gray-400 max-w-xl mx-auto">
+          <p className="mt-2 text-xs sm:text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             Por que centenas de clientes de Maricá e região confiam na Oliveira Veículos.
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function AboutPage({ onGoToEstoque }) {
 
       {/* ── 6. SEÇÃO DE LOCALIZAÇÃO FIXADA ANTES DO RODAPÉ (Regra 7) ──── */}
       <Reveal className="mb-8">
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-[#141518] to-[#0c0d0f] p-5 sm:p-8 lg:p-10 shadow-2xl overflow-hidden">
+        <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-gradient-to-b dark:from-[#141518] dark:to-[#0c0d0f] p-5 sm:p-8 lg:p-10 shadow-xl dark:shadow-2xl overflow-hidden transition-colors duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Informações da loja */}
             <div className="lg:col-span-6 flex flex-col justify-between">
@@ -94,21 +94,21 @@ export default function AboutPage({ onGoToEstoque }) {
                   <span>NOSSA LOJA EM MARICÁ</span>
                 </span>
 
-                <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-white tracking-tight leading-tight break-words mb-3">
+                <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-gray-950 dark:text-white tracking-tight leading-tight break-words mb-3">
                   Estamos prontos para receber você
                 </h2>
 
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6 font-medium">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
                   {COMPANY_DATA.address}
                 </p>
 
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
                     <div className="w-2 h-2 rounded-full bg-[#dfb15b] shrink-0" />
                     <span>Segunda a Sexta: 08:30 às 18:30 · Sábado: 08:30 às 14:00</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
-                    <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
                     <span>Espaço climatizado, café e atendimento personalizado</span>
                   </div>
                 </div>
@@ -131,13 +131,13 @@ export default function AboutPage({ onGoToEstoque }) {
 
             {/* iFrame com proporção fluida e cantos arredondados */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-video sm:h-72 w-full rounded-2xl overflow-hidden border border-white/10 shadow-inner bg-black">
+              <div className="relative aspect-video sm:h-72 w-full rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-inner bg-gray-100 dark:bg-black">
                 <iframe
                   title="Mapa Oliveira Veículos Maricá"
                   src="https://maps.google.com/maps?q=-22.9033231,-42.7993074&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
-                  className="w-full h-full border-0 filter invert-[90%] hue-rotate-180 contrast-[115%]"
+                  className="w-full h-full border-0 filter dark:invert-[90%] dark:hue-rotate-180 dark:contrast-[115%]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
