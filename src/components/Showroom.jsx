@@ -170,7 +170,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
   };
 
   if (activeVehicle) {
-    return <VehicleDetailView vehicle={activeVehicle} onBack={handleBack} />;
+    return <VehicleDetailView vehicle={activeVehicle} onBack={handleBack} onSelectVehicle={handleSelect} />;
   }
 
   return (
