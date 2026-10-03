@@ -266,7 +266,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </div>
           <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-gray-400">
             <Award size={14} className="text-[#dfb15b] shrink-0" />
-            <span>100% periciado • Sem leilão ou sinistro</span>
+            <span>Procedência rigorosamente inspecionada</span>
           </div>
         </div>
       </div>
