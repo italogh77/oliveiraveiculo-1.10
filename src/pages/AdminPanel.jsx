@@ -801,29 +801,41 @@ export function VehicleFormModal({ initial, onClose, onSave }) {
                 <Image className="w-4 h-4 text-amber-400" /> Fotos do Veículo
               </label>
 
-              {/* Tabs selector */}
-              <div className="flex items-center bg-white/[0.06] rounded-lg p-0.5 border border-white/10 text-xs">
+              {/* Tabs selector + Status do Storage */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center bg-white/[0.06] rounded-lg p-0.5 border border-white/10 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setPhotoTab('upload')}
+                    className={`px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1.5 cursor-pointer ${
+                      photoTab === 'upload'
+                        ? 'bg-amber-400 text-black shadow-sm font-semibold'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    <Upload className="w-3.5 h-3.5" /> Upload de Arquivo
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPhotoTab('drive')}
+                    className={`px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1.5 cursor-pointer ${
+                      photoTab === 'drive'
+                        ? 'bg-amber-400 text-black shadow-sm font-semibold'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    <Link2 className="w-3.5 h-3.5" /> Google Drive / Links
+                  </button>
+                </div>
+
                 <button
                   type="button"
-                  onClick={() => setPhotoTab('upload')}
-                  className={`px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1.5 cursor-pointer ${
-                    photoTab === 'upload'
-                      ? 'bg-amber-400 text-black shadow-sm font-semibold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
+                  onClick={() => setShowStorageModal(true)}
+                  title="Configuração e Status do Firebase Storage"
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold text-amber-400/90 hover:text-amber-300 bg-amber-400/10 hover:bg-amber-400/15 border border-amber-400/20 transition-all cursor-pointer shadow-sm"
                 >
-                  <Upload className="w-3.5 h-3.5" /> Upload de Arquivo
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPhotoTab('drive')}
-                  className={`px-2.5 py-1 rounded-md transition-all font-medium flex items-center gap-1.5 cursor-pointer ${
-                    photoTab === 'drive'
-                      ? 'bg-amber-400 text-black shadow-sm font-semibold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  <Link2 className="w-3.5 h-3.5" /> Google Drive / Links
+                  <Settings className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="hidden sm:inline">Status do Storage</span>
                 </button>
               </div>
             </div>
