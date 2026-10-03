@@ -31,7 +31,7 @@
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-optical-sizing: auto;
