@@ -227,23 +227,23 @@ export default function FinancingPage({ onGoToEstoque }) {
 
           {/* Botão em Pílula: Solicitar simulação */}
           <a
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full min-h-[46px] px-6 py-3.5 text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-transform duration-150 shadow-lg cursor-pointer"
+            className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full min-h-[46px] px-6 py-3.5 text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-all duration-300 shadow-lg cursor-pointer"
             href={`https://wa.me/5521998016913?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <MessageCircle size={18} className="fill-black" />
+            <MessageCircle size={18} className="fill-black transition-transform duration-300 group-hover:scale-110 shrink-0" />
             <span>Solicitar simulação com um vendedor</span>
           </a>
 
           {/* Botão em Pílula Secundário: Ver estoque */}
           <button
             type="button"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full min-h-[44px] px-5 py-3 border border-gray-300 dark:border-white/15 hover:border-[#dfb15b] text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white bg-white dark:bg-transparent text-xs sm:text-sm font-semibold active:scale-95 transition-all cursor-pointer shadow-sm"
+            className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full min-h-[44px] px-5 py-3 border border-gray-300 dark:border-white/15 hover:border-[#dfb15b] text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white bg-white dark:bg-transparent text-xs sm:text-sm font-semibold active:scale-95 transition-all cursor-pointer shadow-sm"
             onClick={onGoToEstoque}
           >
             <span>Ver veículos no estoque</span>
-            <ArrowRight size={15} />
+            <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
           </button>
         </div>
       </div>

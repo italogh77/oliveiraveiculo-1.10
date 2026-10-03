@@ -128,10 +128,10 @@ export default function ContactPage({ onGoToOndeEstamos }) {
 
           <button
             type="submit"
-            className="w-full mt-6 min-h-[46px] rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150 shadow-md cursor-pointer"
+            className="btn-shine group relative w-full mt-6 min-h-[46px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 active:scale-95 transition-all duration-300 shadow-md cursor-pointer"
           >
             <span>Conversar no WhatsApp</span>
-            <MessageCircle size={18} />
+            <MessageCircle size={18} className="transition-transform duration-300 group-hover:scale-110 shrink-0" />
           </button>
 
           <p className="mt-3 text-center text-xs text-gray-400">
@@ -223,9 +223,9 @@ export default function ContactPage({ onGoToOndeEstamos }) {
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] text-xs font-bold rounded-full bg-[#dfb15b] text-black hover:bg-[#efc676] active:scale-95 transition-transform duration-150 shrink-0 shadow-sm"
+                className="btn-shine group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] overflow-hidden text-xs font-bold rounded-full bg-[#dfb15b] text-black hover:bg-[#efc676] active:scale-95 transition-all duration-200 shrink-0 shadow-sm cursor-pointer"
               >
-                <Navigation size={13} />
+                <Navigation size={13} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0" />
                 <span>Como chegar</span>
               </a>
             </div>

@@ -30,9 +30,9 @@ export default function AboutPage({ onGoToEstoque }) {
           {onGoToEstoque && (
             <button
               onClick={onGoToEstoque}
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] rounded-full text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-all shadow-md cursor-pointer"
+              className="btn-shine group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] overflow-hidden rounded-full text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-all shadow-md cursor-pointer"
             >
-              <Car className="w-5 h-5" />
+              <Car className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 shrink-0" />
               <span>Ver Estoque Disponível</span>
             </button>
           )}
@@ -41,9 +41,9 @@ export default function AboutPage({ onGoToEstoque }) {
             href={COMPANY_DATA.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] rounded-full text-sm sm:text-base font-bold text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer backdrop-blur-md shadow-sm"
+            className="btn-shine group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] overflow-hidden rounded-full text-sm sm:text-base font-bold text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer backdrop-blur-md shadow-sm"
           >
-            <MessageSquare className="w-5 h-5 text-[#dfb15b]" />
+            <MessageSquare className="w-5 h-5 text-[#dfb15b] transition-transform duration-300 group-hover:scale-110 shrink-0" />
             <span>Falar com um Consultor</span>
           </a>
         </div>
@@ -120,11 +120,11 @@ export default function AboutPage({ onGoToEstoque }) {
                   href={COMPANY_DATA.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-transform duration-150 active:scale-95 shadow-md cursor-pointer"
+                  className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
                 >
-                  <Navigation size={16} />
+                  <Navigation size={16} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0" />
                   <span>Ver no Google Maps</span>
-                  <ArrowUpRight size={16} className="stroke-[2.5]" />
+                  <ArrowUpRight size={16} className="stroke-[2.5] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-90 group-hover:opacity-100" />
                 </a>
               </div>
             </div>
