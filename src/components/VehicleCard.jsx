@@ -71,7 +71,6 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 -translate-x-[130%] bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg] transition-transform duration-1000 ease-out group-hover:translate-x-[240%]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/90 dark:from-[#131417]/85 to-transparent" />
 
           {/* Badges de destaque padronizadas em tamanho e posição */}
           {vehicle.tag && (
@@ -80,7 +79,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             </span>
           )}
           {vehicle.categoria && (
-            <span className="absolute bottom-2.5 left-3 rounded-full bg-black/80 backdrop-blur-md px-2.5 py-0.5 text-[11px] font-semibold text-gray-200 border border-white/10 whitespace-nowrap">
+            <span className="absolute bottom-2.5 left-3 rounded-full bg-black/75 backdrop-blur-md px-2.5 py-0.5 text-[11px] font-semibold text-white border border-white/15 whitespace-nowrap shadow-sm">
               {vehicle.categoria}
             </span>
           )}
