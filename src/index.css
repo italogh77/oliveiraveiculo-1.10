@@ -1366,14 +1366,22 @@ html:not(.dark) .ov-transition-logo {
   position: relative;
   isolation: isolate;
   width: 100%;
-  height: 100svh;
-  min-height: 100svh;
+  aspect-ratio: 2048 / 911;
+  min-height: 480px;
   display: flex;
   align-items: flex-end;
-  padding: 80px 0 12px;
+  padding: 80px 0 20px;
   overflow: hidden;
-  background: #0a0a0a;
+  background: #090a0b;
   color: white;
+}
+
+@media (min-width: 1024px) {
+  .ov-hero {
+    height: auto;
+    min-height: auto;
+    aspect-ratio: 2048 / 911;
+  }
 }
 
 .ov-hero-image,
@@ -1386,7 +1394,7 @@ html:not(.dark) .ov-transition-logo {
 
 .ov-hero-image {
   object-fit: cover !important;
-  object-position: center 30%;
+  object-position: center;
   z-index: -2;
   pointer-events: none;
   user-select: none;
@@ -1964,11 +1972,11 @@ html:not(.dark) .ov-transition-logo {
   }
 
   .ov-hero {
-    height: 100svh;
-    min-height: 100svh;
+    height: auto;
+    min-height: 380px;
     display: flex;
     align-items: flex-end;
-    padding: 70px 0 12px;
+    padding: 70px 0 16px;
   }
 
   .ov-hero-shell {
@@ -1982,7 +1990,7 @@ html:not(.dark) .ov-transition-logo {
 
   .ov-hero-image {
     object-fit: cover !important;
-    object-position: center 28%;
+    object-position: 15% center;
   }
 
   .ov-hero-overlay {
