@@ -275,57 +275,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
               )}
             </div>
 
-            {/* Miniaturas em rolagem horizontal */}
-            {(gallery.length > 1 || video) && (
-              <div className="-mx-1 mt-3 flex snap-x gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {video && (
-                  <button
-                    onClick={() => setVideoOn(true)}
-                    aria-label="Assistir vídeo"
-                    className={`relative h-16 w-24 shrink-0 snap-start cursor-pointer overflow-hidden rounded-lg bg-gray-900 sm:h-20 sm:w-28 ${
-                      videoOn ? 'ring-2 ring-[#dfb15b]' : 'opacity-90 hover:opacity-100'
-                    }`}
-                  >
-                    {video.thumb && (
-                      <img
-                        src={video.thumb}
-                        alt=""
-                        width="480"
-                        height="360"
-                        loading="lazy"
-                        className="h-full w-full object-cover opacity-70"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    )}
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#dfb15b] shadow-lg">
-                        <Play className="h-4 w-4 fill-black text-black" />
-                      </span>
-                    </span>
-                  </button>
-                )}
 
-                {gallery.map((photo, i) => (
-                  <button
-                    key={`${photo.src}-${i}`}
-                    onClick={() => {
-                      setVideoOn(false);
-                      setActiveIndex(i);
-                    }}
-                    aria-label={`Ver foto ${i + 1}`}
-                    className={`h-16 w-24 shrink-0 snap-start cursor-pointer overflow-hidden rounded-lg transition-all sm:h-20 sm:w-28 ${
-                      !videoOn && activeIndex === i
-                        ? 'ring-2 ring-[#dfb15b]'
-                        : 'opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <img src={photo.thumbSrc} width={photo.thumbDimensions.width} height={photo.thumbDimensions.height} style={photoStyle(vehicle.fotosAjustes?.[i])} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
           </motion.div>
 
           {/* ── Conteúdo Principal do Veículo ── */}
