@@ -92,7 +92,6 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoOn, setVideoOn] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState('veiculo'); // 'veiculo' | 'vendedor' | 'financiamento'
 
   const { vehicles } = useVehicles();
   const relatedVehicles = useMemo(() => {
@@ -112,11 +111,10 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
 
   const video = useMemo(() => (vehicle?.video ? formatVideoUrl(vehicle.video) : null), [vehicle]);
 
-  // Ao trocar de veículo, volta para a primeira foto e aba de veículo
+  // Ao trocar de veículo, volta para a primeira foto
   useEffect(() => {
     setActiveIndex(0);
     setVideoOn(false);
-    setActiveTab('veiculo');
   }, [vehicle?.id]);
 
   const next = () => setActiveIndex((i) => (i === gallery.length - 1 ? 0 : i + 1));
