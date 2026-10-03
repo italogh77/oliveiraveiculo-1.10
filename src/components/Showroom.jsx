@@ -362,7 +362,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
 
                 {/* Faixa de Preço */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5" htmlFor="sheet-filter-price">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5" htmlFor="sheet-filter-price">
                     Faixa de Preço
                   </label>
                   <div className="relative">
@@ -370,12 +370,12 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                       id="sheet-filter-price"
                       value={selectedPriceRange}
                       onChange={(e) => setSelectedPriceRange(e.target.value)}
-                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
+                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
                     >
-                      <option value="Todos" className="bg-[#141518] text-white">Qualquer valor</option>
-                      <option value="ate80" className="bg-[#141518] text-white">Até R$ 80.000</option>
-                      <option value="80a120" className="bg-[#141518] text-white">R$ 80.000 a R$ 120.000</option>
-                      <option value="acima120" className="bg-[#141518] text-white">Acima de R$ 120.000</option>
+                      <option value="Todos" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Qualquer valor</option>
+                      <option value="ate80" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Até R$ 80.000</option>
+                      <option value="80a120" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">R$ 80.000 a R$ 120.000</option>
+                      <option value="acima120" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Acima de R$ 120.000</option>
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
@@ -383,7 +383,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
 
                 {/* Quilometragem */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5" htmlFor="sheet-filter-km">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5" htmlFor="sheet-filter-km">
                     Quilometragem
                   </label>
                   <div className="relative">
@@ -391,12 +391,12 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                       id="sheet-filter-km"
                       value={selectedKmRange}
                       onChange={(e) => setSelectedKmRange(e.target.value)}
-                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
+                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
                     >
-                      <option value="Todos" className="bg-[#141518] text-white">Todas as faixas</option>
-                      <option value="ate30" className="bg-[#141518] text-white">Até 30.000 km</option>
-                      <option value="30a60" className="bg-[#141518] text-white">30.000 a 60.000 km</option>
-                      <option value="acima60" className="bg-[#141518] text-white">Acima de 60.000 km</option>
+                      <option value="Todos" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Todas as faixas</option>
+                      <option value="ate30" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Até 30.000 km</option>
+                      <option value="30a60" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">30.000 a 60.000 km</option>
+                      <option value="acima60" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Acima de 60.000 km</option>
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
@@ -404,7 +404,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
 
                 {/* Câmbio */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5" htmlFor="sheet-filter-transmission">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5" htmlFor="sheet-filter-transmission">
                     Câmbio
                   </label>
                   <div className="relative">
@@ -412,11 +412,11 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                       id="sheet-filter-transmission"
                       value={selectedTransmission}
                       onChange={(e) => setSelectedTransmission(e.target.value)}
-                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
+                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
                     >
-                      <option value="Todos" className="bg-[#141518] text-white">Todos os câmbios</option>
+                      <option value="Todos" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Todos os câmbios</option>
                       {transmissions.map((t) => (
-                        <option key={t} value={t} className="bg-[#141518] text-white">{t}</option>
+                        <option key={t} value={t} className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">{t}</option>
                       ))}
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -425,7 +425,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
 
                 {/* Combustível */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1.5" htmlFor="sheet-filter-fuel">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1.5" htmlFor="sheet-filter-fuel">
                     Combustível
                   </label>
                   <div className="relative">
@@ -433,11 +433,11 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                       id="sheet-filter-fuel"
                       value={selectedFuel}
                       onChange={(e) => setSelectedFuel(e.target.value)}
-                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
+                      className="w-full appearance-none pl-3.5 pr-8 py-3 rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#dfb15b] cursor-pointer"
                     >
-                      <option value="Todos" className="bg-[#141518] text-white">Todos os combustíveis</option>
+                      <option value="Todos" className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">Todos os combustíveis</option>
                       {fuels.map((f) => (
-                        <option key={f} value={f} className="bg-[#141518] text-white">{f}</option>
+                        <option key={f} value={f} className="bg-white dark:bg-[#141518] text-gray-900 dark:text-white">{f}</option>
                       ))}
                     </select>
                     <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -716,7 +716,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
                 aria-label="Página anterior"
-                className="w-10 h-10 rounded-full border border-white/10 text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors"
+                className="w-10 h-10 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-600 dark:text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors shadow-sm"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -730,7 +730,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                   className={`w-10 h-10 rounded-full font-bold text-sm flex items-center justify-center cursor-pointer transition-all active:scale-95 ${
                     page === currentPage
                       ? 'bg-[#dfb15b] text-black shadow-md'
-                      : 'border border-white/10 text-gray-300 hover:border-[#dfb15b] hover:text-[#dfb15b]'
+                      : 'border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:border-[#dfb15b] hover:text-[#dfb15b] shadow-sm'
                   }`}
                 >
                   {page}
@@ -741,7 +741,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 aria-label="Próxima página"
-                className="w-10 h-10 rounded-full border border-white/10 text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors"
+                className="w-10 h-10 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-600 dark:text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors shadow-sm"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
