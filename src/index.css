@@ -1395,8 +1395,7 @@ html:not(.dark) .ov-transition-logo {
 .ov-hero-overlay {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(10, 10, 10, .96) 0%, rgba(10, 10, 10, .88) 40%, rgba(10, 10, 10, .55) 65%, rgba(10, 10, 10, .15) 85%, transparent 100%),
-    linear-gradient(180deg, rgba(10, 10, 10, .65) 0%, transparent 25%, transparent 75%, rgba(10, 10, 10, .9) 100%);
+    linear-gradient(180deg, rgba(10, 10, 10, .35) 0%, transparent 22%, transparent 60%, rgba(9, 10, 11, .85) 86%, #090a0b 100%);
 }
 
 .ov-hero-shell {
@@ -1988,7 +1987,7 @@ html:not(.dark) .ov-transition-logo {
 
   .ov-hero-overlay {
     background:
-      linear-gradient(180deg, rgba(10, 10, 10, .45) 0%, rgba(10, 10, 10, .75) 45%, rgba(10, 10, 10, .96) 80%, #0a0a0a 100%);
+      linear-gradient(180deg, rgba(10, 10, 10, .35) 0%, transparent 20%, transparent 58%, rgba(9, 10, 11, .9) 84%, #090a0b 100%);
   }
 
   .ov-hero-eyebrow {
