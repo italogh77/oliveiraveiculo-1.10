@@ -53,10 +53,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
         onClick={open}
         onPointerMove={handlePointerMove}
         onPointerLeave={resetCardPosition}
-        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#131417] shadow-xl transition-all duration-300 hover:border-white/25 hover:shadow-2xl dark:border-white/10 dark:bg-[#131417] dark:hover:border-white/25"
+        className="vehicle-card group relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-gray-200/80 bg-white text-gray-900 shadow-sm transition-all duration-300 hover:border-[#dfb15b]/60 hover:shadow-xl dark:border-white/10 dark:bg-[#131417] dark:text-white dark:hover:border-white/25 dark:shadow-xl dark:hover:shadow-2xl"
       >
         {/* Foto com proporção padronizada 16/10 e Badges em Pílula */}
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#18191d]">
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 dark:bg-[#18191d]">
           <img
             src={photoThumbUrl(coverPhoto)}
             alt={vehicle.modelo}
@@ -71,7 +71,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 -translate-x-[130%] bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg] transition-transform duration-1000 ease-out group-hover:translate-x-[240%]"
           />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#131417]/85 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/90 dark:from-[#131417]/85 to-transparent" />
 
           {/* Badges de destaque padronizadas em tamanho e posição */}
           {vehicle.tag && (
@@ -86,12 +86,12 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
           )}
         </div>
 
-        {/* Título com tipografia limpa em branco e especificações de alto contraste */}
+        {/* Título com tipografia limpa em preto/branco e especificações de alto contraste */}
         <div className="flex flex-col flex-grow p-4 pb-3 sm:p-5 sm:pb-3">
-          <h3 className="font-sans line-clamp-1 text-lg sm:text-xl font-semibold tracking-tight text-white">
+          <h3 className="font-sans line-clamp-1 text-lg sm:text-xl font-semibold tracking-tight text-gray-950 dark:text-white">
             {vehicle.tituloCard || vehicle.modelo}
           </h3>
-          <p className="mt-1 line-clamp-1 text-xs sm:text-[13px] font-medium text-gray-300">
+          <p className="mt-1 line-clamp-1 text-xs sm:text-[13px] font-medium text-gray-600 dark:text-gray-300">
             {subtitle}
           </p>
 
@@ -100,7 +100,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               {specs.slice(0, 4).map(({ Icon, label }) => (
                 <li
                   key={String(label)}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 px-2.5 py-1.5 text-[11px] font-medium text-gray-300 border border-white/5 transition-colors group-hover:border-white/10"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100/80 px-2.5 py-1.5 text-[11px] font-medium text-gray-700 border border-gray-200/60 transition-colors group-hover:border-[#dfb15b]/40 dark:bg-white/5 dark:text-gray-300 dark:border-white/5 dark:group-hover:border-white/10"
                 >
                   <Icon className="h-3.5 w-3.5 text-[#dfb15b] shrink-0" aria-hidden="true" />
                   <span className="truncate">{label}</span>
@@ -111,12 +111,12 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
         </div>
 
         {/* Preço e Botão Ver detalhes sempre alinhados na mesma altura na base */}
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/10 p-4 pt-3.5 sm:p-5 sm:pt-3.5">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-100 dark:border-white/10 p-4 pt-3.5 sm:p-5 sm:pt-3.5">
           <div className="min-w-0">
-            <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-400">
+            <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-500 dark:text-gray-400">
               Preço
             </span>
-            <span className="block text-xl sm:text-2xl font-bold tracking-tight text-white whitespace-nowrap">
+            <span className="block text-xl sm:text-2xl font-bold tracking-tight text-gray-950 dark:text-white whitespace-nowrap">
               {formatPrice(vehicle.preco)}
             </span>
           </div>
