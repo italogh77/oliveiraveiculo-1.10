@@ -541,7 +541,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
                   <Check size={12} className="stroke-[3]" />
-                  Laudo Cautelar Aprovado
+                  Procedência 100% Inspecionada
                 </span>
               </div>
 
@@ -551,9 +551,9 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                     <FileCheck size={19} />
                   </span>
                   <div>
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Sem Leilão ou Sinistro</h4>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Qualidade Estrutural</h4>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Histórico veicular 100% consultado e aprovado sem apontamentos graves.
+                      Veículo rigorosamente inspecionado em sua integridade física e mecânica.
                     </p>
                   </div>
                 </div>
@@ -565,7 +565,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                   <div>
                     <h4 className="text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Cobertura integral para motor e caixa de câmbio ou 3.000 km rodados.
+                      Cobertura integral para motor e caixa de câmbio com assistência da loja.
                     </p>
                   </div>
                 </div>
