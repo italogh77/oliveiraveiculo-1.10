@@ -1207,12 +1207,21 @@ body {
   transition: all 0.25s ease;
 }
 
-/* Card de veículo sempre na paleta dark luxury da marca */
+/* Card de veículo responsivo ao tema */
 .vehicle-card {
-  background: #131417 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 1rem;
+}
+
+.dark .vehicle-card {
+  background: #131417;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+html:not(.dark) .vehicle-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px -2px rgba(0, 0, 0, 0.06);
 }
 
 /* Hover no Tema Claro */
@@ -1922,9 +1931,20 @@ html:not(.dark) .ov-hero-overlay {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.3;
-  color: #ffffff !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dark #estoque .vehicle-card h3,
+.dark .ov-featured-grid .vehicle-card h3,
+.dark .vehicle-card h3 {
+  color: #ffffff;
+}
+
+html:not(.dark) #estoque .vehicle-card h3,
+html:not(.dark) .ov-featured-grid .vehicle-card h3,
+html:not(.dark) .vehicle-card h3 {
+  color: #030712;
 }
 
 @media (min-width: 640px) {
