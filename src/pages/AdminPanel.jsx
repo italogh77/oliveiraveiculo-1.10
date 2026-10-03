@@ -490,6 +490,7 @@ export function VehicleFormModal({ initial, onClose, onSave }) {
   const zipInputRef = useRef();
   const photoUpload = useUpload();
   const [photoTab, setPhotoTab] = useState('upload');
+  const [showStorageModal, setShowStorageModal] = useState(false);
   const [driveLinksInput, setDriveLinksInput] = useState('');
   const [photoStatus, setPhotoStatus] = useState({});
   const [isFileDragging, setIsFileDragging] = useState(false);
