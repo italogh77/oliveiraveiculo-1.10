@@ -20,17 +20,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     return combined.slice(0, 6);
   }, [vehicles]);
 
-  const N = featuredVehicles.length || 1;
-
-  // Triplicamos a lista para suporte a loop infinito fluido sem travas
-  const extendedVehicles = useMemo(() => {
-    if (!featuredVehicles.length) return [];
-    return [...featuredVehicles, ...featuredVehicles, ...featuredVehicles];
-  }, [featuredVehicles]);
-
-  // centerIndex inicia exatamente no início da segunda cópia (offset N)
-  const [centerIndex, setCenterIndex] = useState(N);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  // Índice atual do carrossel finito (0 a maxIndex)
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [containerWidth, setContainerWidth] = useState(1200);
 
   // Touch swipe refs
@@ -62,11 +53,6 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   }, [featuredVehicles.length]);
 
   // Responsividade dos cards para layout Sangrado (Full-Bleed):
-  // Telas ultra-wide / grandes (>= 1600px): 3 cards completos no centro + cards peeking amplos até as bordas
-  // Desktop padrão (1280-1599px): 3 cards completos no centro + cards peeking estendidos
-  // Laptop (1024-1279px): 3 cards completos no centro + cards laterais simétricos
-  // Tablet (640-1023px): 2 cards completos no centro + cards laterais
-  // Mobile (< 640px): 1 card principal no centro (~80% da tela) + laterais peeking
   const { cardWidth, gap, centerCount } = useMemo(() => {
     if (containerWidth >= 1600) {
       const targetWidth = Math.min(370, Math.floor(containerWidth * 0.22));
@@ -91,50 +77,29 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
     };
   }, [containerWidth]);
 
-  // Se N mudar (ex: carregamento assíncrono dos veículos), sincroniza centerIndex
-  useEffect(() => {
-    if (N > 1) {
-      setCenterIndex(N);
-    }
-  }, [N]);
+  // Limites exatos de início e fim
+  const maxIndex = Math.max(0, featuredVehicles.length - centerCount);
+  const canPrev = currentIndex > 0;
+  const canNext = currentIndex < maxIndex;
 
-  // Tratamento do loop infinito seamless ao terminar a animação
-  const handleTransitionEnd = useCallback(() => {
-    if (centerIndex >= 2 * N) {
-      setIsTransitioning(false);
-      setCenterIndex((prev) => prev - N);
-    } else if (centerIndex < N) {
-      setIsTransitioning(false);
-      setCenterIndex((prev) => prev + N);
-    }
-  }, [centerIndex, N]);
-
-  // Reativa transição após reset silencioso
+  // Ajusta currentIndex se a quantidade de veículos mudar
   useEffect(() => {
-    if (!isTransitioning) {
-      const timer = requestAnimationFrame(() => {
-        setIsTransitioning(true);
-      });
-      return () => cancelAnimationFrame(timer);
-    }
-  }, [isTransitioning]);
+    setCurrentIndex((prev) => Math.min(prev, maxIndex));
+  }, [maxIndex]);
 
   const nextSlide = useCallback(() => {
-    if (!isTransitioning) setIsTransitioning(true);
-    setCenterIndex((prev) => prev + 1);
-  }, [isTransitioning]);
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+  }, [maxIndex]);
 
   const prevSlide = useCallback(() => {
-    if (!isTransitioning) setIsTransitioning(true);
-    setCenterIndex((prev) => prev - 1);
-  }, [isTransitioning]);
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+  }, []);
 
   const goToSlide = useCallback((dotIdx) => {
-    if (!isTransitioning) setIsTransitioning(true);
-    setCenterIndex(N + dotIdx);
-  }, [isTransitioning, N]);
+    setCurrentIndex(Math.min(dotIdx, maxIndex));
+  }, [maxIndex]);
 
-  // Suporte a arrasto no touch
+  // Suporte a arrasto no touch respeitando início e fim
   const handleTouchStart = (e) => {
     touchStartX.current = e.targetTouches[0].clientX;
   };
@@ -146,19 +111,19 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
     const diff = touchStartX.current - touchEndX.current;
-    if (diff > 50) nextSlide();
-    if (diff < -50) prevSlide();
+    if (diff > 50 && canNext) nextSlide();
+    if (diff < -50 && canPrev) prevSlide();
     touchStartX.current = null;
     touchEndX.current = null;
   };
 
-  // Cálculo da posição de centralização do trio ativo
+  // Cálculo da posição de centralização do trio ativo com início e fim
   const trioWidth = centerCount * cardWidth + (centerCount - 1) * gap;
   const step = cardWidth + gap;
-  const translateX = containerWidth / 2 - (centerIndex * step + trioWidth / 2);
+  const translateX = containerWidth / 2 - (currentIndex * step + trioWidth / 2);
 
   // Índice ativo para paginação por dots
-  const activeDot = ((centerIndex % N) + N) % N;
+  const activeDot = Math.min(currentIndex, featuredVehicles.length - 1);
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
