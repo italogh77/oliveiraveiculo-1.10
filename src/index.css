@@ -1385,9 +1385,11 @@ html:not(.dark) .ov-transition-logo {
 }
 
 .ov-hero-image {
-  object-fit: cover;
-  object-position: 58% center;
+  object-fit: cover !important;
+  object-position: center 40%;
   z-index: -2;
+  pointer-events: none;
+  user-select: none;
 }
 
 .ov-hero-overlay {
@@ -1980,7 +1982,8 @@ html:not(.dark) .ov-transition-logo {
   }
 
   .ov-hero-image {
-    object-position: 62% center;
+    object-fit: cover !important;
+    object-position: center 38%;
   }
 
   .ov-hero-overlay {
