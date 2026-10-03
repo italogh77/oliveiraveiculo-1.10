@@ -29,3 +29,15 @@ Sempre que você (agente de IA / assistente) fizer qualquer alteração no códi
 - **Tema:** Dark Mode profundo `#090a0b` com cartões em `#131417`.
 - **Botões de Ação:** Formato pílula (`rounded-full`) com efeito `.btn-shine` nos CTAs de destaque.
 - **Cards de Carros:** Levitação 3D de 8px, halo dourado e feixe reflexivo na lataria.
+
+---
+
+## 🚫 REGRA PERMANENTE DE COPYWRITING & TERMOS PROIBIDOS (NUNCA VIOLE)
+
+1. **NUNCA mencionar "Leilão" ou "Sem Leilão":**
+   - É terminantemente proibido utilizar o termo "leilão" ou qualquer variação no site inteiro.
+2. **NUNCA mencionar "Laudo Cautelar":**
+   - É terminantemente proibido utilizar a expressão "laudo cautelar" ou "laudo".
+   - Use em substituição termos de excelência como: *"Procedência 100% Garantida"*, *"Veículos Rigorosamente Inspecionados"*, *"Revisão Preventiva Completa"*, *"Qualidade Estrutural Aprovada"*.
+3. **NUNCA mencionar "3.000 km" ou "3 mil km rodados":**
+   - Para termos de garantia, mencione exclusivamente: *"Garantia de 90 dias para motor e caixa"* ou *"Garantia de motor e caixa de câmbio"*, NUNCA atrelando à quilometragem ("3 mil km rodados").
