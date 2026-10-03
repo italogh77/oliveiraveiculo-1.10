@@ -175,24 +175,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         />
         <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/75 to-[#090a0b]/35" />
 
-        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5">
           <div className="ov-hero-content max-w-2xl">
-            {/* Tag em pílula */}
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#090a0b]/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#dfb15b] mb-4">
-              <MapPin size={13} className="text-[#dfb15b]" />
-              <span>Maricá, RJ · Seminovos selecionados</span>
-            </span>
-
-            {/* Headline com clamp para nunca estourar */}
-            <h1 className="font-display text-[clamp(2.1rem,8vw,4.25rem)] font-black leading-[1.05] tracking-tight text-white mb-4">
-              Seu próximo<br />
-              carro está <em className="text-[#dfb15b] not-italic">aqui.</em>
-            </h1>
-
-            <p className="text-sm sm:text-base text-gray-300 max-w-xl leading-relaxed mb-6 font-medium">
-              Encontre o carro certo para o seu momento, com atendimento próximo e informações claras em cada etapa.
-            </p>
-
             {/* CTAs em formato Pílula (Regra 1 do Design System) */}
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
