@@ -8,6 +8,7 @@ import {
   Cog,
   Palette,
   ArrowLeft,
+  ArrowRight,
   MessageSquare,
   CheckCircle2,
   Share2,
@@ -18,11 +19,14 @@ import {
   Camera,
   ExternalLink,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { formatVideoUrl } from '../lib/driveUtils';
 import { Reveal } from './Reveal';
 import { photoDimensions, photoThumbUrl, photoUrl } from '../lib/vehicleImages';
+import { useVehicles } from '../context/VehiclesContext';
+import VehicleCard from './VehicleCard';
 
 const formatPrice = (value) =>
   (Number(value) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
