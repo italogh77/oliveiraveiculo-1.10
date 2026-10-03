@@ -9,7 +9,7 @@ export default function Services({ onGoToEstoque }) {
       title: 'Consignação Inteligente',
       badge: 'Venda Rápida',
       icon: ShieldCheck,
-      desc: 'Deixe seu carro com quem sabe vender. Cuidamos do anúncio, atendimento, laudo e garantia.',
+      desc: 'Deixe seu carro com quem sabe vender. Cuidamos do anúncio, atendimento, preparação e garantia.',
       details: [
         'Anúncio profissional em todas as plataformas',
         'Pátio amplo e monitorado 24h na RJ-106',
@@ -56,7 +56,7 @@ export default function Services({ onGoToEstoque }) {
       icon: Tag,
       desc: 'Utilize seu carro usado como entrada e saia de modelo mais novo com dinheiro no bolso.',
       details: [
-        '100% dos carros com laudo cautelar aprovado',
+        '100% dos carros com procedência e revisão garantidas',
         'Garantia mecânica de motor e câmbio',
         'Higienização completa e polimento antes da entrega',
         'Troco entregue na sua conta bancária',
