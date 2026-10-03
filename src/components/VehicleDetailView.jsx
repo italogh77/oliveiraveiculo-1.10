@@ -166,7 +166,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
     'absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-opacity hover:bg-black/65 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100';
 
   return (
-    <div id="detalhes-conteudo" className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-32 sm:pb-28 lg:pb-20">
+    <div id="detalhes-conteudo" className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-32 sm:pb-28 lg:pb-20">
       {/* ── 1. Barra Superior Adaptada ao Modelo ("Detalhes do anúncio") ── */}
       <div className="mb-3 flex items-center justify-between border-b border-gray-200/80 dark:border-white/10 pb-3">
         <button
@@ -192,10 +192,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
         </button>
       </div>
 
-
-
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-        <div className="lg:col-span-8">
+      <div className="mt-4">
           {/* Palco: Galeria de Fotos / Vídeo com indicadores */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
