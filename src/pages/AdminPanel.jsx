@@ -1278,8 +1278,17 @@ export function VehicleFormModal({ initial, onClose, onSave }) {
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
               {saving ? 'Salvando...' : initial ? 'Salvar alterações' : 'Publicar veículo'}
             </motion.button>
-          </div>
         </form>
+
+        <StorageSetupModal
+          isOpen={showStorageModal}
+          onClose={() => setShowStorageModal(false)}
+          onConnected={(bucket) => {
+            setToast(`Storage conectado com sucesso ao bucket: ${bucket}!`);
+            setImportStatus('');
+          }}
+          onSwitchToDrive={() => setPhotoTab('drive')}
+        />
       </motion.div>
     </div>
   );
