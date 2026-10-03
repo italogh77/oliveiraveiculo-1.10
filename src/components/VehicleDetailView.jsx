@@ -734,7 +734,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           <button
             type="button"
             onClick={() => {
-              const el = document.getElementById('secao-financiamento');
+              const el = document.getElementById('secao-preco');
               if (el) {
                 el.scrollIntoView({ behavior: 'smooth' });
               }
