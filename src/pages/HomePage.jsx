@@ -196,7 +196,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       {/* ── Estoque em Destaque: Carrossel Sangrado (Full-Bleed até o final da tela) ── */}
       <section
         id="estoque-destaque"
-        className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-14 sm:pt-20 lg:pt-24 pb-14 sm:pb-20 overflow-hidden"
+        className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-14 sm:pt-20 lg:pt-24 pb-5 sm:pb-7 overflow-hidden"
       >
         {/* Cabeçalho alinhado ao grid central da loja */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
@@ -309,30 +309,33 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
 
             {/* Indicadores de Paginação em Dots */}
-            <div className="flex items-center justify-center gap-2 mt-5 sm:mt-7">
-              {featuredVehicles.map((_, idx) => {
-                const isActive = idx === activeDot;
-                return (
-                  <button
-                    key={`dot-${idx}`}
-                    type="button"
-                    onClick={() => goToSlide(idx)}
-                    aria-label={`Ir para destaque ${idx + 1}`}
-                    style={{
-                      height: '7px',
-                      minHeight: '7px',
-                      maxHeight: '7px',
-                      padding: 0,
-                      border: 'none',
-                    }}
-                    className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${isActive
-                        ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
-                        : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-white/20 dark:hover:bg-white/40'
+            {maxIndex > 0 && (
+              <div className="flex items-center justify-center gap-2 mt-3.5 sm:mt-5">
+                {Array.from({ length: maxIndex + 1 }).map((_, idx) => {
+                  const isActive = idx === currentIndex;
+                  return (
+                    <button
+                      key={`dot-${idx}`}
+                      type="button"
+                      onClick={() => goToSlide(idx)}
+                      aria-label={`Ir para posição ${idx + 1}`}
+                      style={{
+                        height: '7px',
+                        minHeight: '7px',
+                        maxHeight: '7px',
+                        padding: 0,
+                        border: 'none',
+                      }}
+                      className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${
+                        isActive
+                          ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                          : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-white/20 dark:hover:bg-white/40'
                       }`}
-                  />
-                );
-              })}
-            </div>
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -344,7 +347,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* ── Valores da Loja ── */}
-      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] py-14 sm:py-20 transition-colors duration-300">
+      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] pt-7 sm:pt-9 pb-12 sm:pb-16 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
