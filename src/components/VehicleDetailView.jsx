@@ -167,28 +167,15 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
 
   return (
     <div id="detalhes-conteudo" className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-32 sm:pb-28 lg:pb-20">
-      {/* ── 1. Barra Superior Adaptada ao Modelo ("Detalhes do anúncio") ── */}
+      {/* ── 1. Barra Superior ("Voltar ao estoque") ── */}
       <div className="mb-3 flex items-center justify-between border-b border-gray-200/80 dark:border-white/10 pb-3">
         <button
           onClick={onBack}
           aria-label="Voltar ao estoque"
-          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
+          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
         >
           <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
-          <span className="hidden sm:inline">Voltar ao estoque</span>
-        </button>
-
-        <h2 className="text-sm sm:text-base font-extrabold text-gray-950 dark:text-white tracking-tight">
-          Detalhes do anúncio
-        </h2>
-
-        <button
-          type="button"
-          onClick={handleShare}
-          aria-label="Compartilhar anúncio"
-          className="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
-        >
-          {copied ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
+          <span>Voltar ao estoque</span>
         </button>
       </div>
 
