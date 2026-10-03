@@ -347,7 +347,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* ── Valores da Loja ── */}
-      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] pt-7 sm:pt-9 pb-12 sm:pb-16 transition-colors duration-300">
+      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] pt-5 sm:pt-7 pb-5 sm:pb-6 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
@@ -416,7 +416,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* ── 7. SEÇÃO DE LOCALIZAÇÃO: "Venha nos Visitar" (Regra 7) ── */}
-      <section className="ov-visit max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+      <section className="ov-visit max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-10 sm:pb-14">
         <div className="rounded-3xl border border-gray-200/80 bg-white p-5 sm:p-8 lg:p-10 shadow-xl overflow-hidden dark:border-white/10 dark:bg-gradient-to-b dark:from-[#141518] dark:to-[#0c0d0f] dark:shadow-2xl transition-colors duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Coluna de Informações e Chamada */}
