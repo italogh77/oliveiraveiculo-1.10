@@ -171,33 +171,35 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             </div>
           </div>
         </div>
-
-        {/* Indicador sutil de rolagem para o estoque com compensação do navbar */}
-        <button
-          type="button"
-          onClick={() => {
-            const target = document.getElementById('estoque-destaque');
-            if (target) {
-              const navOffset = window.innerWidth >= 640 ? 80 : 70;
-              const y = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-          }}
-          aria-label="Rolar para o estoque em destaque"
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/70 hover:text-[#dfb15b] transition-colors cursor-pointer group pb-1"
-        >
-          <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-white/50 group-hover:text-[#dfb15b] transition-colors">
-            Rolar para o estoque
-          </span>
-          <ChevronDown size={18} className="animate-bounce text-[#dfb15b]" />
-        </button>
       </section>
 
       {/* ── Estoque em Destaque: Carrossel Sangrado (Full-Bleed até o final da tela) ── */}
       <section
         id="estoque-destaque"
-        className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-14 sm:pt-20 lg:pt-24 pb-5 sm:pb-7 overflow-hidden"
+        className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-6 sm:pt-8 lg:pt-10 pb-5 sm:pb-7 overflow-hidden"
       >
+        {/* Indicador de rolagem posicionado abaixo do banner */}
+        <div className="flex justify-center mb-6 sm:mb-8">
+          <button
+            type="button"
+            onClick={() => {
+              const target = document.getElementById('vitrine-carros') || document.getElementById('estoque-destaque');
+              if (target) {
+                const navOffset = window.innerWidth >= 640 ? 90 : 75;
+                const y = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+              }
+            }}
+            aria-label="Rolar para o estoque em destaque"
+            className="group inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#131417]/90 backdrop-blur-md shadow-sm hover:shadow-md hover:border-[#dfb15b]/50 transition-all duration-300 cursor-pointer active:scale-95"
+          >
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold text-gray-500 dark:text-gray-400 group-hover:text-[#dfb15b] transition-colors">
+              Rolar para o estoque
+            </span>
+            <ChevronDown size={15} className="animate-bounce text-[#dfb15b]" />
+          </button>
+        </div>
+
         {/* Cabeçalho alinhado ao grid central da loja */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
           <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -227,7 +229,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
 
         {featuredVehicles.length ? (
-          <div className="relative w-full">
+          <div id="vitrine-carros" className="relative w-full">
             {/* Vinhetas de fade cinematográficas nas bordas extremas do monitor */}
             <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-r from-[#f7f8fa] dark:from-[#090a0b] via-[#f7f8fa]/70 dark:via-[#090a0b]/70 to-transparent z-20" />
             <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-l from-[#f7f8fa] dark:from-[#090a0b] via-[#f7f8fa]/70 dark:via-[#090a0b]/70 to-transparent z-20" />
