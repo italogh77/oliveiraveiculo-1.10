@@ -199,7 +199,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
               <button
                 type="button"
                 onClick={() => setIsSearchExpanded(true)}
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-900 dark:text-white min-h-[44px] px-4 py-2.5 text-xs sm:text-sm font-semibold active:scale-95 transition-all duration-300 shadow-sm cursor-pointer"
+                className="btn-shine flex-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-900 dark:text-white min-h-[44px] px-4 py-2.5 text-xs sm:text-sm font-semibold active:scale-95 transition-all duration-300 shadow-sm cursor-pointer"
                 aria-label="Abrir campo de busca"
               >
                 <Search size={16} className="text-[#dfb15b]" />
@@ -212,7 +212,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 aria-expanded={mobileFiltersOpen}
                 aria-controls="mobile-bottom-sheet-filters"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black min-h-[44px] px-5 py-2.5 text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-md cursor-pointer shrink-0"
+                className="btn-shine inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black min-h-[44px] px-5 py-2.5 text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-md cursor-pointer shrink-0"
               >
                 <SlidersHorizontal size={15} />
                 <span>Filtros</span>
@@ -450,9 +450,9 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 <button
                   type="button"
                   onClick={handleApplyMobileFilters}
-                  className="w-full min-h-[46px] rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150 shadow-lg cursor-pointer"
+                  className="btn-shine group relative w-full min-h-[46px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-all duration-300 shadow-lg cursor-pointer"
                 >
-                  <Check size={17} className="stroke-[2.5]" />
+                  <Check size={17} className="stroke-[2.5] transition-transform duration-300 group-hover:scale-110 shrink-0" />
                   <span>Aplicar Filtros ({filteredVehicles.length})</span>
                 </button>
               </div>
@@ -701,9 +701,9 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
               </p>
               <button
                 onClick={resetFilters}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 min-h-[42px] rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black text-xs font-bold active:scale-95 transition-all cursor-pointer shadow-md"
+                className="btn-shine group relative inline-flex items-center gap-1.5 px-5 py-2.5 min-h-[42px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black text-xs font-bold active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
               >
-                <RotateCcw size={13} />
+                <RotateCcw size={13} className="transition-transform duration-300 group-hover:-rotate-90 shrink-0" />
                 <span>Limpar todos os filtros</span>
               </button>
             </div>
