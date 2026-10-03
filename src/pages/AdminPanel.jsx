@@ -14,7 +14,14 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import { assertStorageAvailable, auth, storage } from '../lib/firebase';
+import {
+  assertStorageAvailable,
+  auth,
+  storage,
+  getStorageInstance,
+  getCurrentBucketName,
+  updateStorageBucket,
+} from '../lib/firebase';
 import { useVehicles } from '../context/VehiclesContext';
 import {
   LogIn,
@@ -38,6 +45,10 @@ import {
   Folder,
   ChevronRight,
   Star,
+  ExternalLink,
+  Copy,
+  Check,
+  Settings,
 } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { extractYouTubeId, formatImageUrl, formatVideoUrl, validateImageLinks } from '../lib/driveUtils';
@@ -92,7 +103,8 @@ function useUpload() {
   async function upload(file, path) {
     setUploading(true);
     setProgress(0);
-    const storageRef = ref(storage, path);
+    const currentStorage = typeof getStorageInstance === 'function' ? getStorageInstance() : storage;
+    const storageRef = ref(currentStorage, path);
     return new Promise((resolve, reject) => {
       const task = uploadBytesResumable(storageRef, file, {
         contentType: file.type,
