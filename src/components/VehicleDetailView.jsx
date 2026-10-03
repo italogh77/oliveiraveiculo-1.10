@@ -80,7 +80,7 @@ function VideoPlayer({ info, title }) {
         href={info.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-[#dfb15b] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#efc676]"
+        className="btn-shine inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#efc676] active:scale-95 cursor-pointer shadow-md"
       >
         <ExternalLink className="h-4 w-4" /> Assistir vídeo
       </a>
