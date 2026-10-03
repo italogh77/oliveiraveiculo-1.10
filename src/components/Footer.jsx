@@ -130,8 +130,8 @@ export default function Footer({ onSelectTab }) {
             <div className="flex items-start gap-2.5 text-xs text-gray-400 pt-2 border-t border-white/5">
               <Clock3 size={15} className="text-[#dfb15b] shrink-0 mt-0.5" />
               <div>
-                <span className="block text-gray-200 font-medium">Seg a Sex: 08:30 às 18:30</span>
-                <span className="block text-gray-400">Sábado: 08:30 às 14:00</span>
+                <span className="block text-gray-200 font-medium">{COMPANY_DATA.weekdaysHours}</span>
+                <span className="block text-gray-400">{COMPANY_DATA.saturdayHours}</span>
               </div>
             </div>
           </div>
