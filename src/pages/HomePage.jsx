@@ -156,7 +156,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/5 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/10 hover:shadow-lg active:scale-95 cursor-pointer"
+                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300/90 dark:border-white/20 bg-white/80 dark:bg-white/5 px-6 py-2.5 text-sm sm:text-base font-semibold text-gray-900 dark:text-white backdrop-blur-md transition-all duration-300 hover:border-gray-400 dark:hover:border-white/40 hover:bg-white dark:hover:bg-white/10 hover:shadow-lg active:scale-95 cursor-pointer"
               >
                 <MessageCircle
                   size={18}
@@ -184,9 +184,9 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             }
           }}
           aria-label="Rolar para o estoque em destaque"
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-white/70 hover:text-[#dfb15b] transition-colors cursor-pointer group pb-1"
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-gray-700 dark:text-white/70 hover:text-[#dfb15b] transition-colors cursor-pointer group pb-1"
         >
-          <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-white/50 group-hover:text-[#dfb15b] transition-colors">
+          <span className="text-[10px] font-mono tracking-widest uppercase font-semibold text-gray-500 dark:text-white/50 group-hover:text-[#dfb15b] transition-colors">
             Rolar para o estoque
           </span>
           <ChevronDown size={18} className="animate-bounce text-[#dfb15b]" />
