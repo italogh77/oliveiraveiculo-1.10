@@ -126,7 +126,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const activeDot = Math.min(currentIndex, featuredVehicles.length - 1);
 
   return (
-    <div className="ov-home text-white bg-[#090a0b]">
+    <div className="ov-home text-gray-900 dark:text-white bg-[#f7f8fa] dark:bg-[#090a0b] transition-colors duration-300">
       {/* ── Hero Section 2048x911 Proporcional (100% sem achatar) ── */}
       <section
         id="inicio-hero"
@@ -138,7 +138,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           alt="Oliveira Veículos - Seu próximo Carro está aqui"
           fetchPriority="high"
         />
-        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/30 via-15% to-transparent pointer-events-none" />
+        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#f7f8fa] dark:from-[#090a0b] via-[#f7f8fa]/20 dark:via-[#090a0b]/30 via-15% to-transparent pointer-events-none transition-colors duration-300" />
 
         <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-3 md:pb-4">
           <div className="ov-hero-content max-w-2xl">
@@ -206,10 +206,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 <Sparkles size={13} className="text-[#dfb15b]" />
                 <span>ESTOQUE EM DESTAQUE</span>
               </span>
-              <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-white leading-tight">
+              <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-gray-950 dark:text-white leading-tight">
                 Encontre seu próximo carro
               </h2>
-              <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-xl">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 max-w-xl">
                 Escolhas selecionadas para conhecer de perto e chamar de suas.
               </p>
             </div>
@@ -229,8 +229,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         {featuredVehicles.length ? (
           <div className="relative w-full">
             {/* Vinhetas de fade cinematográficas nas bordas extremas do monitor */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-r from-[#090a0b] via-[#090a0b]/70 to-transparent z-20" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-l from-[#090a0b] via-[#090a0b]/70 to-transparent z-20" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-r from-[#f7f8fa] dark:from-[#090a0b] via-[#f7f8fa]/70 dark:via-[#090a0b]/70 to-transparent z-20" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 lg:w-28 bg-gradient-to-l from-[#f7f8fa] dark:from-[#090a0b] via-[#f7f8fa]/70 dark:via-[#090a0b]/70 to-transparent z-20" />
 
             {/* Botões de navegação flutuantes sobre as laterais */}
             <div className="pointer-events-none absolute inset-y-0 inset-x-0 z-30 flex items-center justify-between px-3 sm:px-6 lg:px-10">
@@ -240,8 +240,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 aria-label="Veículo anterior"
                 className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
                   canPrev
-                    ? 'bg-[#131417]/90 hover:bg-[#dfb15b] border-white/20 hover:border-[#dfb15b] text-white hover:text-black shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
-                    : 'bg-[#131417]/40 border-white/5 text-white/20 cursor-not-allowed opacity-25 shadow-none'
+                    ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
+                    : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
                 }`}
               >
                 <ChevronLeft size={22} className={`stroke-[2.5] transition-transform duration-200 ${canPrev ? 'group-hover:-translate-x-0.5' : ''}`} />
@@ -253,8 +253,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 aria-label="Próximo veículo"
                 className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
                   canNext
-                    ? 'bg-[#131417]/90 hover:bg-[#dfb15b] border-white/20 hover:border-[#dfb15b] text-white hover:text-black shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
-                    : 'bg-[#131417]/40 border-white/5 text-white/20 cursor-not-allowed opacity-25 shadow-none'
+                    ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
+                    : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
                 }`}
               >
                 <ChevronRight size={22} className={`stroke-[2.5] transition-transform duration-200 ${canNext ? 'group-hover:translate-x-0.5' : ''}`} />
@@ -327,7 +327,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                     }}
                     className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${isActive
                         ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
-                        : 'w-2 bg-white/20 hover:bg-white/40'
+                        : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-white/20 dark:hover:bg-white/40'
                       }`}
                   />
                 );
@@ -336,7 +336,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-sm text-gray-400">
+            <div className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 text-center text-sm text-gray-600 dark:text-gray-400">
               O estoque está sendo atualizado. Fale com a equipe para conhecer as opções disponíveis.
             </div>
           </div>
@@ -344,20 +344,20 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       </section>
 
       {/* ── Valores da Loja ── */}
-      <section className="ov-values border-y border-white/10 bg-[#0d0e11] py-14 sm:py-20">
+      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] py-14 sm:py-20 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
               <span>A OLIVEIRA VEÍCULOS</span>
             </span>
-            <h2 className="text-[clamp(1.6rem,5vw,2.75rem)] font-black tracking-tight text-white leading-tight mb-3">
+            <h2 className="text-[clamp(1.6rem,5vw,2.75rem)] font-black tracking-tight text-gray-950 dark:text-white leading-tight mb-3">
               Mais que uma revenda. Um caminho para sua próxima conquista.
             </h2>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 font-medium">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
               Estamos em Maricá para ajudar você a comparar opções, tirar dúvidas e encontrar uma condição que faça sentido.
             </p>
             <button
-              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white/10 hover:bg-[#dfb15b] hover:text-black border border-white/15 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gray-100 hover:bg-[#dfb15b] hover:text-black border border-gray-200 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-gray-900 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm dark:bg-white/10 dark:hover:bg-[#dfb15b] dark:border-white/15 dark:text-white"
               onClick={onGoToSobre}
             >
               <span>Conheça nossa loja</span>
@@ -369,43 +369,43 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
           </div>
 
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
               <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
                 <ShieldCheck size={22} />
               </div>
               <div>
-                <strong className="block text-sm font-bold text-white mb-1">Garantia de Motor e Caixa</strong>
-                <p className="text-xs text-gray-400 leading-relaxed">Veículos com garantia de motor e caixa ou 3 mil km rodados.</p>
+                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Garantia de Motor e Caixa</strong>
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Veículos com garantia de motor e caixa ou 3 mil km rodados.</p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
               <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
                 <CreditCard size={22} />
               </div>
               <div>
-                <strong className="block text-sm font-bold text-white mb-1">Financiamento</strong>
-                <p className="text-xs text-gray-400 leading-relaxed">Simulações com os principais bancos parceiros da loja.</p>
+                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Financiamento</strong>
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Simulações com os principais bancos parceiros da loja.</p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
               <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
                 <BadgeCheck size={22} />
               </div>
               <div>
-                <strong className="block text-sm font-bold text-white mb-1">Atendimento de verdade</strong>
-                <p className="text-xs text-gray-400 leading-relaxed">Converse com nossa equipe antes de decidir.</p>
+                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Atendimento de verdade</strong>
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Converse com nossa equipe antes de decidir.</p>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex items-start gap-4">
+            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
               <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
                 <MapPin size={22} />
               </div>
               <div>
-                <strong className="block text-sm font-bold text-white mb-1">Perto de você</strong>
-                <p className="text-xs text-gray-400 leading-relaxed">Visite nosso espaço na Rodovia Amaral Peixoto em Maricá, RJ.</p>
+                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Perto de você</strong>
+                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Visite nosso espaço na Rodovia Amaral Peixoto em Maricá, RJ.</p>
               </div>
             </div>
           </div>
@@ -414,7 +414,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
       {/* ── 7. SEÇÃO DE LOCALIZAÇÃO: "Venha nos Visitar" (Regra 7) ── */}
       <section className="ov-visit max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-[#141518] to-[#0c0d0f] p-5 sm:p-8 lg:p-10 shadow-2xl overflow-hidden">
+        <div className="rounded-3xl border border-gray-200/80 bg-white p-5 sm:p-8 lg:p-10 shadow-xl overflow-hidden dark:border-white/10 dark:bg-gradient-to-b dark:from-[#141518] dark:to-[#0c0d0f] dark:shadow-2xl transition-colors duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Coluna de Informações e Chamada */}
             <div className="lg:col-span-6 flex flex-col justify-between">
@@ -425,21 +425,21 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 </span>
 
                 {/* Título com correção textual e clamp anti-estouro */}
-                <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-white tracking-tight leading-tight break-words mb-3">
+                <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-gray-950 dark:text-white tracking-tight leading-tight break-words mb-3">
                   Estamos prontos para receber você
                 </h2>
 
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6 font-medium">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
                   {COMPANY_DATA.address}
                 </p>
 
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
                     <div className="w-2 h-2 rounded-full bg-[#dfb15b] shrink-0" />
                     <span>Segunda a Sexta: 08:30 às 18:30 · Sábado: 08:30 às 14:00</span>
                   </div>
-                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-300">
-                    <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
                     <span>Estacionamento no local e atendimento com consultores</span>
                   </div>
                 </div>
@@ -468,19 +468,19 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
             {/* Coluna do Mapa com bordas 2xl e proporção fluida */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-video sm:h-72 w-full rounded-2xl overflow-hidden border border-white/10 shadow-inner bg-black">
+              <div className="relative aspect-video sm:h-72 w-full rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-inner bg-gray-100 dark:bg-black">
                 <iframe
                   title="Mapa Oliveira Veículos Maricá"
                   src="https://maps.google.com/maps?q=-22.9033231,-42.7993074&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
-                  className="w-full h-full border-0 filter invert-[90%] hue-rotate-180 contrast-[115%]"
+                  className="w-full h-full border-0 filter dark:invert-[90%] dark:hue-rotate-180 dark:contrast-[115%]"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
-                <div className="absolute top-3 left-3 bg-[#0a0a0a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 shadow-md flex items-center gap-2 pointer-events-none">
+                <div className="absolute top-3 left-3 bg-white/95 dark:bg-[#0a0a0a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/15 shadow-md flex items-center gap-2 pointer-events-none">
                   <span className="w-2 h-2 rounded-full bg-[#dfb15b] animate-ping" />
-                  <span className="text-[11px] font-bold text-white">Oliveira Veículos</span>
+                  <span className="text-[11px] font-bold text-gray-900 dark:text-white">Oliveira Veículos</span>
                 </div>
               </div>
             </div>
