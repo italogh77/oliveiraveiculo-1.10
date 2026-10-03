@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Percent, ShieldCheck, Clock, MapPin } from 'lucide-react';
+import { Percent, Clock, MapPin } from 'lucide-react';
 import BankLogos from './BankLogos';
 
 const differentials = [
@@ -12,15 +12,6 @@ const differentials = [
     stat: '0,89%',
     statLabel: 'a partir de / a.m.*',
     badge: 'Condições Especiais',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Procedência 100% Garantida',
-    desc: 'Seminovos rigorosamente periciados, sem histórico de leilão ou sinistros graves.',
-    disclaimer: 'Todos os veículos acompanham laudo pericial cautelar e garantia legal de motor e câmbio.',
-    stat: '100%',
-    statLabel: 'periciado e aprovado',
-    badge: 'Laudo Aprovado',
   },
   {
     icon: Clock,
@@ -45,8 +36,8 @@ const differentials = [
 export default function TrustBar() {
   return (
     <div className="w-full">
-      {/* 4 Cards de Diferenciais Individuais */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-14">
+      {/* 3 Cards de Diferenciais Individuais */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-14">
         {differentials.map((item, index) => {
           const Icon = item.icon;
           return (
