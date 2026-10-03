@@ -407,8 +407,11 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             )}
           </motion.div>
 
-          {/* Preço e contato logo abaixo da galeria no celular */}
-          <div className="mt-6 lg:hidden">{pricePanel}</div>
+          {/* Preço, contato e destaques logo abaixo da galeria no celular */}
+          <div className="mt-6 space-y-4 lg:hidden">
+            {pricePanel}
+            {destaquesPanel}
+          </div>
 
           {/* Sobre + especificações */}
           <Reveal className="mt-10 border-t border-gray-100 pt-8 dark:border-gray-800">
@@ -463,9 +466,54 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </Reveal>
         </div>
 
-        {/* Painel fixo no computador */}
-        <div className="sticky top-28 hidden lg:col-span-4 lg:block">{pricePanel}</div>
+        {/* Painel lateral travado no topo no computador */}
+        <div className="sticky top-24 hidden lg:col-span-4 lg:flex lg:flex-col gap-5 z-20">
+          {pricePanel}
+          {destaquesPanel}
+        </div>
       </div>
+
+      {/* ── Veículos em Destaque no Rodapé da Página ── */}
+      {relatedVehicles.length > 0 && (
+        <section className="mt-16 sm:mt-24 border-t border-gray-200/80 dark:border-white/10 pt-12 sm:pt-16">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                <Sparkles size={13} className="text-[#dfb15b]" />
+                <span>ESTOQUE EM DESTAQUE</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Outros veículos em destaque
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                Confira outras opções selecionadas com procedência garantida e condições especiais.
+              </p>
+            </div>
+            <button
+              onClick={onBack}
+              className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm shrink-0 self-start sm:self-auto"
+            >
+              <span>Ver estoque completo</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {relatedVehicles.map((veh) => (
+              <VehicleCard
+                key={veh.id}
+                vehicle={veh}
+                onClick={() => {
+                  if (onSelectVehicle) {
+                    onSelectVehicle(veh);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
