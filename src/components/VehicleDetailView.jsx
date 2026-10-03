@@ -25,6 +25,10 @@ import {
   Award,
   FileCheck,
   Wrench,
+  Phone,
+  MapPin,
+  Building2,
+  Clock,
 } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { formatVideoUrl } from '../lib/driveUtils';
@@ -70,13 +74,13 @@ function VideoPlayer({ info, title }) {
   // Link que não dá para incorporar (Instagram, Facebook, etc.)
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0a0a0a] p-6 text-center">
-      <Play className="h-10 w-10 text-[#cf8d3c]" />
+      <Play className="h-10 w-10 text-[#dfb15b]" />
       <p className="max-w-xs text-sm text-gray-300">Este vídeo abre em outra página.</p>
       <a
         href={info.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-[#cf8d3c] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#b5761e]"
+        className="inline-flex items-center gap-2 rounded-full bg-[#dfb15b] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#efc676]"
       >
         <ExternalLink className="h-4 w-4" /> Assistir vídeo
       </a>
@@ -88,6 +92,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoOn, setVideoOn] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState('veiculo'); // 'veiculo' | 'vendedor' | 'financiamento'
 
   const { vehicles } = useVehicles();
   const relatedVehicles = useMemo(() => {
@@ -107,10 +112,11 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
 
   const video = useMemo(() => (vehicle?.video ? formatVideoUrl(vehicle.video) : null), [vehicle]);
 
-  // Ao trocar de veículo, volta para a primeira foto
+  // Ao trocar de veículo, volta para a primeira foto e aba de veículo
   useEffect(() => {
     setActiveIndex(0);
     setVideoOn(false);
+    setActiveTab('veiculo');
   }, [vehicle?.id]);
 
   const next = () => setActiveIndex((i) => (i === gallery.length - 1 ? 0 : i + 1));
@@ -156,16 +162,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
     }
   }
 
-  const specs = [
-    { Icon: Calendar, label: 'Ano / Modelo', value: vehicle.anoModelo || vehicle.ano },
-    { Icon: Gauge, label: 'Quilometragem', value: formatKm(vehicle.km) },
-    { Icon: Cog, label: 'Câmbio', value: vehicle.cambio },
-    { Icon: Fuel, label: 'Combustível', value: vehicle.combustivel },
-    { Icon: Palette, label: 'Cor', value: vehicle.cor },
-    { Icon: Car, label: 'Carroceria', value: vehicle.categoria || 'Hatch' },
-  ].filter((s) => s.value);
-
-  // Painel Comercial Unificado: Preço, Financiamento, Ações, Destaques do Veículo e Garantia
+  // ── Painel Comercial Unificado (Desktop Lateral) ──
   const unifiedPanel = (
     <div className="relative overflow-hidden rounded-3xl border border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#131417]/95 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all">
       {/* Barra de destaque sutil superior em degradê dourado */}
@@ -180,7 +177,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </span>
           <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Pronta Entrega
+            Online / Pronta Entrega
           </span>
         </div>
 
@@ -277,62 +274,74 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
     'absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-opacity hover:bg-black/65 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100';
 
   return (
-    <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-32 sm:pb-28 lg:pb-20">
-      {/* Barra Superior de Ações Rápidas (Padrão Mobbin) */}
-      <div className="mb-4 flex items-center justify-between gap-3">
+    <div id="detalhes-conteudo" className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-16 sm:pt-20 pb-32 sm:pb-28 lg:pb-20">
+      {/* ── 1. Barra Superior Adaptada ao Modelo ("Detalhes do anúncio") ── */}
+      <div className="mb-3 flex items-center justify-between border-b border-gray-200/80 dark:border-white/10 pb-3">
         <button
           onClick={onBack}
-          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
+          aria-label="Voltar ao estoque"
+          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
         >
-          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
-          <span>Voltar ao estoque</span>
+          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
+          <span className="hidden sm:inline">Voltar ao estoque</span>
         </button>
+
+        <h2 className="text-sm sm:text-base font-extrabold text-gray-950 dark:text-white tracking-tight">
+          Detalhes do anúncio
+        </h2>
 
         <button
           type="button"
           onClick={handleShare}
-          aria-label="Compartilhar veículo"
+          aria-label="Compartilhar anúncio"
           className="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
         >
           {copied ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
         </button>
       </div>
 
-      {/* Título & Chips de Especificações Rápidas (Padrão Mobbin Carvana / Turo) */}
-      <Reveal className="mb-5 sm:mb-6">
-        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2">
-          {vehicle.tag && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/15 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#dfb15b]">
-              <Sparkles size={11} />
-              <span>{vehicle.tag}</span>
-            </span>
-          )}
-          <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
-            {vehicle.ano}
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
-            {formatKm(vehicle.km)}
-          </span>
-          {vehicle.cambio && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
-              {vehicle.cambio.split(' ')[0]}
-            </span>
-          )}
-          {vehicle.categoria && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
-              {vehicle.categoria}
-            </span>
-          )}
-        </div>
+      {/* ── 2. Abas de Navegação (Padrão Webmotors: Veículo | Vendedor | Tabela Fipe e Financiamento) ── */}
+      <div className="mb-5 flex items-center border-b border-gray-200 dark:border-white/10">
+        <button
+          type="button"
+          onClick={() => setActiveTab('veiculo')}
+          className={`pb-2.5 px-4 text-xs sm:text-sm font-extrabold tracking-tight transition-all border-b-2 cursor-pointer ${
+            activeTab === 'veiculo'
+              ? 'border-[#dfb15b] text-gray-950 dark:text-[#dfb15b]'
+              : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
+          }`}
+        >
+          Veículo
+        </button>
 
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-950 dark:text-white leading-tight">
-          {vehicle.modelo}
-        </h1>
-      </Reveal>
+        <button
+          type="button"
+          onClick={() => setActiveTab('vendedor')}
+          className={`pb-2.5 px-4 text-xs sm:text-sm font-extrabold tracking-tight transition-all border-b-2 cursor-pointer ${
+            activeTab === 'vendedor'
+              ? 'border-[#dfb15b] text-gray-950 dark:text-[#dfb15b]'
+              : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
+          }`}
+        >
+          Vendedor
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('financiamento')}
+          className={`pb-2.5 px-4 text-xs sm:text-sm font-extrabold tracking-tight transition-all border-b-2 cursor-pointer ${
+            activeTab === 'financiamento'
+              ? 'border-[#dfb15b] text-gray-950 dark:text-[#dfb15b]'
+              : 'border-transparent text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
+          }`}
+        >
+          Financiamento & Fipe
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
         <div className="lg:col-span-8">
-          {/* Palco: foto ou vídeo */}
+          {/* Palco: Galeria de Fotos / Vídeo com indicadores */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -374,14 +383,28 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                 </div>
               )}
 
-              {/* Selo */}
-              {vehicle.tag && !videoOn && (
-                <span className="pointer-events-none absolute left-4 top-4 z-10 rounded-md bg-[#dfb15b] px-3 py-1 text-xs font-bold uppercase tracking-wide text-black shadow-lg">
-                  {vehicle.tag}
-                </span>
+              {/* Botão em pílula sobre a foto estilo "Ver 360°" / "Ver vídeo" */}
+              {video && !videoOn && (
+                <button
+                  onClick={() => setVideoOn(true)}
+                  className="absolute top-4 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 rounded-full bg-black/70 hover:bg-black/85 text-white backdrop-blur-md px-4 py-1.5 text-xs font-bold shadow-lg transition-transform active:scale-95 cursor-pointer border border-white/20"
+                >
+                  <Play className="h-3.5 w-3.5 fill-[#dfb15b] text-[#dfb15b]" />
+                  <span>Assistir vídeo</span>
+                </button>
               )}
 
-              {/* Setas (sempre visíveis no celular) */}
+              {videoOn && (
+                <button
+                  onClick={() => setVideoOn(false)}
+                  className="absolute top-4 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 rounded-full bg-black/70 hover:bg-black/85 text-white backdrop-blur-md px-4 py-1.5 text-xs font-bold shadow-lg transition-transform active:scale-95 cursor-pointer border border-white/20"
+                >
+                  <Camera className="h-3.5 w-3.5 text-[#dfb15b]" />
+                  <span>Ver fotos</span>
+                </button>
+              )}
+
+              {/* Setas de navegação */}
               {!videoOn && gallery.length > 1 && (
                 <>
                   <button onClick={prev} className={`${arrowClass} left-3`} aria-label="Foto anterior">
@@ -396,43 +419,24 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                 </>
               )}
 
-              {/* Botão de vídeo em destaque */}
-              {video && !videoOn && (
-                <button
-                  onClick={() => setVideoOn(true)}
-                  className="absolute bottom-3 left-3 z-10 inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-2 text-sm font-bold text-black shadow-lg transition-transform active:scale-95"
-                >
-                  <Play className="h-4 w-4 fill-black text-black" />
-                  Assistir vídeo
-                </button>
-              )}
-              {videoOn && (
-                <button
-                  onClick={() => setVideoOn(false)}
-                  className="absolute left-3 top-3 z-10 inline-flex min-h-[40px] cursor-pointer items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm hover:bg-black/80"
-                >
-                  <Camera className="h-4 w-4" />
-                  Ver fotos
-                </button>
+              {/* Indicadores de pontinhos (dots pagination) inspirados no modelo */}
+              {!videoOn && gallery.length > 1 && (
+                <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-10 pointer-events-none">
+                  {gallery.slice(0, 10).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`transition-all duration-300 rounded-full ${
+                        activeIndex === i
+                          ? 'w-4 h-1.5 bg-white shadow-md'
+                          : 'w-1.5 h-1.5 bg-white/50'
+                      }`}
+                    />
+                  ))}
+                </div>
               )}
             </div>
 
-            {/* Se o vídeo não abrir (dono do vídeo bloqueou incorporação, por exemplo) */}
-            {videoOn && video && video.type !== 'link' && (
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                O vídeo não abriu?{' '}
-                <a
-                  href={vehicle.video}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-[#c88626] hover:underline"
-                >
-                  Assistir em outra aba
-                </a>
-              </p>
-            )}
-
-            {/* Miniaturas (rolagem lateral no celular) */}
+            {/* Miniaturas em rolagem horizontal */}
             {(gallery.length > 1 || video) && (
               <div className="-mx-1 mt-3 flex snap-x gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {video && (
@@ -440,7 +444,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                     onClick={() => setVideoOn(true)}
                     aria-label="Assistir vídeo"
                     className={`relative h-16 w-24 shrink-0 snap-start cursor-pointer overflow-hidden rounded-lg bg-gray-900 sm:h-20 sm:w-28 ${
-                      videoOn ? 'ring-2 ring-[#cf8d3c]' : 'opacity-90 hover:opacity-100'
+                      videoOn ? 'ring-2 ring-[#dfb15b]' : 'opacity-90 hover:opacity-100'
                     }`}
                   >
                     {video.thumb && (
@@ -457,8 +461,8 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                       />
                     )}
                     <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#cf8d3c] shadow-lg">
-                        <Play className="h-4 w-4 fill-white text-white" />
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#dfb15b] shadow-lg">
+                        <Play className="h-4 w-4 fill-black text-black" />
                       </span>
                     </span>
                   </button>
@@ -474,7 +478,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                     aria-label={`Ver foto ${i + 1}`}
                     className={`h-16 w-24 shrink-0 snap-start cursor-pointer overflow-hidden rounded-lg transition-all sm:h-20 sm:w-28 ${
                       !videoOn && activeIndex === i
-                        ? 'ring-2 ring-[#cf8d3c]'
+                        ? 'ring-2 ring-[#dfb15b]'
                         : 'opacity-70 hover:opacity-100'
                     }`}
                   >
@@ -485,143 +489,388 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             )}
           </motion.div>
 
-          {/* Painel comercial unificado logo abaixo da galeria no celular */}
-          <div className="mt-6 lg:hidden">{unifiedPanel}</div>
-
-          {/* Sobre + especificações */}
-          <Reveal className="mt-10 border-t border-gray-100 pt-8 dark:border-gray-800">
-            <div className="mb-4">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
-                <Car size={13} className="text-[#dfb15b]" />
-                <span>FICHA & APRESENTAÇÃO</span>
-              </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                Sobre este veículo
-              </h2>
-            </div>
-
-            <p className="max-w-3xl text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
-              {vehicle.descricao ||
-                `O ${vehicle.modelo} une versatilidade, conforto e a confiabilidade reconhecida no mercado. Um veículo completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.`}
-            </p>
-
-            {/* Ficha Técnica Equilibrada (Grid 3x2) */}
-            <div className="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-3.5">
-              {specs.map(({ Icon, label, value }) => (
-                <div
-                  key={label}
-                  className="group flex items-center gap-3.5 rounded-2xl border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] p-4 shadow-sm hover:border-[#dfb15b]/40 hover:shadow-md transition-all duration-200"
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/10 dark:bg-[#dfb15b]/15 text-[#dfb15b] transition-transform duration-200 group-hover:scale-105">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-                      {label}
-                    </span>
-                    <strong className="block truncate text-sm font-bold text-gray-950 dark:text-white mt-0.5">
-                      {value}
-                    </strong>
+          {/* ── 3. Conteúdo da Aba Ativa ── */}
+          {activeTab === 'veiculo' && (
+            <div className="mt-6">
+              {/* Título, Versão, Tag Online e Preço (Disposição da Imagem de Referência) */}
+              <div className="border-b border-gray-100 dark:border-white/10 pb-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
+                      {vehicle.modelo}
+                    </h1>
+                    <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                      {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
+                    </p>
                   </div>
-                </div>
-              ))}
-            </div>
 
-            {/* Padrão de Procedência & Confiança Oliveira Veículos */}
-            <div className="mt-10 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gradient-to-br from-gray-50/90 via-white to-gray-50/90 dark:from-[#141518] dark:via-[#111215] dark:to-[#0c0d0f] p-6 sm:p-8 shadow-sm">
-              <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-200/70 dark:border-white/10 pb-4">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
-                    <ShieldCheck size={14} className="text-[#dfb15b]" />
-                    <span>PADRÃO OLIVEIRA VEÍCULOS</span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm shrink-0">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Online
                   </span>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-gray-950 dark:text-white">
-                    Procedência 100% Garantida
-                  </h3>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
-                  <Check size={12} className="stroke-[3]" />
-                  Procedência 100% Inspecionada
+
+                {/* Preço de Grande Impacto */}
+                <div className="mt-4 text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
+                  {formatPrice(vehicle.preco)}
+                </div>
+                {vehicle.parcela && (
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    ou entrada + parcelas a partir de{' '}
+                    <strong className="text-gray-950 dark:text-white font-bold">
+                      R$ {vehicle.parcela}/mês
+                    </strong>
+                  </p>
+                )}
+              </div>
+
+              {/* Bloco de Localização / Cidade */}
+              <div className="py-4 border-b border-gray-100 dark:border-white/10">
+                <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                  Cidade
+                </span>
+                <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                  Maricá, Rio de Janeiro (RJ)
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
-                    <FileCheck size={19} />
-                  </span>
+              {/* ── Grid de Especificações Exatamente no Modelo Solicitado (2 Colunas) ── */}
+              <div className="py-5 border-b border-gray-100 dark:border-white/10">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-5">
+                  {/* Linha 1: Ano / KM */}
                   <div>
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Qualidade Estrutural</h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Veículo rigorosamente inspecionado em sua integridade física e mecânica.
-                    </p>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Ano
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.anoModelo || `${vehicle.ano}/${vehicle.ano}`}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      KM
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {typeof vehicle.km === 'number' ? vehicle.km.toLocaleString('pt-BR') : vehicle.km || '0'}
+                    </span>
+                  </div>
+
+                  {/* Linha 2: Cor / Carroceria */}
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Cor
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.cor || 'Não informada'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Carroceria
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.categoria || 'Hatch'}
+                    </span>
+                  </div>
+
+                  {/* Linha 3: Portas / Câmbio */}
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Portas
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.portas || (vehicle.categoria === 'Pickup' ? '2 / 4' : '4')}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Câmbio
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.cambio || 'Automático'}
+                    </span>
+                  </div>
+
+                  {/* Linha 4: Combustível / Blindado */}
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Combustível
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.combustivel || 'Flex'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                      Blindado
+                    </span>
+                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                      {vehicle.blindado || 'Não'}
+                    </span>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
-                    <ShieldCheck size={19} />
+              {/* Descrição: Sobre este veículo */}
+              <div className="py-6 border-b border-gray-100 dark:border-white/10">
+                <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
+                  SOBRE O VEÍCULO
+                </span>
+                <p className="text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+                  {vehicle.descricao ||
+                    `O ${vehicle.modelo} une versatilidade, conforto e a confiabilidade reconhecida no mercado. Um veículo completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.`}
+                </p>
+              </div>
+
+              {/* Destaques do Carro */}
+              {vehicle.destaques?.length > 0 && (
+                <div className="py-6 border-b border-gray-100 dark:border-white/10">
+                  <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-3">
+                    ITENS DE DESTAQUE
                   </span>
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Cobertura integral para motor e caixa de câmbio com assistência da loja.
-                    </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {vehicle.destaques.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.02] px-3.5 py-2.5 text-xs font-bold text-gray-800 dark:text-gray-200"
+                      >
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/20 text-[#dfb15b]">
+                          <Check size={12} className="stroke-[3]" />
+                        </span>
+                        <span className="truncate">{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              )}
 
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
-                    <Wrench size={19} />
-                  </span>
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Revisão Mecânica Completa</h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Inspecionado em mais de 40 itens essenciais antes de ir para a vitrine.
-                    </p>
+              {/* Procedência & Padrão de Confiança */}
+              <div className="py-6">
+                <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gradient-to-br from-gray-50/90 via-white to-gray-50/90 dark:from-[#141518] dark:via-[#111215] dark:to-[#0c0d0f] p-5 sm:p-7 shadow-sm">
+                  <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-200/70 dark:border-white/10 pb-4">
+                    <div>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                        <ShieldCheck size={14} className="text-[#dfb15b]" />
+                        <span>PADRÃO OLIVEIRA VEÍCULOS</span>
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-extrabold text-gray-950 dark:text-white">
+                        Procedência 100% Garantida
+                      </h3>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
+                      <Check size={12} className="stroke-[3]" />
+                      Qualidade Aprovada
+                    </span>
                   </div>
-                </div>
 
-                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
-                    <Award size={19} />
-                  </span>
-                  <div>
-                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Documentação Pronta</h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
-                      Veículo quitado, sem débitos ou pendências, pronto para transferir.
-                    </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                        <FileCheck size={18} />
+                      </span>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Qualidade Estrutural</h4>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                          Veículo rigorosamente inspecionado em sua integridade física e mecânica.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                        <ShieldCheck size={18} />
+                      </span>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                          Garantia de 90 dias para motor e caixa com cobertura e assistência da loja.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                        <Wrench size={18} />
+                      </span>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Revisão Mecânica</h4>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                          Inspecionado em mais de 40 itens essenciais antes de ir para a vitrine.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                        <Award size={18} />
+                      </span>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Documentação Pronta</h4>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                          Quitado, sem débitos ou pendências, pronto para transferência rápida.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          )}
 
-            <div className="mt-10">
-              <button
-                onClick={onBack}
-                className="btn-shine inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/5 px-5 py-2.5 text-sm font-bold text-gray-900 dark:text-white shadow-sm hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                <span>Voltar ao estoque</span>
-              </button>
+          {/* ── 4. Aba Vendedor (Informações da Loja Oliveira Veículos) ── */}
+          {activeTab === 'vendedor' && (
+            <div className="mt-6 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                  <Building2 size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
+                    {COMPANY_DATA.name}
+                  </h3>
+                  <p className="text-xs font-semibold text-[#dfb15b]">
+                    {COMPANY_DATA.tagline}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-4">
+                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                  <MapPin size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-gray-900 dark:text-white font-bold">Endereço</strong>
+                    <span>{COMPANY_DATA.address}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                  <Clock size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-gray-900 dark:text-white font-bold">Horário de Atendimento</strong>
+                    <span>{COMPANY_DATA.hours}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                  <Phone size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="block text-gray-900 dark:text-white font-bold">Telefone da Loja</strong>
+                    <a href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`} className="hover:text-[#dfb15b] font-semibold">
+                      {COMPANY_DATA.phone}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Consultores de Vendas */}
+              <div className="mt-8 border-t border-gray-100 dark:border-white/10 pt-6">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-4">
+                  CONSULTORES DISPONÍVEIS
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {COMPANY_DATA.sellers.map((seller) => (
+                    <a
+                      key={seller.id}
+                      href={seller.whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col justify-between p-3.5 rounded-2xl border border-gray-200/70 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.02] hover:border-[#dfb15b]/50 transition-all"
+                    >
+                      <div>
+                        <strong className="block text-sm font-bold text-gray-900 dark:text-white">
+                          {seller.name}
+                        </strong>
+                        <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                          {seller.phone}
+                        </span>
+                      </div>
+                      <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] group-hover:underline">
+                        <MessageSquare size={13} />
+                        Chamar no WhatsApp
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
-          </Reveal>
+          )}
+
+          {/* ── 5. Aba Financiamento & Fipe ── */}
+          {activeTab === 'financiamento' && (
+            <div className="mt-6 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                  <Calculator size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
+                    Simulação de Financiamento
+                  </h3>
+                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                    Aprovação facilitada em até 15 minutos com os maiores bancos
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 p-5 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200/60 dark:border-white/5">
+                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  Estimativa de Parcela
+                </span>
+                <div className="mt-1 text-2xl sm:text-3xl font-black text-gray-950 dark:text-[#dfb15b]">
+                  {vehicle.parcela ? `R$ ${vehicle.parcela}/mês` : 'Consulte condições'}
+                </div>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  *Valores sujeitos a análise de crédito e entrada conforme tabela do banco.
+                </p>
+              </div>
+
+              <div className="mt-6">
+                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-3">
+                  BANCOS PARCEIROS
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {COMPANY_DATA.banks.map((bank, i) => (
+                    <span
+                      key={i}
+                      className="rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3.5 py-1.5 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm"
+                    >
+                      {bank}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <a
+                  href={`https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
+                    `Olá! Gostaria de simular um financiamento para o ${vehicle.modelo} (${year}) anunciado por ${formatPrice(vehicle.preco)}.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-shine inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3 text-sm font-extrabold text-black shadow-lg transition-all active:scale-95 cursor-pointer"
+                >
+                  <MessageSquare size={16} className="fill-black text-black" />
+                  <span>Simular Financiamento no WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Painel lateral unificado travado no topo no computador */}
+        {/* ── Painel Comercial Lateral Fixo no Desktop ── */}
         <div className="sticky top-24 hidden lg:col-span-4 lg:block z-20">
           {unifiedPanel}
         </div>
       </div>
 
-      {/* ── Veículos em Destaque no Rodapé da Página ── */}
+      {/* ── Veículos Semelhantes / Outros Veículos em Destaque ── */}
       {relatedVehicles.length > 0 && (
         <section className="mt-16 sm:mt-24 border-t border-gray-200/80 dark:border-white/10 pt-12 sm:pt-16">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
                 <Sparkles size={13} className="text-[#dfb15b]" />
-                <span>ESTOQUE EM DESTAQUE</span>
+                <span>ESTOQUE SELECIONADO</span>
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                 Outros veículos em destaque
@@ -644,7 +893,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
               <VehicleCard
                 key={veh.id}
                 vehicle={veh}
-                onClick={() => {
+                onSelectVehicle={() => {
                   if (onSelectVehicle) {
                     onSelectVehicle(veh);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -656,34 +905,43 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
         </section>
       )}
 
-      {/* ── Barra Fixa Flutuante no Mobile (Padrão Mobbin: Carvana / Turo / Webmotors) ── */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#090a0b]/95 backdrop-blur-xl px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.7)] lg:hidden">
-        <div className="mx-auto flex max-w-md items-center justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            <span className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-              Valor à vista
-            </span>
-            <div className="text-xl sm:text-2xl font-black text-gray-950 dark:text-[#dfb15b] tracking-tight leading-none">
-              {formatPrice(vehicle.preco)}
-            </div>
-            {vehicle.parcela && (
-              <span className="block truncate text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                ou parcelas de <strong className="text-gray-800 dark:text-gray-200 font-bold">R$ {vehicle.parcela}</strong>
-              </span>
-            )}
-          </div>
+      {/* ── Barra Fixa Flutuante no Mobile (3 Botões do Modelo: Ver parcelas | Telefone | Enviar mensagem) ── */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#090a0b]/95 backdrop-blur-xl px-3 sm:px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.7)] lg:hidden">
+        <div className="mx-auto flex max-w-md items-center justify-between gap-2">
+          {/* Botão 1: Ver parcelas */}
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('financiamento');
+              window.scrollTo({ top: 400, behavior: 'smooth' });
+            }}
+            className="flex-1 min-h-[46px] inline-flex items-center justify-center rounded-xl sm:rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 px-3 py-2 text-xs font-bold text-gray-900 dark:text-white transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+          >
+            Ver parcelas
+          </button>
 
+          {/* Botão 2: Telefone (Ícone 📞) */}
+          <a
+            href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`}
+            aria-label="Ligar para a loja"
+            className="h-[46px] w-[46px] shrink-0 inline-flex items-center justify-center rounded-xl sm:rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-900 dark:text-white transition-all active:scale-95 cursor-pointer"
+          >
+            <Phone size={17} />
+          </a>
+
+          {/* Botão 3: Enviar mensagem (Dourado com .btn-shine) */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shine inline-flex min-h-[46px] shrink-0 items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-2.5 text-xs sm:text-sm font-extrabold text-black shadow-lg active:scale-95 transition-all cursor-pointer"
+            className="btn-shine flex-[1.3] min-h-[46px] inline-flex items-center justify-center gap-1.5 rounded-xl sm:rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-3.5 py-2 text-xs font-extrabold text-black shadow-lg transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
-            <MessageSquare size={16} className="fill-black text-black shrink-0" />
-            <span>Falar no WhatsApp</span>
+            <MessageSquare size={15} className="fill-black text-black shrink-0" />
+            <span>Enviar mensagem</span>
           </a>
         </div>
       </div>
     </div>
   );
 }
+
