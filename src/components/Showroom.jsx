@@ -666,17 +666,17 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
           {isFilteringLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
               {[1, 2, 3].map((n) => (
-                <div key={n} className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-                  <div className="aspect-[4/3] sm:aspect-[16/10] bg-white/10" />
+                <div key={n} className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 overflow-hidden shadow-sm">
+                  <div className="aspect-[4/3] sm:aspect-[16/10] bg-gray-200 dark:bg-white/10" />
                   <div className="p-4 space-y-3">
-                    <div className="h-5 bg-white/10 rounded-full w-3/4" />
-                    <div className="h-3 bg-white/5 rounded-full w-1/2" />
+                    <div className="h-5 bg-gray-200 dark:bg-white/10 rounded-full w-3/4" />
+                    <div className="h-3 bg-gray-100 dark:bg-white/5 rounded-full w-1/2" />
                     <div className="flex gap-2 pt-2">
-                      <div className="h-6 w-16 bg-white/5 rounded-full" />
-                      <div className="h-6 w-16 bg-white/5 rounded-full" />
+                      <div className="h-6 w-16 bg-gray-100 dark:bg-white/5 rounded-full" />
+                      <div className="h-6 w-16 bg-gray-100 dark:bg-white/5 rounded-full" />
                     </div>
-                    <div className="pt-3 border-t border-white/5 flex justify-between items-center">
-                      <div className="h-6 w-24 bg-white/10 rounded-full" />
+                    <div className="pt-3 border-t border-gray-100 dark:border-white/5 flex justify-between items-center">
+                      <div className="h-6 w-24 bg-gray-200 dark:bg-white/10 rounded-full" />
                       <div className="h-9 w-28 bg-[#dfb15b]/30 rounded-full" />
                     </div>
                   </div>
