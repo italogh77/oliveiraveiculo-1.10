@@ -1278,6 +1278,7 @@ export function VehicleFormModal({ initial, onClose, onSave }) {
               {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
               {saving ? 'Salvando...' : initial ? 'Salvar alterações' : 'Publicar veículo'}
             </motion.button>
+          </div>
         </form>
 
         <StorageSetupModal
