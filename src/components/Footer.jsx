@@ -25,7 +25,7 @@ export default function Footer({ onSelectTab }) {
               className="h-9 sm:h-10 max-w-[170px] object-contain mb-4"
             />
             <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xs mb-4">
-              Veículos selecionados com laudo cautelar aprovado e atendimento próximo para sua próxima conquista em Maricá - RJ.
+              Veículos selecionados com procedência garantida e atendimento próximo para sua próxima conquista em Maricá - RJ.
             </p>
             <a
               href={COMPANY_DATA.instagramUrl}
