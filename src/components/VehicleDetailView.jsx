@@ -685,12 +685,6 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </div>
         </div>
 
-        {/* ── Painel Comercial Lateral Fixo no Desktop ── */}
-        <div className="sticky top-24 hidden lg:col-span-4 lg:block z-20">
-          {unifiedPanel}
-        </div>
-      </div>
-
       {/* ── Veículos Semelhantes / Outros Veículos em Destaque ── */}
       {relatedVehicles.length > 0 && (
         <section className="mt-16 sm:mt-24 border-t border-gray-200/80 dark:border-white/10 pt-12 sm:pt-16">
