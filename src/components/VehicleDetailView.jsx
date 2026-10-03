@@ -894,8 +894,10 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           <button
             type="button"
             onClick={() => {
-              setActiveTab('financiamento');
-              window.scrollTo({ top: 400, behavior: 'smooth' });
+              const el = document.getElementById('secao-financiamento');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
             }}
             className="flex-1 min-h-[46px] inline-flex items-center justify-center rounded-xl sm:rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 px-3 py-2 text-xs font-bold text-gray-900 dark:text-white transition-all active:scale-95 cursor-pointer whitespace-nowrap"
           >
