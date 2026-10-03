@@ -2073,7 +2073,7 @@ html:not(.dark) .vehicle-card h3 {
   .ov-visit {
     align-items: flex-start;
     flex-direction: column;
-    padding-block: 45px;
+    padding-block: 20px 40px;
     gap: 18px;
   }
 
