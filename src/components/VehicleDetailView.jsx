@@ -277,35 +277,57 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
     'absolute top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-opacity hover:bg-black/65 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100';
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-20 pt-24 sm:px-6 lg:px-8">
-      {/* Caminho de volta */}
-      <nav className="mb-5 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
-        <button onClick={onBack} className="cursor-pointer font-medium transition-colors hover:text-[#c88626]">
-          Estoque
+    <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-32 sm:pb-28 lg:pb-20">
+      {/* Barra Superior de Ações Rápidas (Padrão Mobbin) */}
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <button
+          onClick={onBack}
+          className="group inline-flex items-center gap-2 rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
+        >
+          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+          <span>Voltar ao estoque</span>
         </button>
-        <span className="text-gray-300 dark:text-gray-600">/</span>
-        <span className="font-medium text-gray-900 dark:text-white">{vehicle.tituloCard || vehicle.modelo}</span>
-      </nav>
-
-      {/* Título + compartilhar */}
-      <Reveal className="mb-6 flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <h1 className="text-[clamp(1.6rem,5.5vw,3rem)] font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
-            {vehicle.modelo}
-          </h1>
-          <p className="mt-1 text-sm font-medium text-gray-500 dark:text-gray-400 sm:text-base">
-            {[vehicle.cambio?.split(' ')[0], vehicle.ano, vehicle.categoria].filter(Boolean).join(' • ')}
-          </p>
-        </div>
 
         <button
           type="button"
           onClick={handleShare}
-          className="inline-flex min-h-[44px] shrink-0 cursor-pointer items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-[#cf8d3c] hover:text-[#c88626] dark:border-gray-700 dark:text-gray-200"
+          aria-label="Compartilhar veículo"
+          className="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
         >
-          {copied ? <Check className="h-4 w-4 text-green-500" /> : <Share2 className="h-4 w-4" />}
-          <span className="hidden sm:inline">{copied ? 'Link copiado!' : 'Compartilhar'}</span>
+          {copied ? <Check size={16} className="text-emerald-500" /> : <Share2 size={16} />}
         </button>
+      </div>
+
+      {/* Título & Chips de Especificações Rápidas (Padrão Mobbin Carvana / Turo) */}
+      <Reveal className="mb-5 sm:mb-6">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2">
+          {vehicle.tag && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/15 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#dfb15b]">
+              <Sparkles size={11} />
+              <span>{vehicle.tag}</span>
+            </span>
+          )}
+          <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
+            {vehicle.ano}
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
+            {formatKm(vehicle.km)}
+          </span>
+          {vehicle.cambio && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
+              {vehicle.cambio.split(' ')[0]}
+            </span>
+          )}
+          {vehicle.categoria && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-white/10 bg-gray-100/70 dark:bg-white/5 px-2.5 py-0.5 text-[10px] sm:text-xs font-semibold text-gray-600 dark:text-gray-300">
+              {vehicle.categoria}
+            </span>
+          )}
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-950 dark:text-white leading-tight">
+          {vehicle.modelo}
+        </h1>
       </Reveal>
 
       <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
