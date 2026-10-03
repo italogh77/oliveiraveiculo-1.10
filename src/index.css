@@ -807,7 +807,8 @@ body {
 }
 
 .btn-shine.bg-\[\#dfb15b\]:hover,
-.btn-shine.bg-gold:hover {
+.btn-shine.bg-gold:hover,
+.btn-shine[class*="#dfb15b"]:hover {
   box-shadow: 0 10px 25px -4px rgba(223, 177, 91, 0.4), 0 6px 12px -4px rgba(223, 177, 91, 0.25);
 }
 
