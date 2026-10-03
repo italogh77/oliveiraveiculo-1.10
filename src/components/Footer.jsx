@@ -3,8 +3,11 @@ import { MapPin, Phone, Clock3, Lock } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import InstagramIcon from './InstagramIcon';
 import { publicAsset } from '../lib/publicAsset';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Footer({ onSelectTab }) {
+  const { isDark } = useTheme();
+
   const links = [
     ['inicio', 'Início'],
     ['estoque', 'Comprar carros'],
@@ -14,17 +17,17 @@ export default function Footer({ onSelectTab }) {
   ];
 
   return (
-    <footer className="ov-footer bg-[#070809] text-white border-t border-white/10 pt-12 pb-8">
+    <footer className="ov-footer bg-white dark:bg-[#070809] text-gray-900 dark:text-white border-t border-gray-200 dark:border-white/10 pt-12 pb-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* 1. Marca e Descrição */}
           <div>
             <img
-              src={publicAsset('logo-dark.png')}
+              src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
               alt="Oliveira Veículos"
               className="h-9 sm:h-10 max-w-[170px] object-contain mb-4"
             />
-            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xs mb-4">
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-xs mb-4">
               Veículos selecionados com procedência garantida e atendimento próximo para sua próxima conquista em Maricá - RJ.
             </p>
             <a
@@ -33,7 +36,7 @@ export default function Footer({ onSelectTab }) {
               rel="noopener noreferrer"
               aria-label="Instagram da Oliveira Veículos"
               title="Instagram da Oliveira Veículos"
-              className="btn-instagram group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-gray-300 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+              className="btn-instagram group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-gray-200 dark:border-white/15 bg-gray-100 dark:bg-white/5 px-4 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
             >
               <InstagramIcon
                 size={16}
@@ -54,7 +57,7 @@ export default function Footer({ onSelectTab }) {
                 <li key={id}>
                   <button
                     onClick={() => onSelectTab(id)}
-                    className="text-xs sm:text-sm text-gray-300 hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                   >
                     <span>{label}</span>
                   </button>
@@ -68,11 +71,11 @@ export default function Footer({ onSelectTab }) {
             <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4">
               EXPLORE
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-gray-300">
+            <ul className="space-y-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <li>
                 <button
                   onClick={() => onSelectTab('estoque')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
                 >
                   Nosso estoque de seminovos
                 </button>
@@ -80,7 +83,7 @@ export default function Footer({ onSelectTab }) {
               <li>
                 <button
                   onClick={() => onSelectTab('sobre')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
                 >
                   História e diferenciais
                 </button>
@@ -88,7 +91,7 @@ export default function Footer({ onSelectTab }) {
               <li>
                 <button
                   onClick={() => onSelectTab('financiamento')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
                 >
                   Simulador de financiamento
                 </button>
@@ -96,7 +99,7 @@ export default function Footer({ onSelectTab }) {
               <li>
                 <button
                   onClick={() => onSelectTab('onde-estamos')}
-                  className="hover:text-white transition-colors cursor-pointer text-left"
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
                 >
                   Como chegar na loja
                 </button>
@@ -109,7 +112,7 @@ export default function Footer({ onSelectTab }) {
             <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4">
               ATENDIMENTO
             </h3>
-            <div className="space-y-3 text-xs sm:text-sm text-gray-300">
+            <div className="space-y-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <a
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
@@ -128,11 +131,11 @@ export default function Footer({ onSelectTab }) {
                 <span>{COMPANY_DATA.phone}</span>
               </a>
 
-              <div className="flex items-start gap-2.5 text-gray-400">
+              <div className="flex items-start gap-2.5 text-gray-500 dark:text-gray-400">
                 <Clock3 size={16} className="text-[#dfb15b] shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-gray-200">Seg a Sex: 08:30 às 18:30</span>
-                  <span className="block text-gray-400">Sábado: 08:30 às 14:00</span>
+                  <span className="block text-gray-800 dark:text-gray-200">Seg a Sex: 08:30 às 18:30</span>
+                  <span className="block text-gray-500 dark:text-gray-400">Sábado: 08:30 às 14:00</span>
                 </div>
               </div>
             </div>
@@ -140,14 +143,14 @@ export default function Footer({ onSelectTab }) {
         </div>
 
         {/* Linha Inferior com Copyright e Acesso Restrito */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div className="border-t border-gray-200 dark:border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 dark:text-gray-400">
           <span>© {new Date().getFullYear()} Oliveira Veículos · Todos os direitos reservados · Maricá, RJ</span>
           <div className="flex items-center gap-4">
             <button
               onClick={() => onSelectTab('admin')}
               aria-label="Acesso administrativo"
               title="Acesso administrativo"
-              className="p-2 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 hover:text-gray-800 dark:hover:text-white transition-colors cursor-pointer"
             >
               <Lock size={15} />
             </button>
