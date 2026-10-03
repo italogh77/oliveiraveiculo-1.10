@@ -288,6 +288,186 @@ function LoginScreen({ onLogin, onBack, unauthorized }) {
   );
 }
 
+// ─── Storage Setup / Diagnostic Modal ────────────────────────────────────────
+function StorageSetupModal({ isOpen, onClose, onConnected, onSwitchToDrive }) {
+  const [bucketInput, setBucketInput] = useState(() => (typeof getCurrentBucketName === 'function' ? getCurrentBucketName() : 'oliveira-veiculos.firebasestorage.app'));
+  const [testing, setTesting] = useState(false);
+  const [testResult, setTestResult] = useState(null);
+  const [copiedRules, setCopiedRules] = useState(false);
+
+  const storageRulesSnippet = `rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.resource.size < 60 * 1024 * 1024;
+    }
+  }
+}`;
+
+  function handleCopyRules() {
+    navigator.clipboard.writeText(storageRulesSnippet);
+    setCopiedRules(true);
+    setTimeout(() => setCopiedRules(false), 2500);
+  }
+
+  async function handleTestConnection() {
+    setTesting(true);
+    setTestResult(null);
+    try {
+      const res = await assertStorageAvailable(bucketInput.trim());
+      setTestResult({
+        success: true,
+        msg: `Conectado com sucesso ao bucket: ${res.bucket}! Agora você pode fazer o upload direto de fotos do seu computador.`,
+      });
+      if (onConnected) onConnected(res.bucket);
+    } catch {
+      setTestResult({
+        success: false,
+        msg: 'O Storage ainda não foi ativado no Firebase ou o bucket informado não existe. Conclua os passos 1 e 2 no console do Firebase e tente novamente.',
+      });
+    } finally {
+      setTesting(false);
+    }
+  }
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative w-full max-w-lg bg-[#141518] border border-amber-400/40 rounded-2xl p-5 sm:p-6 shadow-2xl text-left my-8"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="flex items-center gap-2.5 mb-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-400/15 text-amber-400 flex items-center justify-center shrink-0">
+            <Upload className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-white">Ativar Envio de Fotos no Firebase</h3>
+            <p className="text-xs text-amber-400/90 font-medium">Cloud Storage (Gratuito - 5 GB incluídos)</p>
+          </div>
+        </div>
+
+        <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mb-4 text-xs text-amber-200/90 leading-relaxed">
+          <p>
+            O Cloud Storage ainda não foi ativado no painel do seu projeto Firebase. Para fazer upload direto de fotos e pacotes ZIP do computador, basta ativá-lo uma única vez (leva 1 minuto):
+          </p>
+        </div>
+
+        <ol className="space-y-3.5 text-xs text-zinc-300 mb-5">
+          <li className="flex items-start gap-2.5">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-400 text-black font-bold text-[11px]">1</span>
+            <div>
+              <p className="font-semibold text-white">Acesse o Cloud Storage no console do seu Firebase:</p>
+              <a
+                href="https://console.firebase.google.com/project/oliveira-veiculos/storage"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-1 px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-yellow-400 text-black font-bold text-xs transition-colors shadow-sm cursor-pointer"
+              >
+                <span>Abrir Firebase Storage</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </li>
+
+          <li className="flex items-start gap-2.5">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-400 text-black font-bold text-[11px]">2</span>
+            <div>
+              <p className="font-semibold text-white">Clique no botão azul "Começar" (ou "Primeiros passos"):</p>
+              <p className="text-zinc-400 mt-0.5">Avance as etapas mantendo as configurações padrão e selecione a região (ex: <code>southamerica-east1</code> em São Paulo ou <code>us-central1</code>) e clique em <strong>Concluir</strong>.</p>
+            </div>
+          </li>
+
+          <li className="flex items-start gap-2.5">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-400 text-black font-bold text-[11px]">3</span>
+            <div className="w-full">
+              <div className="flex items-center justify-between">
+                <p className="font-semibold text-white">Cole e publique as Regras na aba "Regras" (Rules):</p>
+                <button
+                  type="button"
+                  onClick={handleCopyRules}
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
+                >
+                  {copiedRules ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedRules ? 'Copiado!' : 'Copiar Regras'}</span>
+                </button>
+              </div>
+              <pre className="mt-1 bg-black/60 border border-white/10 rounded-lg p-2 text-[10px] font-mono text-zinc-300 overflow-x-auto max-h-24">
+                {storageRulesSnippet}
+              </pre>
+            </div>
+          </li>
+        </ol>
+
+        {/* Bucket testing form */}
+        <div className="border-t border-white/10 pt-4 mb-4">
+          <label className="block text-[11px] font-medium text-zinc-400 mb-1">
+            Endereço do Bucket (Auto-detectado):
+          </label>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={bucketInput}
+              onChange={(e) => setBucketInput(e.target.value)}
+              placeholder="ex: oliveira-veiculos.firebasestorage.app ou oliveira-veiculos.appspot.com"
+              className="flex-1 bg-black/40 border border-white/15 rounded-lg px-3 py-1.5 text-xs text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-amber-400/60"
+            />
+            <button
+              type="button"
+              onClick={handleTestConnection}
+              disabled={testing}
+              className="btn-shine px-3 py-1.5 rounded-lg bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-xs flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-50"
+            >
+              {testing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+              <span>{testing ? 'Testando...' : 'Testar Conexão'}</span>
+            </button>
+          </div>
+
+          {testResult && (
+            <div className={`mt-2.5 p-2.5 rounded-lg text-xs flex items-start gap-2 ${testResult.success ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300' : 'bg-red-500/10 border border-red-500/30 text-red-300'}`}>
+              {testResult.success ? <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" /> : <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />}
+              <span>{testResult.msg}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5 border-t border-white/10 pt-3">
+          <button
+            type="button"
+            onClick={() => {
+              if (onSwitchToDrive) onSwitchToDrive();
+              onClose();
+            }}
+            className="text-xs text-amber-400 hover:underline flex items-center gap-1 cursor-pointer"
+          >
+            <Link2 className="w-3.5 h-3.5" /> Usar fotos por link do Google Drive enquanto isso
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-colors cursor-pointer"
+          >
+            Fechar
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Vehicle Form Modal ──────────────────────────────────────────────────────
 export function VehicleFormModal({ initial, onClose, onSave }) {
   const draftKey = `oliveira:vehicle-draft:${initial?.id || 'new'}`;
