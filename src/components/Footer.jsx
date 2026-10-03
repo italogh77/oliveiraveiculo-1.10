@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, Clock3, Lock } from 'lucide-react';
+import { MapPin, Phone, Clock3, Lock, Sparkles } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import InstagramIcon from './InstagramIcon';
 import { publicAsset } from '../lib/publicAsset';
@@ -16,32 +16,51 @@ export default function Footer({ onSelectTab }) {
     ['contato', 'Contato'],
   ];
 
+  const handleNav = (tabId) => {
+    onSelectTab(tabId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="ov-footer bg-white dark:bg-[#070809] text-gray-900 dark:text-white border-t border-gray-200 dark:border-white/10 pt-12 pb-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* 1. Marca e Descrição */}
           <div>
-            <img
-              src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
-              alt="Oliveira Veículos"
-              className="h-9 sm:h-10 max-w-[170px] object-contain mb-4"
-            />
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-4 font-mono">
+              <Sparkles size={13} className="text-[#dfb15b]" />
+              <span>OLIVEIRA VEÍCULOS</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handleNav('inicio')}
+              aria-label="Oliveira Veículos — Início"
+              title="Voltar ao início"
+              className="cursor-pointer block active:scale-95 transition-transform mb-4 group text-left"
+            >
+              <img
+                src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
+                alt="Oliveira Veículos"
+                className="h-9 sm:h-10 max-w-[170px] object-contain ov-logo-breathing"
+              />
+            </button>
+
             <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-xs mb-4">
               Veículos selecionados com procedência garantida e atendimento próximo para sua próxima conquista em Maricá - RJ.
             </p>
+
             <a
               href={COMPANY_DATA.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram da Oliveira Veículos"
               title="Instagram da Oliveira Veículos"
-              className="btn-instagram group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-gray-200 dark:border-white/15 bg-gray-100 dark:bg-white/5 px-4 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-[#dfb15b]/40 hover:border-[#dfb15b] bg-[#dfb15b]/10 hover:bg-[#dfb15b] px-4 py-2 text-xs font-bold text-[#dfb15b] hover:text-black transition-all duration-300 active:scale-95 cursor-pointer shadow-sm hover:shadow-[0_0_20px_rgba(223,177,91,0.35)]"
             >
               <InstagramIcon
                 size={16}
-                useGradient
-                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0 drop-shadow-[0_0_6px_rgba(214,41,118,0.4)]"
+                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0 text-[#dfb15b] group-hover:text-black"
               />
               <span className="transition-colors duration-300">@oliveiraveiculosmarica</span>
             </a>
@@ -49,14 +68,15 @@ export default function Footer({ onSelectTab }) {
 
           {/* 2. Navegação Rápida */}
           <div>
-            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4">
-              NAVEGAÇÃO
+            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4 inline-flex items-center gap-1.5">
+              <Sparkles size={12} className="text-[#dfb15b]/80" />
+              <span>NAVEGAÇÃO</span>
             </h3>
             <ul className="space-y-2.5">
               {links.map(([id, label]) => (
                 <li key={id}>
                   <button
-                    onClick={() => onSelectTab(id)}
+                    onClick={() => handleNav(id)}
                     className="text-xs sm:text-sm text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                   >
                     <span>{label}</span>
@@ -68,38 +88,39 @@ export default function Footer({ onSelectTab }) {
 
           {/* 3. Explore */}
           <div>
-            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4">
-              EXPLORE
+            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4 inline-flex items-center gap-1.5">
+              <Sparkles size={12} className="text-[#dfb15b]/80" />
+              <span>EXPLORE</span>
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <li>
                 <button
-                  onClick={() => onSelectTab('estoque')}
-                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => handleNav('estoque')}
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                 >
                   Nosso estoque de seminovos
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTab('sobre')}
-                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => handleNav('sobre')}
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                 >
                   História e diferenciais
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTab('financiamento')}
-                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => handleNav('financiamento')}
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                 >
                   Simulador de financiamento
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectTab('onde-estamos')}
-                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left"
+                  onClick={() => handleNav('onde-estamos')}
+                  className="hover:text-black dark:hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5 hover:translate-x-1 duration-150"
                 >
                   Como chegar na loja
                 </button>
@@ -109,8 +130,9 @@ export default function Footer({ onSelectTab }) {
 
           {/* 4. Contato e Horários */}
           <div>
-            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4">
-              ATENDIMENTO
+            <h3 className="text-xs font-bold font-mono tracking-widest text-[#dfb15b] uppercase mb-4 inline-flex items-center gap-1.5">
+              <Sparkles size={12} className="text-[#dfb15b]/80" />
+              <span>ATENDIMENTO</span>
             </h3>
             <div className="space-y-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               <a
