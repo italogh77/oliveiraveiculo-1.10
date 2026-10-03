@@ -162,20 +162,20 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
   return (
     <div className="ov-home text-white bg-[#090a0b]">
-      {/* ── Hero Section 100% Tela Cheia ── */}
+      {/* ── Hero Section 2048x911 Proporcional (100% sem achatar) ── */}
       <section
         id="inicio-hero"
-        className="ov-hero relative w-full min-h-[100svh] h-[100svh] flex items-end overflow-hidden pb-3 sm:pb-4 pt-20"
+        className="ov-hero relative w-full overflow-hidden bg-[#090a0b] flex items-end pt-20 pb-4 sm:pb-6 md:pb-8 lg:aspect-[2048/911] min-h-[420px] sm:min-h-[520px] lg:min-h-0"
       >
         <img
-          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[center_28%] sm:object-[center_30%] pointer-events-none select-none"
-          src={publicAsset('loja-oliveira-fachada.jpg')}
-          alt="Fachada e veículos da Oliveira Veículos em Maricá"
+          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[15%_center] md:object-center pointer-events-none select-none"
+          src={publicAsset('loja-oliveira-banner-2048.png')}
+          alt="Oliveira Veículos - Seu próximo Carro está aqui"
           fetchPriority="high"
         />
-        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/80 via-35% to-transparent pointer-events-none" />
+        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/30 via-15% to-transparent pointer-events-none" />
 
-        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-2">
+        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-3 md:pb-4">
           <div className="ov-hero-content max-w-2xl">
             {/* CTAs em formato Pílula (Regra 1 do Design System) */}
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
