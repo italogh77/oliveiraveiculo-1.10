@@ -437,36 +437,74 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
 
           {/* ── Conteúdo Principal do Veículo ── */}
           <div className="mt-6">
-            {/* Título, Versão, Tag Online e Preço (Disposição da Imagem de Referência) */}
-            <div className="border-b border-gray-100 dark:border-white/10 pb-5">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
-                    {vehicle.modelo}
-                  </h1>
-                  <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                    {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
-                  </p>
-                </div>
-
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm shrink-0">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Online
+            {/* Título, Versão, Badges, Preço e Botões de Ação */}
+            <div className="border-b border-gray-100 dark:border-white/10 pb-6">
+              {/* Badges de Destaque & Status */}
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfb15b]/35 bg-[#dfb15b]/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#dfb15b]">
+                  <Sparkles size={11} className="text-[#dfb15b]" />
+                  <span>{vehicle.tag || 'Seminovo Selecionado'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-2.5 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Online / Pronta Entrega
                 </span>
               </div>
 
-              {/* Preço de Grande Impacto */}
-              <div className="mt-4 text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
-                {formatPrice(vehicle.preco)}
-              </div>
-              {vehicle.parcela && (
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  ou entrada + parcelas a partir de{' '}
-                  <strong className="text-gray-950 dark:text-white font-bold">
-                    R$ {vehicle.parcela}/mês
-                  </strong>
+              {/* Título e Versão */}
+              <div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
+                  {vehicle.modelo}
+                </h1>
+                <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
                 </p>
-              )}
+              </div>
+
+              {/* Bloco de Preço com Rótulo e Parcelamento */}
+              <div className="mt-5">
+                <span className="block text-[11px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1">
+                  Valor à vista
+                </span>
+                <div className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
+                  {formatPrice(vehicle.preco)}
+                </div>
+                {vehicle.parcela && (
+                  <div className="mt-2.5 inline-flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 bg-gray-100/80 dark:bg-white/[0.04] px-3.5 py-2 rounded-xl border border-gray-200/60 dark:border-white/5">
+                    <Calculator size={14} className="text-[#dfb15b] shrink-0" />
+                    <span>
+                      ou entrada + parcelas a partir de{' '}
+                      <strong className="text-gray-950 dark:text-white font-extrabold">
+                        R$ {vehicle.parcela}/mês
+                      </strong>
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* ── Botões de Ação Principais (Falar sobre este carro + Agendar visita) ── */}
+              <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-shine group relative flex min-h-[50px] flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3.5 text-sm font-extrabold text-black shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+                >
+                  <MessageSquare className="h-4 w-4 fill-black text-black transition-transform group-hover:scale-110" />
+                  <span>Falar sobre este carro</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+
+                <a
+                  href={scheduleVisitUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-h-[50px] items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-[#dfb15b]/40 bg-transparent hover:bg-[#dfb15b]/10 px-6 py-3.5 text-sm font-bold text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer whitespace-nowrap"
+                >
+                  <Calendar className="h-4 w-4 text-[#dfb15b]" />
+                  <span>Agendar visita na loja</span>
+                </a>
+              </div>
             </div>
 
             {/* Bloco de Localização / Cidade */}
