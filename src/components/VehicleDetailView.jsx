@@ -463,32 +463,41 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             )}
           </motion.div>
 
-          {/* Preço, contato e destaques logo abaixo da galeria no celular */}
-          <div className="mt-6 space-y-4 lg:hidden">
-            {pricePanel}
-            {destaquesPanel}
-          </div>
+          {/* Painel comercial unificado logo abaixo da galeria no celular */}
+          <div className="mt-6 lg:hidden">{unifiedPanel}</div>
 
           {/* Sobre + especificações */}
           <Reveal className="mt-10 border-t border-gray-100 pt-8 dark:border-gray-800">
-            <h2 className="mb-3 text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">Sobre este veículo</h2>
-            <p className="max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-300 sm:text-base">
+            <div className="mb-4">
+              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                <Car size={13} className="text-[#dfb15b]" />
+                <span>FICHA & APRESENTAÇÃO</span>
+              </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                Sobre este veículo
+              </h2>
+            </div>
+
+            <p className="max-w-3xl text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
               {vehicle.descricao ||
                 `O ${vehicle.modelo} une versatilidade, conforto e a confiabilidade reconhecida no mercado. Um veículo completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.`}
             </p>
 
-            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {/* Ficha Técnica Equilibrada (Grid 3x2) */}
+            <div className="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-3.5">
               {specs.map(({ Icon, label, value }) => (
                 <div
                   key={label}
-                  className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50 p-3.5 dark:border-gray-800 dark:bg-white/[0.03]"
+                  className="group flex items-center gap-3.5 rounded-2xl border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] p-4 shadow-sm hover:border-[#dfb15b]/40 hover:shadow-md transition-all duration-200"
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#cf8d3c]/10">
-                    <Icon className="h-4 w-4 text-[#cf8d3c]" />
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/10 dark:bg-[#dfb15b]/15 text-[#dfb15b] transition-transform duration-200 group-hover:scale-105">
+                    <Icon className="h-5 w-5" />
                   </span>
-                  <div className="min-w-0">
-                    <span className="block text-[11px] text-gray-400 dark:text-gray-500">{label}</span>
-                    <strong className="block truncate text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="min-w-0 flex-1">
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      {label}
+                    </span>
+                    <strong className="block truncate text-sm font-bold text-gray-950 dark:text-white mt-0.5">
                       {value}
                     </strong>
                   </div>
@@ -496,24 +505,79 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
               ))}
             </div>
 
-            {vehicle.destaques?.length > 0 && (
-              <div className="mt-8">
-                <h3 className="mb-3 text-base font-bold text-gray-900 dark:text-white">Itens e opcionais</h3>
-                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                  {vehicle.destaques.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-[#c88626]" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
+            {/* Padrão de Procedência & Confiança Oliveira Veículos */}
+            <div className="mt-10 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gradient-to-br from-gray-50/90 via-white to-gray-50/90 dark:from-[#141518] dark:via-[#111215] dark:to-[#0c0d0f] p-6 sm:p-8 shadow-sm">
+              <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-200/70 dark:border-white/10 pb-4">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                    <ShieldCheck size={14} className="text-[#dfb15b]" />
+                    <span>PADRÃO OLIVEIRA VEÍCULOS</span>
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-extrabold text-gray-950 dark:text-white">
+                    Procedência 100% Garantida
+                  </h3>
+                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
+                  <Check size={12} className="stroke-[3]" />
+                  Laudo Cautelar Aprovado
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
+                    <FileCheck size={19} />
+                  </span>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Sem Leilão ou Sinistro</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                      Histórico veicular 100% consultado e aprovado sem apontamentos graves.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
+                    <ShieldCheck size={19} />
+                  </span>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                      Cobertura integral para motor e caixa de câmbio ou 3.000 km rodados.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
+                    <Wrench size={19} />
+                  </span>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Revisão Mecânica Completa</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                      Inspecionado em mais de 40 itens essenciais antes de ir para a vitrine.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b] mt-0.5">
+                    <Award size={19} />
+                  </span>
+                  <div>
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white">Documentação Pronta</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-relaxed">
+                      Veículo quitado, sem débitos ou pendências, pronto para transferir.
+                    </p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
 
             <div className="mt-10">
               <button
                 onClick={onBack}
-                className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 text-sm font-semibold text-[#c88626] hover:underline"
+                className="btn-shine inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/5 px-5 py-2.5 text-sm font-bold text-gray-900 dark:text-white shadow-sm hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
               >
                 <ArrowLeft className="h-4 w-4" />
                 <span>Voltar ao estoque</span>
@@ -522,10 +586,9 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </Reveal>
         </div>
 
-        {/* Painel lateral travado no topo no computador */}
-        <div className="sticky top-24 hidden lg:col-span-4 lg:flex lg:flex-col gap-5 z-20">
-          {pricePanel}
-          {destaquesPanel}
+        {/* Painel lateral unificado travado no topo no computador */}
+        <div className="sticky top-24 hidden lg:col-span-4 lg:block z-20">
+          {unifiedPanel}
         </div>
       </div>
 
