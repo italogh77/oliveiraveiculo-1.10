@@ -79,10 +79,16 @@ function VideoPlayer({ info, title }) {
   );
 }
 
-export default function VehicleDetailView({ vehicle, onBack }) {
+export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [videoOn, setVideoOn] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const { vehicles } = useVehicles();
+  const relatedVehicles = useMemo(() => {
+    if (!vehicles?.length) return [];
+    return vehicles.filter((v) => v.id !== vehicle?.id).slice(0, 3);
+  }, [vehicles, vehicle?.id]);
 
   const gallery = useMemo(() => {
     const raw = vehicle?.fotos?.length ? vehicle.fotos : vehicle?.foto ? [vehicle.foto] : [];
@@ -186,6 +192,28 @@ export default function VehicleDetailView({ vehicle, onBack }) {
         <ShieldCheck className="h-3.5 w-3.5 text-[#dfb15b]" />
         <span>Garantia de 90 dias • Procedência Verificada</span>
       </div>
+    </div>
+  );
+
+  // Painel de destaques/itens opcionais posicionado abaixo do card de preço
+  const destaquesPanel = vehicle.destaques?.length > 0 && (
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-[#262626] dark:bg-[#141414] sm:p-6 transition-all">
+      <div className="mb-3.5 flex items-center gap-2">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#dfb15b]/15 text-[#dfb15b]">
+          <CheckCircle2 className="h-4 w-4 text-[#dfb15b]" />
+        </span>
+        <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-900 dark:text-white">
+          Destaques deste veículo
+        </h3>
+      </div>
+      <ul className="space-y-2.5">
+        {vehicle.destaques.map((item, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#dfb15b] shrink-0" />
+            <span className="font-medium">{item}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 
