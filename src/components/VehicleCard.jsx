@@ -109,13 +109,13 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
           )}
         </div>
 
-        {/* Preço e Botão Ver detalhes sempre alinhados na mesma altura na base */}
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-100 dark:border-white/10 p-4 pt-3.5 sm:p-5 sm:pt-3.5">
-          <div className="min-w-0">
+        {/* Preço e Botão Ver detalhes sempre alinhados na mesma altura na base sem colisão */}
+        <div className="mt-auto flex items-center justify-between gap-2 border-t border-gray-100 dark:border-white/10 p-3.5 sm:p-4">
+          <div className="min-w-0 shrink">
             <span className="block text-[10px] uppercase font-bold tracking-wider text-gray-500 dark:text-gray-400">
               Preço
             </span>
-            <span className="block text-xl sm:text-2xl font-bold tracking-tight text-gray-950 dark:text-white whitespace-nowrap">
+            <span className="block text-lg sm:text-[1.28rem] font-black tracking-tight text-gray-950 dark:text-white whitespace-nowrap">
               {formatPrice(vehicle.preco)}
             </span>
           </div>
@@ -126,10 +126,10 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               e.stopPropagation();
               open();
             }}
-            className="btn-shine inline-flex min-h-[40px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer"
+            className="btn-shine inline-flex min-h-[38px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-3.5 py-1.5 text-xs sm:text-[13px] font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <span>Ver detalhes</span>
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
           </button>
         </div>
       </article>
