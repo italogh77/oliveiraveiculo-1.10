@@ -168,7 +168,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         className="ov-hero relative w-full min-h-[100svh] h-[100svh] flex items-end overflow-hidden pb-12 sm:pb-16 pt-20"
       >
         <img
-          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[20%_center] sm:object-[58%_center]"
+          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[62%_center] sm:object-[58%_center]"
           src={publicAsset('loja-oliveira-fachada.jpg')}
           alt="Fachada e veículos da Oliveira Veículos em Maricá"
           fetchPriority="high"
@@ -335,10 +335,10 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                         transform: 'none',
                       }}
                       className={`ov-carousel-item relative shrink-0 select-none transition-all duration-300 ease-out ${isCenter
-                        ? 'opacity-100 z-10'
-                        : isEdge
-                          ? 'opacity-50 hover:opacity-85 cursor-pointer z-0 filter brightness-90'
-                          : 'opacity-25 pointer-events-none z-0 filter brightness-75'
+                          ? 'opacity-100 z-10'
+                          : isEdge
+                            ? 'opacity-50 hover:opacity-85 cursor-pointer z-0 filter brightness-90'
+                            : 'opacity-25 pointer-events-none z-0 filter brightness-75'
                         }`}
                     >
                       <div className="h-full w-full">
@@ -368,8 +368,8 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                       border: 'none',
                     }}
                     className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${isActive
-                      ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
-                      : 'w-2 bg-white/20 hover:bg-white/40'
+                        ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                        : 'w-2 bg-white/20 hover:bg-white/40'
                       }`}
                   />
                 );
