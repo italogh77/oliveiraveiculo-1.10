@@ -655,6 +655,35 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           </div>
         </section>
       )}
+
+      {/* ── Barra Fixa Flutuante no Mobile (Padrão Mobbin: Carvana / Turo / Webmotors) ── */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200/90 dark:border-white/10 bg-white/95 dark:bg-[#090a0b]/95 backdrop-blur-xl px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.15)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.7)] lg:hidden">
+        <div className="mx-auto flex max-w-md items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <span className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              Valor à vista
+            </span>
+            <div className="text-xl sm:text-2xl font-black text-gray-950 dark:text-[#dfb15b] tracking-tight leading-none">
+              {formatPrice(vehicle.preco)}
+            </div>
+            {vehicle.parcela && (
+              <span className="block truncate text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                ou parcelas de <strong className="text-gray-800 dark:text-gray-200 font-bold">R$ {vehicle.parcela}</strong>
+              </span>
+            )}
+          </div>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-shine inline-flex min-h-[46px] shrink-0 items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-5 py-2.5 text-xs sm:text-sm font-extrabold text-black shadow-lg active:scale-95 transition-all cursor-pointer"
+          >
+            <MessageSquare size={16} className="fill-black text-black shrink-0" />
+            <span>Falar no WhatsApp</span>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
