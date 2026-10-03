@@ -450,372 +450,370 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             )}
           </motion.div>
 
-          {/* ── 3. Conteúdo da Aba Ativa ── */}
-          {activeTab === 'veiculo' && (
-            <div className="mt-6">
-              {/* Título, Versão, Tag Online e Preço (Disposição da Imagem de Referência) */}
-              <div className="border-b border-gray-100 dark:border-white/10 pb-5">
-                <div className="flex items-start justify-between gap-3">
+          {/* ── Conteúdo Principal do Veículo ── */}
+          <div className="mt-6">
+            {/* Título, Versão, Tag Online e Preço (Disposição da Imagem de Referência) */}
+            <div className="border-b border-gray-100 dark:border-white/10 pb-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
+                    {vehicle.modelo}
+                  </h1>
+                  <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                    {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
+                  </p>
+                </div>
+
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm shrink-0">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  Online
+                </span>
+              </div>
+
+              {/* Preço de Grande Impacto */}
+              <div className="mt-4 text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
+                {formatPrice(vehicle.preco)}
+              </div>
+              {vehicle.parcela && (
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  ou entrada + parcelas a partir de{' '}
+                  <strong className="text-gray-950 dark:text-white font-bold">
+                    R$ {vehicle.parcela}/mês
+                  </strong>
+                </p>
+              )}
+            </div>
+
+            {/* Bloco de Localização / Cidade */}
+            <div className="py-4 border-b border-gray-100 dark:border-white/10">
+              <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                Cidade
+              </span>
+              <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                Maricá, Rio de Janeiro (RJ)
+              </span>
+            </div>
+
+            {/* ── Grid de Especificações Exatamente no Modelo Solicitado (2 Colunas) ── */}
+            <div className="py-5 border-b border-gray-100 dark:border-white/10">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-5">
+                {/* Linha 1: Ano / KM */}
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Ano
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.anoModelo || `${vehicle.ano}/${vehicle.ano}`}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    KM
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {typeof vehicle.km === 'number' ? vehicle.km.toLocaleString('pt-BR') : vehicle.km || '0'}
+                  </span>
+                </div>
+
+                {/* Linha 2: Cor / Carroceria */}
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Cor
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.cor || 'Não informada'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Carroceria
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.categoria || 'Hatch'}
+                  </span>
+                </div>
+
+                {/* Linha 3: Portas / Câmbio */}
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Portas
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.portas || (vehicle.categoria === 'Pickup' ? '2 / 4' : '4')}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Câmbio
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.cambio || 'Automático'}
+                  </span>
+                </div>
+
+                {/* Linha 4: Combustível / Blindado */}
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Combustível
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.combustivel || 'Flex'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
+                    Blindado
+                  </span>
+                  <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
+                    {vehicle.blindado || 'Não'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Descrição: Sobre este veículo */}
+            <div className="py-6 border-b border-gray-100 dark:border-white/10">
+              <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
+                SOBRE O VEÍCULO
+              </span>
+              <p className="text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+                {vehicle.descricao ||
+                  `O ${vehicle.modelo} une versatilidade, conforto e a confiabilidade reconhecida no mercado. Um veículo completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.`}
+              </p>
+            </div>
+
+            {/* Destaques do Carro */}
+            {vehicle.destaques?.length > 0 && (
+              <div className="py-6 border-b border-gray-100 dark:border-white/10">
+                <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-3">
+                  ITENS DE DESTAQUE
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {vehicle.destaques.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.02] px-3.5 py-2.5 text-xs font-bold text-gray-800 dark:text-gray-200"
+                    >
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/20 text-[#dfb15b]">
+                        <Check size={12} className="stroke-[3]" />
+                      </span>
+                      <span className="truncate">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Procedência & Padrão de Confiança */}
+            <div className="py-6">
+              <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gradient-to-br from-gray-50/90 via-white to-gray-50/90 dark:from-[#141518] dark:via-[#111215] dark:to-[#0c0d0f] p-5 sm:p-7 shadow-sm">
+                <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-200/70 dark:border-white/10 pb-4">
                   <div>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-gray-950 dark:text-white leading-tight">
-                      {vehicle.modelo}
-                    </h1>
-                    <p className="mt-1 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                      {vehicle.subtituloCard || `${vehicle.modelo} ${vehicle.ano}`}
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
+                      <ShieldCheck size={14} className="text-[#dfb15b]" />
+                      <span>PADRÃO OLIVEIRA VEÍCULOS</span>
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-extrabold text-gray-950 dark:text-white">
+                      Procedência 100% Garantida
+                    </h3>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
+                    <Check size={12} className="stroke-[3]" />
+                    Qualidade Aprovada
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                      <FileCheck size={18} />
+                    </span>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Qualidade Estrutural</h4>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                        Veículo rigorosamente inspecionado em sua integridade física e mecânica.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                      <ShieldCheck size={18} />
+                    </span>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                        Garantia de 90 dias para motor e caixa com cobertura e assistência da loja.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                      <Wrench size={18} />
+                    </span>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Revisão Mecânica</h4>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                        Inspecionado em mais de 40 itens essenciais antes de ir para a vitrine.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                      <Award size={18} />
+                    </span>
+                    <div>
+                      <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Documentação Pronta</h4>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
+                        Quitado, sem débitos ou pendências, pronto para transferência rápida.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Seção de Financiamento & Simulação ── */}
+            <div id="secao-financiamento" className="py-6 border-t border-gray-100 dark:border-white/10">
+              <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
+                <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                    <Calculator size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
+                      Simulação de Financiamento
+                    </h3>
+                    <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                      Aprovação facilitada em até 15 minutos com os maiores bancos parceiros
                     </p>
                   </div>
+                </div>
 
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-3 py-1 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm shrink-0">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    Online
+                <div className="mt-6 p-5 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200/60 dark:border-white/5">
+                  <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    Estimativa de Parcela
                   </span>
-                </div>
-
-                {/* Preço de Grande Impacto */}
-                <div className="mt-4 text-3xl sm:text-4xl lg:text-[2.6rem] font-black tracking-tight text-gray-950 dark:text-[#dfb15b] leading-tight">
-                  {formatPrice(vehicle.preco)}
-                </div>
-                {vehicle.parcela && (
+                  <div className="mt-1 text-2xl sm:text-3xl font-black text-gray-950 dark:text-[#dfb15b]">
+                    {vehicle.parcela ? `R$ ${vehicle.parcela}/mês` : 'Consulte condições'}
+                  </div>
                   <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                    ou entrada + parcelas a partir de{' '}
-                    <strong className="text-gray-950 dark:text-white font-bold">
-                      R$ {vehicle.parcela}/mês
-                    </strong>
+                    *Valores sujeitos a análise de crédito e entrada conforme tabela bancária.
                   </p>
-                )}
-              </div>
-
-              {/* Bloco de Localização / Cidade */}
-              <div className="py-4 border-b border-gray-100 dark:border-white/10">
-                <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                  Cidade
-                </span>
-                <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                  Maricá, Rio de Janeiro (RJ)
-                </span>
-              </div>
-
-              {/* ── Grid de Especificações Exatamente no Modelo Solicitado (2 Colunas) ── */}
-              <div className="py-5 border-b border-gray-100 dark:border-white/10">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-5">
-                  {/* Linha 1: Ano / KM */}
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Ano
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.anoModelo || `${vehicle.ano}/${vehicle.ano}`}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      KM
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {typeof vehicle.km === 'number' ? vehicle.km.toLocaleString('pt-BR') : vehicle.km || '0'}
-                    </span>
-                  </div>
-
-                  {/* Linha 2: Cor / Carroceria */}
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Cor
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.cor || 'Não informada'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Carroceria
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.categoria || 'Hatch'}
-                    </span>
-                  </div>
-
-                  {/* Linha 3: Portas / Câmbio */}
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Portas
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.portas || (vehicle.categoria === 'Pickup' ? '2 / 4' : '4')}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Câmbio
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.cambio || 'Automático'}
-                    </span>
-                  </div>
-
-                  {/* Linha 4: Combustível / Blindado */}
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Combustível
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.combustivel || 'Flex'}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-gray-400 dark:text-gray-500">
-                      Blindado
-                    </span>
-                    <span className="block text-sm sm:text-base font-extrabold text-gray-950 dark:text-white mt-0.5">
-                      {vehicle.blindado || 'Não'}
-                    </span>
-                  </div>
                 </div>
-              </div>
 
-              {/* Descrição: Sobre este veículo */}
-              <div className="py-6 border-b border-gray-100 dark:border-white/10">
-                <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
-                  SOBRE O VEÍCULO
-                </span>
-                <p className="text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
-                  {vehicle.descricao ||
-                    `O ${vehicle.modelo} une versatilidade, conforto e a confiabilidade reconhecida no mercado. Um veículo completo, ideal para o dia a dia, com ótimo espaço interno e excelente dirigibilidade.`}
-                </p>
-              </div>
-
-              {/* Destaques do Carro */}
-              {vehicle.destaques?.length > 0 && (
-                <div className="py-6 border-b border-gray-100 dark:border-white/10">
-                  <span className="block text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-3">
-                    ITENS DE DESTAQUE
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {vehicle.destaques.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-2.5 rounded-xl border border-gray-200/60 dark:border-white/5 bg-gray-50/70 dark:bg-white/[0.02] px-3.5 py-2.5 text-xs font-bold text-gray-800 dark:text-gray-200"
+                <div className="mt-6">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-3">
+                    BANCOS PARCEIROS
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {COMPANY_DATA.banks.map((bank, i) => (
+                      <span
+                        key={i}
+                        className="rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3.5 py-1.5 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm"
                       >
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/20 text-[#dfb15b]">
-                          <Check size={12} className="stroke-[3]" />
-                        </span>
-                        <span className="truncate">{item}</span>
-                      </div>
+                        {bank}
+                      </span>
                     ))}
                   </div>
                 </div>
-              )}
 
-              {/* Procedência & Padrão de Confiança */}
-              <div className="py-6">
-                <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-gradient-to-br from-gray-50/90 via-white to-gray-50/90 dark:from-[#141518] dark:via-[#111215] dark:to-[#0c0d0f] p-5 sm:p-7 shadow-sm">
-                  <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-200/70 dark:border-white/10 pb-4">
+                <div className="mt-8">
+                  <a
+                    href={`https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
+                      `Olá! Gostaria de simular um financiamento para o ${vehicle.modelo} (${year}) anunciado por ${formatPrice(vehicle.preco)}.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-shine inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3 text-sm font-extrabold text-black shadow-lg transition-all active:scale-95 cursor-pointer"
+                  >
+                    <MessageSquare size={16} className="fill-black text-black" />
+                    <span>Simular Financiamento no WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Seção da Loja & Consultores de Vendas ── */}
+            <div id="secao-vendedor" className="py-6 border-t border-gray-100 dark:border-white/10">
+              <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
+                <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
+                    <Building2 size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
+                      {COMPANY_DATA.name}
+                    </h3>
+                    <p className="text-xs font-semibold text-[#dfb15b]">
+                      {COMPANY_DATA.tagline}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-4">
+                  <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                    <MapPin size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
                     <div>
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
-                        <ShieldCheck size={14} className="text-[#dfb15b]" />
-                        <span>PADRÃO OLIVEIRA VEÍCULOS</span>
-                      </span>
-                      <h3 className="text-lg sm:text-xl font-extrabold text-gray-950 dark:text-white">
-                        Procedência 100% Garantida
-                      </h3>
+                      <strong className="block text-gray-900 dark:text-white font-bold">Endereço</strong>
+                      <span>{COMPANY_DATA.address}</span>
                     </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 self-start sm:self-auto">
-                      <Check size={12} className="stroke-[3]" />
-                      Qualidade Aprovada
-                    </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                        <FileCheck size={18} />
-                      </span>
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Qualidade Estrutural</h4>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                          Veículo rigorosamente inspecionado em sua integridade física e mecânica.
-                        </p>
-                      </div>
+                  <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                    <Clock size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block text-gray-900 dark:text-white font-bold">Horário de Atendimento</strong>
+                      <span>{COMPANY_DATA.hours}</span>
                     </div>
+                  </div>
 
-                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                        <ShieldCheck size={18} />
-                      </span>
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Garantia de 90 Dias</h4>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                          Garantia de 90 dias para motor e caixa com cobertura e assistência da loja.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                        <Wrench size={18} />
-                      </span>
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Revisão Mecânica</h4>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                          Inspecionado em mais de 40 itens essenciais antes de ir para a vitrine.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-white/[0.02] border border-gray-200/50 dark:border-white/5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                        <Award size={18} />
-                      </span>
-                      <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">Documentação Pronta</h4>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">
-                          Quitado, sem débitos ou pendências, pronto para transferência rápida.
-                        </p>
-                      </div>
+                  <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
+                    <Phone size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="block text-gray-900 dark:text-white font-bold">Telefone da Loja</strong>
+                      <a href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`} className="hover:text-[#dfb15b] font-semibold">
+                        {COMPANY_DATA.phone}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
 
-          {/* ── 4. Aba Vendedor (Informações da Loja Oliveira Veículos) ── */}
-          {activeTab === 'vendedor' && (
-            <div className="mt-6 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
-              <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                  <Building2 size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
-                    {COMPANY_DATA.name}
-                  </h3>
-                  <p className="text-xs font-semibold text-[#dfb15b]">
-                    {COMPANY_DATA.tagline}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-5 space-y-4">
-                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <MapPin size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold">Endereço</strong>
-                    <span>{COMPANY_DATA.address}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <Clock size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold">Horário de Atendimento</strong>
-                    <span>{COMPANY_DATA.hours}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
-                  <Phone size={18} className="text-[#dfb15b] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block text-gray-900 dark:text-white font-bold">Telefone da Loja</strong>
-                    <a href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`} className="hover:text-[#dfb15b] font-semibold">
-                      {COMPANY_DATA.phone}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Consultores de Vendas */}
-              <div className="mt-8 border-t border-gray-100 dark:border-white/10 pt-6">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-4">
-                  CONSULTORES DISPONÍVEIS
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {COMPANY_DATA.sellers.map((seller) => (
-                    <a
-                      key={seller.id}
-                      href={seller.whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex flex-col justify-between p-3.5 rounded-2xl border border-gray-200/70 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.02] hover:border-[#dfb15b]/50 transition-all"
-                    >
-                      <div>
-                        <strong className="block text-sm font-bold text-gray-900 dark:text-white">
-                          {seller.name}
-                        </strong>
-                        <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                          {seller.phone}
+                {/* Consultores de Vendas */}
+                <div className="mt-8 border-t border-gray-100 dark:border-white/10 pt-6">
+                  <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-4">
+                    CONSULTORES DISPONÍVEIS
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {COMPANY_DATA.sellers.map((seller) => (
+                      <a
+                        key={seller.id}
+                        href={seller.whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex flex-col justify-between p-3.5 rounded-2xl border border-gray-200/70 dark:border-white/10 bg-gray-50/80 dark:bg-white/[0.02] hover:border-[#dfb15b]/50 transition-all"
+                      >
+                        <div>
+                          <strong className="block text-sm font-bold text-gray-900 dark:text-white">
+                            {seller.name}
+                          </strong>
+                          <span className="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            {seller.phone}
+                          </span>
+                        </div>
+                        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] group-hover:underline">
+                          <MessageSquare size={13} />
+                          Chamar no WhatsApp
                         </span>
-                      </div>
-                      <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] group-hover:underline">
-                        <MessageSquare size={13} />
-                        Chamar no WhatsApp
-                      </span>
-                    </a>
-                  ))}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          )}
-
-          {/* ── 5. Aba Financiamento & Fipe ── */}
-          {activeTab === 'financiamento' && (
-            <div className="mt-6 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#131417] p-6 sm:p-8 shadow-sm">
-              <div className="flex items-center gap-3 border-b border-gray-100 dark:border-white/10 pb-5">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dfb15b]/15 text-[#dfb15b]">
-                  <Calculator size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl font-extrabold text-gray-950 dark:text-white">
-                    Simulação de Financiamento
-                  </h3>
-                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                    Aprovação facilitada em até 15 minutos com os maiores bancos
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 p-5 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200/60 dark:border-white/5">
-                <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Estimativa de Parcela
-                </span>
-                <div className="mt-1 text-2xl sm:text-3xl font-black text-gray-950 dark:text-[#dfb15b]">
-                  {vehicle.parcela ? `R$ ${vehicle.parcela}/mês` : 'Consulte condições'}
-                </div>
-                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  *Valores sujeitos a análise de crédito e entrada conforme tabela do banco.
-                </p>
-              </div>
-
-              <div className="mt-6">
-                <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#dfb15b] mb-3">
-                  BANCOS PARCEIROS
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {COMPANY_DATA.banks.map((bank, i) => (
-                    <span
-                      key={i}
-                      className="rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3.5 py-1.5 text-xs font-bold text-gray-800 dark:text-gray-200 shadow-sm"
-                    >
-                      {bank}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <a
-                  href={`https://wa.me/${COMPANY_DATA.whatsappNumber}?text=${encodeURIComponent(
-                    `Olá! Gostaria de simular um financiamento para o ${vehicle.modelo} (${year}) anunciado por ${formatPrice(vehicle.preco)}.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-shine inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3 text-sm font-extrabold text-black shadow-lg transition-all active:scale-95 cursor-pointer"
-                >
-                  <MessageSquare size={16} className="fill-black text-black" />
-                  <span>Simular Financiamento no WhatsApp</span>
-                </a>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
         {/* ── Painel Comercial Lateral Fixo no Desktop ── */}
