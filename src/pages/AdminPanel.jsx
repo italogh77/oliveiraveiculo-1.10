@@ -580,7 +580,8 @@ export function VehicleFormModal({ initial, onClose, onSave }) {
       await assertStorageAvailable();
     } catch (error) {
       setImportStatus('');
-      setToast(error.message);
+      setShowStorageModal(true);
+      setToast('O Firebase Storage precisa ser ativado no Firebase Console para uploads diretos.');
       setIsFileDragging(false);
       return;
     }
