@@ -165,17 +165,17 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       {/* ── Hero Section 100% Tela Cheia ── */}
       <section
         id="inicio-hero"
-        className="ov-hero relative w-full min-h-[100svh] h-[100svh] flex items-end overflow-hidden pb-12 sm:pb-16 pt-20"
+        className="ov-hero relative w-full min-h-[100svh] h-[100svh] flex items-end overflow-hidden pb-3 sm:pb-4 pt-20"
       >
         <img
-          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[center_38%] sm:object-[center_40%] pointer-events-none select-none"
+          className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[center_28%] sm:object-[center_30%] pointer-events-none select-none"
           src={publicAsset('loja-oliveira-fachada.jpg')}
           alt="Fachada e veículos da Oliveira Veículos em Maricá"
           fetchPriority="high"
         />
-        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/75 to-[#090a0b]/35" />
+        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/80 via-35% to-transparent pointer-events-none" />
 
-        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-3 sm:pb-5">
+        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-2">
           <div className="ov-hero-content max-w-2xl">
             {/* CTAs em formato Pílula (Regra 1 do Design System) */}
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
