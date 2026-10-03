@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Gauge, Palette, User } from 'lucide-react';
+import { ArrowRight, Calendar, Gauge, Cog, Fuel } from 'lucide-react';
 import { staggerItem } from './Reveal';
 import { photoDimensions, photoThumbUrl } from '../lib/vehicleImages';
 import { photoStyle } from '../lib/photoAdjustments';
@@ -11,44 +11,36 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
   const formatPrice = (value) =>
     value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 
-  const anoDisplay = vehicle.anoModelo
-    ? vehicle.anoModelo
-    : vehicle.ano
-    ? `${vehicle.ano}/${vehicle.ano}`
-    : '2025/2026';
+  const formatKm = (km) => km.toLocaleString('pt-BR') + ' km';
 
-  const kmDisplay = typeof vehicle.km === 'number'
-    ? `${vehicle.km.toLocaleString('pt-BR')} Km`
-    : vehicle.km
-    ? `${vehicle.km} Km`
-    : '0 Km';
+  const subtitle = (
+    vehicle.subtituloCard ||
+    `${vehicle.modelo.replace(vehicle.marca, '').trim()} ${vehicle.ano} • ${formatKm(vehicle.km)}`
+  ).replace(/Longitu\s+de/gi, 'Longitude');
 
-  const corDisplay = vehicle.cor || 'Não informada';
-  const vendedorDisplay = vehicle.vendedor || vehicle.origem || 'Concessionária';
-
-  // Título em caixa alta marcante como no modelo (ex: MERCEDES-BENZ C 200)
-  const carTitle = (vehicle.tituloCard || vehicle.modelo || `${vehicle.marca || ''} ${vehicle.modelo || ''}`).toUpperCase();
-
-  // Subtítulo / Versão / Motorização (ex: 1.5 EQ BOOST HÍBRIDO AMG LINE 9G-TRONIC)
-  const getSubtitle = () => {
-    if (vehicle.versao) return vehicle.versao.toUpperCase();
-    if (vehicle.subtituloCard) {
-      const rawVersion = vehicle.subtituloCard.split('•')[0].replace(new RegExp(`\\b${vehicle.ano}\\b`, 'g'), '').trim();
-      if (rawVersion) return rawVersion.toUpperCase();
-    }
-    if (vehicle.modelo) {
-      let clean = vehicle.modelo;
-      if (vehicle.marca) clean = clean.replace(new RegExp(`^${vehicle.marca}\\s*`, 'i'), '');
-      if (vehicle.tituloCard) clean = clean.replace(new RegExp(`^${vehicle.tituloCard}\\s*`, 'i'), '');
-      if (clean.trim()) return clean.trim().toUpperCase();
-    }
-    return `${vehicle.cambio || ''} ${vehicle.combustivel || ''}`.trim().toUpperCase() || 'COMPLETO';
-  };
-
-  const subtitle = getSubtitle();
-
-  // Tag em destaque no estilo pílula preta (ex: TROCA COM TROCO)
-  const badgeText = (vehicle.tag || 'TROCA COM TROCO').toUpperCase();
+  // Informações originais de ficha técnica com ícones limpos inspirados no modelo
+  const specs = [
+    vehicle.ano && {
+      Icon: Calendar,
+      label: vehicle.anoModelo || String(vehicle.ano),
+      title: 'Ano / Modelo',
+    },
+    typeof vehicle.km === 'number' && {
+      Icon: Gauge,
+      label: formatKm(vehicle.km),
+      title: 'Quilometragem',
+    },
+    vehicle.cambio && {
+      Icon: Cog,
+      label: vehicle.cambio,
+      title: 'Câmbio',
+    },
+    vehicle.combustivel && {
+      Icon: Fuel,
+      label: vehicle.combustivel,
+      title: 'Combustível',
+    },
+  ].filter(Boolean);
 
   const open = () => onSelectVehicle && onSelectVehicle(vehicle);
   const coverPhoto = vehicle.fotos?.[0] || vehicle.foto;
@@ -97,54 +89,48 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
           />
         </div>
 
-        {/* Informações adaptadas no modelo solicitado */}
+        {/* Informações originais com visual refinado inspirado no modelo */}
         <div className="flex flex-col flex-grow p-4 pb-3 sm:p-5 sm:pb-3">
-          {/* Tag pílula preta: TROCA COM TROCO */}
-          <div className="mb-2.5">
-            <span className="inline-flex items-center rounded-full bg-black px-3 py-1 text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-white shadow-sm dark:bg-black/90 dark:border dark:border-white/20 dark:text-white">
-              {badgeText}
-            </span>
-          </div>
+          {/* Badges de destaque em pílula (apenas quando o veículo possui tag ou categoria) */}
+          {(vehicle.tag || vehicle.categoria) && (
+            <div className="mb-2.5 flex items-center gap-1.5 flex-wrap">
+              {vehicle.tag && (
+                <span className="inline-flex items-center rounded-full bg-black px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-white shadow-sm dark:bg-white/10 dark:text-white dark:border dark:border-white/15">
+                  {vehicle.tag}
+                </span>
+              )}
+              {vehicle.categoria && (
+                <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-medium text-gray-700 border border-gray-200/70 dark:bg-white/5 dark:text-gray-300 dark:border-white/10">
+                  {vehicle.categoria}
+                </span>
+              )}
+            </div>
+          )}
 
-          {/* Nome / Modelo em destaque uppercase */}
-          <h3 className="font-sans line-clamp-1 text-lg sm:text-xl font-extrabold uppercase tracking-tight text-gray-950 dark:text-white">
-            {carTitle}
+          {/* Nome / Modelo original do veículo */}
+          <h3 className="font-sans line-clamp-1 text-lg sm:text-xl font-bold tracking-tight text-gray-950 dark:text-white">
+            {vehicle.tituloCard || vehicle.modelo}
           </h3>
 
-          {/* Versão / Motorização */}
-          <p className="mt-1 line-clamp-1 text-xs sm:text-[13px] font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          {/* Subtítulo original */}
+          <p className="mt-1 line-clamp-1 text-xs sm:text-[13px] font-medium text-gray-500 dark:text-gray-400">
             {subtitle}
           </p>
 
-          {/* Grid com as 4 especificações solicitadas com ícones */}
-          <div className="mt-3.5 grid grid-cols-3 gap-x-2 gap-y-2 text-xs sm:text-[13px] text-gray-700 dark:text-gray-300">
-            {/* 1. Ano / Modelo */}
-            <div className="flex items-center gap-1.5 min-w-0" title={`Ano/Modelo: ${anoDisplay}`}>
-              <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true" />
-              <span className="font-medium truncate">{anoDisplay}</span>
+          {/* Grid de especificações arejado e limpo (Ano, Km, Câmbio, Combustível) */}
+          {specs.length > 0 && (
+            <div className="mt-3.5 grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:text-[13px] text-gray-600 dark:text-gray-300">
+              {specs.map(({ Icon, label, title }) => (
+                <div key={label} className="flex items-center gap-1.5 min-w-0" title={title}>
+                  <Icon className="h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-[#dfb15b] transition-colors shrink-0" aria-hidden="true" />
+                  <span className="truncate font-medium">{label}</span>
+                </div>
+              ))}
             </div>
-
-            {/* 2. Quilometragem */}
-            <div className="flex items-center gap-1.5 min-w-0" title={`Quilometragem: ${kmDisplay}`}>
-              <Gauge className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true" />
-              <span className="font-medium truncate">{kmDisplay}</span>
-            </div>
-
-            {/* 3. Cor */}
-            <div className="flex items-center gap-1.5 min-w-0" title={`Cor: ${corDisplay}`}>
-              <Palette className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true" />
-              <span className="font-medium truncate">{corDisplay}</span>
-            </div>
-
-            {/* 4. Concessionária (posicionada na 3ª coluna, alinhada abaixo da cor como no modelo) */}
-            <div className="col-start-3 flex items-center gap-1.5 min-w-0" title={vendedorDisplay}>
-              <User className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" aria-hidden="true" />
-              <span className="font-medium truncate">{vendedorDisplay}</span>
-            </div>
-          </div>
+          )}
         </div>
 
-        {/* Preço e Botão Ver detalhes mantidos e perfeitamente harmonizados */}
+        {/* Preço de alto impacto e Botão Ver detalhes mantidos e harmonizados */}
         <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-100 dark:border-white/10 p-4 sm:p-5 pt-3.5 sm:pt-4">
           <div className="min-w-0 shrink">
             <span className="block text-xl sm:text-2xl font-black tracking-tight text-gray-950 dark:text-white whitespace-nowrap">
