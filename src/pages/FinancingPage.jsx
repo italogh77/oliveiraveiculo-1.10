@@ -35,40 +35,40 @@ export default function FinancingPage({ onGoToEstoque }) {
   };
 
   return (
-    <main className="ov-shell ov-page ov-financing text-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
+    <main className="ov-shell ov-page ov-financing text-gray-900 dark:text-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
       {/* ── Introdução ── */}
       <div className="ov-page-intro mb-8">
         <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
           <Sparkles size={13} />
           <span>SIMULADOR DE FINANCIAMENTO</span>
         </span>
-        <h1 className="text-[clamp(1.75rem,6vw,3.25rem)] font-extrabold tracking-tight text-white leading-tight">
+        <h1 className="text-[clamp(1.75rem,6vw,3.25rem)] font-extrabold tracking-tight text-gray-950 dark:text-white leading-tight">
           Um caminho mais simples para seu próximo carro.
         </h1>
-        <p className="text-xs sm:text-base text-gray-300 mt-2 font-medium max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-base text-gray-600 dark:text-gray-300 mt-2 font-medium max-w-2xl leading-relaxed">
           Calcule uma estimativa ilustrativa em segundos e consulte nossa equipe para verificar as taxas personalizadas aprovadas pelos bancos parceiros.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* ── 5. FORMULÁRIO DE ESTIMATIVA (Regra 5) ── */}
-        <div className="lg:col-span-7 rounded-3xl border border-white/10 bg-[#121316] p-5 sm:p-8 shadow-2xl">
-          <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-white/10">
+        <div className="lg:col-span-7 rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#121316] p-5 sm:p-8 shadow-sm dark:shadow-2xl">
+          <div className="flex items-center gap-2.5 mb-6 pb-3 border-b border-gray-100 dark:border-white/10">
             <Calculator size={22} className="text-[#dfb15b]" />
-            <h2 className="text-xl sm:text-2xl font-bold text-white mb-0">Estime sua parcela</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-950 dark:text-white mb-0">Estime sua parcela</h2>
           </div>
 
           <div className="space-y-5">
             {/* Campo: Valor do veículo */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-gray-300" htmlFor="fin-price">
+                <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300" htmlFor="fin-price">
                   Valor do veículo
                 </label>
                 <span className="text-xs font-mono font-bold text-[#dfb15b]">{brl(value)}</span>
               </div>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-400">R$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-400 dark:text-gray-500">R$</span>
                 <input
                   id="fin-price"
                   type="number"
@@ -76,7 +76,7 @@ export default function FinancingPage({ onGoToEstoque }) {
                   step="1000"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 min-h-[46px] rounded-xl border border-white/10 bg-white/5 text-white text-base font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 transition-all"
+                  className="w-full pl-11 pr-4 py-3 min-h-[46px] rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white text-base font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 focus:bg-white dark:focus:bg-white/10 transition-all"
                 />
               </div>
             </div>
@@ -84,13 +84,13 @@ export default function FinancingPage({ onGoToEstoque }) {
             {/* Campo: Entrada + Atalhos Rápidos em Pílula */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-gray-300" htmlFor="fin-entry">
+                <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300" htmlFor="fin-entry">
                   Valor da entrada
                 </label>
                 <span className="text-xs font-mono font-bold text-[#dfb15b]">{brl(down)}</span>
               </div>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-400">R$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-gray-400 dark:text-gray-500">R$</span>
                 <input
                   id="fin-entry"
                   type="number"
@@ -99,7 +99,7 @@ export default function FinancingPage({ onGoToEstoque }) {
                   step="1000"
                   value={entry}
                   onChange={(e) => setEntry(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 min-h-[46px] rounded-xl border border-white/10 bg-white/5 text-white text-base font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 transition-all"
+                  className="w-full pl-11 pr-4 py-3 min-h-[46px] rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white text-base font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 focus:bg-white dark:focus:bg-white/10 transition-all"
                 />
               </div>
 
@@ -115,7 +115,7 @@ export default function FinancingPage({ onGoToEstoque }) {
                     key={chip.label}
                     type="button"
                     onClick={() => handleShortcutEntry(chip.pct)}
-                    className="min-h-[40px] px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/10 bg-white/5 hover:border-[#dfb15b] hover:text-[#dfb15b] text-gray-300 active:scale-95 transition-all cursor-pointer shadow-sm"
+                    className="min-h-[40px] px-3.5 py-1.5 rounded-full text-xs font-semibold border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 hover:border-[#dfb15b] hover:text-[#dfb15b] text-gray-700 dark:text-gray-300 active:scale-95 transition-all cursor-pointer shadow-sm"
                   >
                     {chip.label}
                   </button>
@@ -125,7 +125,7 @@ export default function FinancingPage({ onGoToEstoque }) {
 
             {/* Campo: Prazo de Financiamento em Pílulas (Substitui o Select - Regra 5) */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-2">
                 Prazo de financiamento
               </label>
               <div className="grid grid-cols-5 gap-2">
@@ -139,7 +139,7 @@ export default function FinancingPage({ onGoToEstoque }) {
                       className={`min-h-[44px] rounded-full text-xs sm:text-sm font-bold transition-all duration-150 active:scale-95 cursor-pointer border ${
                         active
                           ? 'bg-[#dfb15b] border-[#dfb15b] text-black shadow-md'
-                          : 'bg-white/5 border-white/10 text-gray-300 hover:border-[#dfb15b]/50'
+                          : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:border-[#dfb15b]/50'
                       }`}
                     >
                       {n}x
@@ -152,10 +152,10 @@ export default function FinancingPage({ onGoToEstoque }) {
             {/* Campo: Taxa mensal para estimativa */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-gray-300" htmlFor="fin-rate">
+                <label className="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300" htmlFor="fin-rate">
                   Taxa mensal para estimativa (%)
                 </label>
-                <span className="text-xs font-mono text-gray-400">{rate}% a.m.</span>
+                <span className="text-xs font-mono text-gray-500 dark:text-gray-400">{rate}% a.m.</span>
               </div>
               <input
                 id="fin-rate"
@@ -165,9 +165,9 @@ export default function FinancingPage({ onGoToEstoque }) {
                 step="0.1"
                 value={rate}
                 onChange={(e) => setRate(e.target.value)}
-                className="w-full px-4 py-3 min-h-[46px] rounded-xl border border-white/10 bg-white/5 text-white text-sm font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 transition-all"
+                className="w-full px-4 py-3 min-h-[46px] rounded-xl border border-gray-300 dark:border-white/10 bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white text-sm font-semibold focus:outline-none focus:border-[#dfb15b] focus:ring-1 focus:ring-[#dfb15b]/30 focus:bg-white dark:focus:bg-white/10 transition-all"
               />
-              <p className="text-[11px] text-gray-400 mt-2 leading-relaxed">
+              <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-2 leading-relaxed">
                 Taxa ilustrativa e editável. A taxa real depende da análise de crédito individual feita por cada instituição bancária parceira.
               </p>
             </div>
@@ -176,48 +176,48 @@ export default function FinancingPage({ onGoToEstoque }) {
 
         {/* ── Resumo da Estimativa e CTAs em Pílula ── */}
         <div className="lg:col-span-5 flex flex-col gap-4">
-          <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-[#181a1f] to-[#101114] p-6 sm:p-7 shadow-2xl">
+          <div className="rounded-3xl border border-gray-200/80 dark:border-white/10 bg-white dark:bg-gradient-to-b dark:from-[#181a1f] dark:to-[#101114] p-6 sm:p-7 shadow-sm dark:shadow-2xl">
             <span className="text-xs font-mono uppercase tracking-widest text-[#dfb15b] font-bold block mb-3">
               RESUMO DA ESTIMATIVA
             </span>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center py-2 border-b border-white/10 text-sm">
-                <span className="text-gray-400">Valor do veículo</span>
-                <strong className="text-white font-semibold">{brl(value)}</strong>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-white/10 text-sm">
+                <span className="text-gray-500 dark:text-gray-400">Valor do veículo</span>
+                <strong className="text-gray-950 dark:text-white font-semibold">{brl(value)}</strong>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-white/10 text-sm">
-                <span className="text-gray-400">Entrada informada</span>
-                <strong className="text-white font-semibold">{brl(down)}</strong>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-white/10 text-sm">
+                <span className="text-gray-500 dark:text-gray-400">Entrada informada</span>
+                <strong className="text-gray-950 dark:text-white font-semibold">{brl(down)}</strong>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-white/10 text-sm">
-                <span className="text-gray-400">Valor financiado</span>
-                <strong className="text-white font-semibold">{brl(financed)}</strong>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-white/10 text-sm">
+                <span className="text-gray-500 dark:text-gray-400">Valor financiado</span>
+                <strong className="text-gray-950 dark:text-white font-semibold">{brl(financed)}</strong>
               </div>
 
-              <div className="flex justify-between items-center py-2 border-b border-white/10 text-sm">
-                <span className="text-gray-400">Prazo escolhido</span>
-                <strong className="text-white font-semibold">{months} meses</strong>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-white/10 text-sm">
+                <span className="text-gray-500 dark:text-gray-400">Prazo escolhido</span>
+                <strong className="text-gray-950 dark:text-white font-semibold">{months} meses</strong>
               </div>
             </div>
 
             {/* Parcela Mensal Estimada */}
             <div className="pt-6 pb-2">
-              <span className="text-xs uppercase font-bold tracking-wider text-gray-400 block mb-1">
+              <span className="text-xs uppercase font-bold tracking-wider text-gray-500 dark:text-gray-400 block mb-1">
                 Parcela mensal estimada
               </span>
               <div className="flex items-baseline gap-1.5">
                 <strong className="text-[clamp(1.9rem,6vw,2.75rem)] font-extrabold text-[#dfb15b] tracking-tight">
                   {brl(Number.isFinite(payment) ? payment : 0)}
                 </strong>
-                <sub className="text-xs sm:text-sm font-medium text-gray-400">/mês</sub>
+                <sub className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">/mês</sub>
               </div>
             </div>
 
             {/* Aviso explícito */}
-            <div className="mt-4 p-3.5 rounded-2xl bg-black/40 border border-white/10 text-xs leading-relaxed text-amber-200/90 flex items-start gap-2.5">
+            <div className="mt-4 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs leading-relaxed text-amber-900 dark:text-amber-200/90 flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-[#dfb15b] shrink-0 mt-0.5" />
               <p>
                 Este cálculo é apenas uma estimativa ilustrativa. Para consultar aprovação com seu CPF sem compromisso, fale com nossos vendedores.
@@ -239,7 +239,7 @@ export default function FinancingPage({ onGoToEstoque }) {
           {/* Botão em Pílula Secundário: Ver estoque */}
           <button
             type="button"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full min-h-[44px] px-5 py-3 border border-white/15 hover:border-[#dfb15b] text-gray-300 hover:text-white text-xs sm:text-sm font-semibold active:scale-95 transition-all cursor-pointer shadow-sm"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full min-h-[44px] px-5 py-3 border border-gray-300 dark:border-white/15 hover:border-[#dfb15b] text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white bg-white dark:bg-transparent text-xs sm:text-sm font-semibold active:scale-95 transition-all cursor-pointer shadow-sm"
             onClick={onGoToEstoque}
           >
             <span>Ver veículos no estoque</span>
@@ -249,7 +249,7 @@ export default function FinancingPage({ onGoToEstoque }) {
       </div>
 
       {/* Nota de rodapé da simulação */}
-      <div className="mt-10 flex items-center gap-3.5 p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs sm:text-sm text-gray-300">
+      <div className="mt-10 flex items-center gap-3.5 p-4 rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-200/80 dark:border-white/10 text-xs sm:text-sm text-gray-700 dark:text-gray-300 shadow-sm">
         <ShieldCheck size={24} className="text-[#dfb15b] shrink-0" />
         <span>
           Tem dúvidas sobre entrada, parcelas ou análise de crédito? Nosso time consulta diretamente os 6 maiores bancos parceiros para buscar a melhor condição de crédito para você.

@@ -253,7 +253,7 @@ export default function SocialProof({ onGoToEstoque }) {
             href="https://www.google.com/maps/place/Oliveira+Ve%C3%ADculos+Maric%C3%A1/@-22.9033231,-42.7993074,17z/data=!3m1!4b1!4m6!3m5!1s0x99ed9b8c5bf7ab:0x9229d06d2cf0423d!8m2!3d-22.9033231!4d-42.7993074!16s%2Fg%2F11t0rpf0sy"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 hover:bg-[#dfb15b] hover:text-black text-white px-6 py-3 min-h-[44px] text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-md cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-white/15 bg-gray-100 dark:bg-white/5 hover:bg-[#dfb15b] hover:text-black dark:hover:text-black text-gray-800 dark:text-white px-6 py-3 min-h-[44px] text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-sm hover:shadow-md cursor-pointer"
           >
             <span>Ver mais avaliações no Google</span>
             <ArrowRight size={15} />
