@@ -47,6 +47,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
   const hideNavbar = isHeroPage && !isScrolled && !open;
 
   return (
+    <>
     <header
       className={`ov-header fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out border-b ${
         hideNavbar
@@ -100,7 +101,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           {/* Botão Encontrar meu carro no canto direito */}
           <button
             onClick={() => navigate('estoque')}
-            className="btn-shine group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-[38px] sm:min-h-[42px] transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
+            className="btn-shine group relative hidden sm:inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[13px] py-1.5 px-4 min-h-[42px] transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
             aria-label="Encontrar meu carro no estoque"
           >
             <span className="hidden min-[420px]:inline">Encontrar meu carro</span>
@@ -178,5 +179,22 @@ export default function Navbar({ activeTab, onSelectTab }) {
         </nav>
       )}
     </header>
+
+    {/* Navegação principal sempre ao alcance do polegar no celular. */}
+    <nav className="ov-mobile-dock lg:hidden" aria-label="Atalhos principais">
+      {items.map(([id, label, Icon]) => (
+        <button
+          key={`dock-${id}`}
+          type="button"
+          onClick={() => navigate(id)}
+          aria-current={activeTab === id ? 'page' : undefined}
+          className={`ov-mobile-dock-item ${activeTab === id ? 'is-active' : ''}`}
+        >
+          <Icon size={20} strokeWidth={activeTab === id ? 2.5 : 2} />
+          <span>{id === 'estoque' ? 'Estoque' : label}</span>
+        </button>
+      ))}
+    </nav>
+    </>
   );
 }

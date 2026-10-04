@@ -2228,3 +2228,101 @@ h2 {
     box-sizing: border-box;
   }
 }
+
+/* Navegação e composição pensadas primeiro para telas de toque. */
+.ov-mobile-dock {
+  position: fixed;
+  z-index: 60;
+  right: 10px;
+  bottom: max(10px, env(safe-area-inset-bottom));
+  left: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 64px;
+  padding: 7px 5px;
+  border: 1px solid rgb(229 231 235 / .9);
+  border-radius: 20px;
+  background: rgb(255 255 255 / .94);
+  box-shadow: 0 14px 40px rgb(15 23 42 / .2);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+.dark .ov-mobile-dock {
+  border-color: rgb(255 255 255 / .12);
+  background: rgb(13 14 17 / .94);
+  box-shadow: 0 16px 44px rgb(0 0 0 / .65);
+}
+
+.ov-mobile-dock-item {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 15px;
+  color: #6b7280;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  transition: color .2s ease, background-color .2s ease, transform .15s ease;
+}
+
+.ov-mobile-dock-item span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ov-mobile-dock-item.is-active {
+  color: #171717;
+  background: #dfb15b;
+  box-shadow: 0 5px 16px rgb(223 177 91 / .3);
+}
+
+.ov-mobile-dock-item:active { transform: scale(.94); }
+.dark .ov-mobile-dock-item { color: #a1a1aa; }
+.dark .ov-mobile-dock-item.is-active { color: #090a0b; }
+
+@media (min-width: 1024px) {
+  .ov-mobile-dock { display: none; }
+}
+
+@media (max-width: 1023px) {
+  .ov-whatsapp-float {
+    bottom: calc(5.75rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .ov-site-shell { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+
+  .ov-header > div:first-child { padding-inline: 14px; }
+
+  .ov-hero-image {
+    object-position: 66% center !important;
+    filter: brightness(.72) saturate(.88);
+    transform: scale(1.02);
+  }
+
+  .ov-hero-overlay {
+    background:
+      linear-gradient(180deg, rgb(9 10 11 / .35) 0%, rgb(9 10 11 / .15) 26%, rgb(9 10 11 / .92) 72%, #090a0b 100%) !important;
+  }
+
+  .ov-hero-shell { padding-inline: 18px; }
+  .ov-actions { gap: 10px; }
+  .ov-actions > * { min-height: 50px; }
+
+  #vitrine-carros > div:nth-child(3) { display: none; }
+}
+
+@media (max-width: 350px) {
+  .ov-mobile-dock { right: 6px; left: 6px; }
+  .ov-mobile-dock-item { font-size: 8px; }
+  .ov-header .ov-theme-toggle { width: 36px; height: 36px; }
+}

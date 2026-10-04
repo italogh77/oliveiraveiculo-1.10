@@ -130,7 +130,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       {/* ── Hero Section 2048x911 Proporcional (100% sem achatar) ── */}
       <section
         id="inicio-hero"
-        className="ov-hero relative w-full overflow-hidden bg-[#090a0b] flex items-end pt-20 pb-4 sm:pb-6 md:pb-8 lg:aspect-[2048/911] min-h-[420px] sm:min-h-[520px] lg:min-h-0"
+        className="ov-hero relative w-full overflow-hidden bg-[#090a0b] flex items-end pt-20 pb-6 sm:pb-6 md:pb-8 lg:aspect-[2048/911] min-h-[620px] sm:min-h-[520px] lg:min-h-0"
       >
         <img
           className="ov-hero-image absolute inset-0 w-full h-full object-cover object-[15%_center] md:object-center pointer-events-none select-none"
@@ -142,6 +142,18 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
         <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-3 md:pb-4">
           <div className="ov-hero-content max-w-2xl">
+            <div className="mb-7 sm:hidden">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#efc676] backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#dfb15b]" />
+                Oliveira Veículos · Maricá
+              </span>
+              <h1 className="mt-4 max-w-[330px] font-display text-[2.55rem] font-black leading-[0.98] tracking-[-0.04em] text-white">
+                Seu próximo carro <span className="text-[#dfb15b]">está aqui.</span>
+              </h1>
+              <p className="mt-4 max-w-[320px] text-sm font-medium leading-relaxed text-white/75">
+                Atendimento próximo, veículos selecionados e condições que cabem nos seus planos.
+              </p>
+            </div>
             {/* CTAs em formato Pílula (Regra 1 do Design System) */}
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
