@@ -21,7 +21,7 @@ export default function WhatsAppFloat() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0, y: 20 }}
           transition={{ type: 'spring', stiffness: 380, damping: 22, delay: 0.1 }}
-          className="fixed z-40 flex items-center bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6"
+          className="ov-whatsapp-float fixed z-40 flex items-center bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] lg:bottom-6 lg:right-6"
         >
           {/* Tooltip */}
           <AnimatePresence>
