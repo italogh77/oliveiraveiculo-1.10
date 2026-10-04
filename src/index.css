@@ -1389,8 +1389,9 @@ html:not(.dark) .ov-transition-logo {
   position: relative;
   isolation: isolate;
   width: 100%;
-  aspect-ratio: 2048 / 911;
-  min-height: 480px;
+  aspect-ratio: auto;
+  height: 100svh;
+  min-height: 100svh;
   display: flex;
   align-items: flex-end;
   padding: 80px 0 20px;
@@ -1406,13 +1407,14 @@ html:not(.dark) .ov-hero {
 
 @media (min-width: 1024px) {
   .ov-hero {
-    height: auto;
-    min-height: auto;
-    aspect-ratio: 2048 / 911;
+    height: 100svh;
+    min-height: 100svh;
+    aspect-ratio: auto;
   }
 }
 
 .ov-hero-image,
+.ov-hero-video,
 .ov-hero-overlay {
   position: absolute;
   inset: 0;
@@ -1423,9 +1425,16 @@ html:not(.dark) .ov-hero {
 .ov-hero-image {
   object-fit: cover !important;
   object-position: center;
-  z-index: -2;
+  z-index: -3;
   pointer-events: none;
   user-select: none;
+}
+
+.ov-hero-video {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
 }
 
 .ov-hero-overlay {
@@ -2011,8 +2020,8 @@ html:not(.dark) .vehicle-card h3 {
   }
 
   .ov-hero {
-    height: auto;
-    min-height: 380px;
+    height: 100svh;
+    min-height: 100svh;
     display: flex;
     align-items: flex-end;
     padding: 70px 0 16px;
@@ -2147,6 +2156,10 @@ html:not(.dark) .vehicle-card h3 {
   .ov-hero-image {
     transition: none !important;
     transform: none !important;
+  }
+
+  .ov-hero-video {
+    display: none !important;
   }
 }
 
