@@ -127,44 +127,28 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
 
   return (
     <div className="ov-home text-gray-900 dark:text-white bg-[#f7f8fa] dark:bg-[#090a0b] transition-colors duration-300">
-      {/* ── Hero em tela cheia com vídeo vertical no mobile ── */}
+      {/* ── Hero Section 2048x911 Proporcional (100% Visível sem Cortes) ── */}
       <section
         id="inicio-hero"
-        className="ov-hero relative flex min-h-[100svh] w-full items-end overflow-hidden bg-[#090a0b] pt-20 pb-4 sm:pb-6 md:pb-8"
+        className="ov-hero relative w-full overflow-hidden bg-[#090a0b] flex flex-col md:flex-row md:items-end pt-16 md:pt-0 md:aspect-[2048/911]"
       >
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcSet={publicAsset('hero-drone-mobile-poster.jpg')}
-          />
+        {/* Banner 100% visível e proporcional em qualquer tela */}
+        <div className="ov-hero-banner relative w-full aspect-[2048/911] overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
           <img
-            className="ov-hero-image absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+            className="w-full h-full object-cover object-center pointer-events-none select-none"
             src={publicAsset('loja-oliveira-banner-2048.png')}
             alt="Oliveira Veículos - Seu próximo carro está aqui"
             fetchPriority="high"
           />
-        </picture>
-        <video
-          className="ov-hero-video absolute inset-0 h-full w-full object-cover object-center md:hidden"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={publicAsset('hero-drone-mobile-poster.jpg')}
-          aria-hidden="true"
-        >
-          <source src={publicAsset('hero-drone-mobile.webm')} type="video/webm" />
-          <source src={publicAsset('hero-drone-mobile.mp4')} type="video/mp4" />
-        </video>
-        <div className="ov-hero-overlay absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/30 via-15% to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090a0b] via-transparent to-transparent md:via-[#090a0b]/20 md:to-transparent pointer-events-none" />
+        </div>
 
-        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-1 sm:pb-3 md:pb-4">
+        {/* CTAs em formato Pílula (Regra 1 do Design System) */}
+        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-3 pb-3 md:pt-0 md:pb-6">
           <div className="ov-hero-content max-w-2xl">
-            {/* CTAs em formato Pílula (Regra 1 do Design System) */}
-            <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <button
-                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-lg active:scale-95 cursor-pointer"
+                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-lg active:scale-95 cursor-pointer w-full sm:w-auto"
                 onClick={onGoToEstoque}
               >
                 <span>Explorar veículos</span>
@@ -175,7 +159,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/10 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-lg active:scale-95 cursor-pointer"
+                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/10 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-lg active:scale-95 cursor-pointer w-full sm:w-auto"
               >
                 <MessageCircle
                   size={18}
