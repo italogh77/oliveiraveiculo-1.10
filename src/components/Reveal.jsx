@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 export const EASE = [0.16, 1, 0.3, 1];
 
 // Entrada suave quando o elemento aparece na tela (respeita "reduzir movimento" via MotionConfig no App)
-export function Reveal({ children, delay = 0, y = 24, className = '', once = true }) {
+export function Reveal({ children, delay = 0, y = 24, className = '', once = true, ...rest }) {
   return (
     <motion.div
+      {...rest}
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
