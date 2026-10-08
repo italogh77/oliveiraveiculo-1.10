@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Tag, Landmark, ShieldCheck, ArrowRight, Wrench } from 'lucide-react';
+import { ShoppingCart, Tag, Landmark, ShieldCheck, ArrowRight, Wrench, ChevronDown } from 'lucide-react';
 
 export default function Services({ onGoToEstoque }) {
   const services = [
@@ -121,15 +121,21 @@ export default function Services({ onGoToEstoque }) {
                   {service.desc}
                 </p>
 
-                {/* Lista de benefícios */}
-                <ul className="space-y-2 mb-8">
-                  {service.details.map((detail) => (
-                    <li key={detail} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300 leading-normal">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#cf8d3c] shrink-0 mt-1.5" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Detalhes sob demanda: mantém a leitura inicial curta no celular. */}
+                <details className="group/details mb-6 rounded-xl border border-gray-200/80 bg-gray-50/70 dark:border-white/10 dark:bg-white/[0.03]">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 py-2.5 text-xs font-bold text-gray-800 dark:text-gray-200 marker:content-none">
+                    <span>Ver o que está incluído</span>
+                    <ChevronDown className="h-4 w-4 shrink-0 text-[#cf8d3c] transition-transform group-open/details:rotate-180" />
+                  </summary>
+                  <ul className="space-y-2 border-t border-gray-200/80 px-4 py-3 dark:border-white/10">
+                    {service.details.map((detail) => (
+                      <li key={detail} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300 leading-normal">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#cf8d3c] shrink-0 mt-1.5" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </div>
 
               {/* Botão alinhado na base do card */}
