@@ -160,7 +160,7 @@ export default function App() {
 
   return (
     <VehiclesProvider>
-      <MotionConfig reducedMotion="never">
+      <MotionConfig reducedMotion="user">
         <PageTransitionOverlay isVisible={isTransitioning} />
         <div
           className={`ov-site-shell min-h-[100svh] ${
