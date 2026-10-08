@@ -132,13 +132,20 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         id="inicio-hero"
         className="ov-hero relative w-full overflow-hidden bg-white dark:bg-[#090a0b] flex flex-col md:flex-row md:items-end pt-16 md:pt-0 md:aspect-[2048/911]"
       >
+        <div className="sr-only">
+          <h1>Seu próximo carro está aqui</h1>
+          <p>Encontre o carro certo para o seu momento com atendimento próximo e informações claras em cada etapa.</p>
+        </div>
         {/* Banner 100% visível e proporcional em qualquer tela (sem cortes no celular) */}
         <div className="ov-hero-banner relative w-full aspect-[2048/911] overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
           <img
             className="w-full h-full object-contain md:object-cover object-center pointer-events-none select-none"
             src={publicAsset('loja-oliveira-banner-2048.png')}
             alt="Oliveira Veículos - Seu próximo carro está aqui"
+            width="2048"
+            height="911"
             fetchPriority="high"
+            decoding="async"
           />
           {/* Overlay suave apenas em desktop para preservar 100% de nitidez da foto no celular */}
           <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/20 to-transparent pointer-events-none" />
@@ -195,7 +202,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               }
             }}
             aria-label="Rolar para o estoque em destaque"
-            className="group inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#131417]/90 backdrop-blur-md shadow-sm hover:shadow-md hover:border-[#dfb15b]/50 transition-all duration-300 cursor-pointer active:scale-95"
+            className="group inline-flex min-h-11 items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#131417]/90 backdrop-blur-md shadow-sm hover:shadow-md hover:border-[#dfb15b]/50 transition-all duration-300 cursor-pointer active:scale-95"
           >
             <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold text-gray-500 dark:text-gray-400 group-hover:text-[#dfb15b] transition-colors">
               Rolar para o estoque
@@ -223,7 +230,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
             <div className="flex items-center justify-start sm:justify-end shrink-0">
               <button
                 onClick={onGoToEstoque}
-                className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm"
+                className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-11 transition-all active:scale-95 cursor-pointer shadow-sm"
               >
                 <span>Ver todos ({vehicles.length})</span>
                 <ArrowRight size={15} />
@@ -244,7 +251,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 onClick={canPrev ? prevSlide : undefined}
                 disabled={!canPrev}
                 aria-label="Veículo anterior"
-                className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
+                className={`pointer-events-auto group h-11 w-11 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
                   canPrev
                     ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
                     : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
@@ -257,7 +264,7 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 onClick={canNext ? nextSlide : undefined}
                 disabled={!canNext}
                 aria-label="Próximo veículo"
-                className={`pointer-events-auto group h-10 w-10 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
+                className={`pointer-events-auto group h-11 w-11 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
                   canNext
                     ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
                     : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
@@ -325,19 +332,18 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                       type="button"
                       onClick={() => goToSlide(idx)}
                       aria-label={`Ir para posição ${idx + 1}`}
-                      style={{
-                        height: '7px',
-                        minHeight: '7px',
-                        maxHeight: '7px',
-                        padding: 0,
-                        border: 'none',
-                      }}
-                      className={`transition-all duration-300 rounded-full cursor-pointer shrink-0 outline-none ${
-                        isActive
-                          ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
-                          : 'w-2 bg-gray-300 hover:bg-gray-400 dark:bg-white/20 dark:hover:bg-white/40'
-                      }`}
-                    />
+                      aria-current={isActive ? 'true' : undefined}
+                      className="group/dot inline-flex h-11 min-w-11 items-center justify-center rounded-full cursor-pointer shrink-0"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`h-[7px] rounded-full transition-all duration-300 ${
+                          isActive
+                            ? 'w-7 sm:w-8 bg-[#dfb15b] shadow-[0_0_12px_rgba(223,177,91,0.6)]'
+                            : 'w-2 bg-gray-300 group-hover/dot:bg-gray-400 dark:bg-white/20 dark:group-hover/dot:bg-white/40'
+                        }`}
+                      />
+                    </button>
                   );
                 })}
               </div>

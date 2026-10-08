@@ -651,6 +651,8 @@
     filter: none !important;
   }
 
+  .animate-ping,
+  .animate-bounce,
   .animate-ping-slow,
   .animate-ping-slower {
     animation: none !important;
@@ -661,6 +663,16 @@
   .animate-border-glow,
   .animate-gradient-shift {
     animation: none !important;
+  }
+
+  /* Cards and interactive shine: no lift/tilt or continuous sweep. */
+  .vehicle-card,
+  .vehicle-card:hover,
+  .btn-shine::before,
+  .text-gold-gradient {
+    animation: none !important;
+    transform: none !important;
+    transition-duration: 0.01ms !important;
   }
 
   /* Cards: no lift/tilt — keep opacity transition only */
@@ -949,16 +961,20 @@ body {
   outline-offset: 2px;
 }
 
-/* Garante remoção absoluta de qualquer linha amarela em volta dos cards de veículos */
+/* Evita aro no contêiner decorativo sem remover o foco dos controles internos. */
 .vehicle-card,
 .vehicle-card:focus,
 .vehicle-card:focus-visible,
-.vehicle-card *,
 .ov-carousel-item,
 .ov-carousel-item:focus,
-.ov-carousel-item:focus-visible,
-.ov-carousel-item * {
+.ov-carousel-item:focus-visible {
   outline: none !important;
+}
+
+.vehicle-card button:focus-visible,
+.vehicle-card a:focus-visible {
+  outline: 2px solid #dfb15b !important;
+  outline-offset: 3px;
 }
 
 /* Oliveira — visual preto/cinza e dourado */

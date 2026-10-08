@@ -45,12 +45,12 @@ export default function Footer({ onSelectTab }) {
         </div>
 
         {/* Navegação Rápida e Direta */}
-        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-gray-400">
+        <nav aria-label="Navegação do rodapé" className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-4 text-xs sm:text-sm text-gray-400">
           {links.map(([id, label]) => (
             <button
               key={id}
               onClick={() => handleNav(id)}
-              className="hover:text-[#dfb15b] transition-colors cursor-pointer"
+              className="inline-flex min-h-11 items-center px-2 hover:text-[#dfb15b] transition-colors cursor-pointer"
             >
               {label}
             </button>
@@ -64,7 +64,7 @@ export default function Footer({ onSelectTab }) {
             <React.Fragment key={tel}>
               <a
                 href={`tel:${tel.replace(/\D/g, '')}`}
-                className="font-mono text-gray-300 hover:text-[#dfb15b] transition-colors tracking-wide"
+                className="inline-flex min-h-11 items-center font-mono text-gray-300 hover:text-[#dfb15b] transition-colors tracking-wide"
                 title={`Ligar para ${tel}`}
               >
                 {tel}
@@ -82,7 +82,7 @@ export default function Footer({ onSelectTab }) {
             href={COMPANY_DATA.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-[#dfb15b] transition-colors"
+            className="inline-flex min-h-11 items-center gap-1.5 hover:text-[#dfb15b] transition-colors"
           >
             <MapPin size={13} className="text-[#dfb15b] shrink-0" />
             <span>{COMPANY_DATA.address}</span>
@@ -94,7 +94,7 @@ export default function Footer({ onSelectTab }) {
             href={COMPANY_DATA.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 hover:text-[#dfb15b] transition-colors"
+            className="inline-flex min-h-11 items-center gap-1.5 hover:text-[#dfb15b] transition-colors"
           >
             <InstagramIcon size={13} useGradient className="shrink-0" />
             <span>{COMPANY_DATA.instagram}</span>
@@ -108,7 +108,7 @@ export default function Footer({ onSelectTab }) {
             onClick={() => onSelectTab('admin')}
             aria-label="Acesso administrativo"
             title="Acesso administrativo"
-            className="p-1.5 rounded-full hover:bg-white/10 text-gray-500 hover:text-white transition-colors cursor-pointer"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/10 text-gray-500 hover:text-white transition-colors cursor-pointer"
           >
             <Lock size={13} />
           </button>

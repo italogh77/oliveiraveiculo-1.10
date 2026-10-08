@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight, Sun, Moon, Home, Car, Calculator, Users, Phone, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { publicAsset } from '../lib/publicAsset';
@@ -13,46 +13,16 @@ const items = [
 
 export default function Navbar({ activeTab, onSelectTab }) {
   const [open, setOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (activeTab === 'inicio') {
-        const heroEl = document.querySelector('.ov-hero');
-        if (heroEl) {
-          const rect = heroEl.getBoundingClientRect();
-          // Aparece somente quando o visitante rola e sai da seção Hero
-          setIsScrolled(rect.bottom <= 80);
-        } else {
-          setIsScrolled(window.scrollY > 500);
-        }
-      } else {
-        setIsScrolled(true);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeTab]);
 
   const navigate = (id) => {
     setOpen(false);
     onSelectTab(id);
   };
 
-  const isHeroPage = activeTab === 'inicio';
-  // On mobile, keep header accessible at all times; on desktop hero, fade in after scroll
-  const hideNavbar = isHeroPage && !isScrolled && !open;
-
   return (
     <header
-      className={`ov-header fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out border-b ${
-        hideNavbar
-          ? 'max-md:translate-y-0 max-md:opacity-100 max-md:pointer-events-auto -translate-y-full opacity-0 pointer-events-none'
-          : 'translate-y-0 opacity-100 pointer-events-auto'
-      } bg-white/95 dark:bg-[#090a0b]/92 backdrop-blur-md border-gray-200/80 dark:border-white/10 text-gray-900 dark:text-white shadow-sm dark:shadow-none`}
+      className="ov-header fixed inset-x-0 top-0 z-50 translate-y-0 opacity-100 border-b bg-white/95 dark:bg-[#090a0b]/92 backdrop-blur-md border-gray-200/80 dark:border-white/10 text-gray-900 dark:text-white shadow-sm dark:shadow-none"
     >
       <div className="max-w-7xl mx-auto flex h-16 sm:h-[72px] items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 relative">
         {/* Logo à esquerda */}
@@ -100,11 +70,11 @@ export default function Navbar({ activeTab, onSelectTab }) {
           {/* Botão Encontrar meu carro no canto direito */}
           <button
             onClick={() => navigate('estoque')}
-            className="btn-shine group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-[38px] sm:min-h-[42px] transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
+            className="btn-shine group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-11 transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
             aria-label="Encontrar meu carro no estoque"
           >
             <span className="hidden min-[420px]:inline">Encontrar meu carro</span>
-            <span className="inline min-[420px]:hidden">Encontrar</span>
+            <span className="inline min-[420px]:hidden">Estoque</span>
             <ArrowUpRight size={14} className="shrink-0 text-black stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
@@ -114,7 +84,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
             onClick={(e) => toggleTheme(e)}
             aria-label={isDark ? 'Alternar para tema claro' : 'Alternar para tema escuro'}
             title={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
-            className="ov-theme-toggle flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-200 hover:border-gray-300 text-gray-700 hover:text-black dark:border-white/10 dark:hover:border-white/20 dark:text-gray-300 dark:hover:text-white transition-all cursor-pointer shrink-0 active:scale-95"
+            className="ov-theme-toggle flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 hover:border-gray-300 text-gray-700 hover:text-black dark:border-white/10 dark:hover:border-white/20 dark:text-gray-300 dark:hover:text-white transition-all cursor-pointer shrink-0 active:scale-95"
           >
             {isDark ? (
               <Sun size={18} strokeWidth={2} />
@@ -129,7 +99,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
             aria-expanded={open}
             aria-controls="ov-mobile-nav"
             onClick={() => setOpen(!open)}
-            className="lg:hidden flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-900 dark:border-white/10 dark:bg-white/5 dark:text-white active:scale-95 transition-transform cursor-pointer shrink-0"
+            className="lg:hidden flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-900 dark:border-white/10 dark:bg-white/5 dark:text-white active:scale-95 transition-transform cursor-pointer shrink-0"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>

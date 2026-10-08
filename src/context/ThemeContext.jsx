@@ -44,6 +44,12 @@ export function ThemeProvider({ children }) {
 
   const toggleTheme = (e) => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setTheme(nextTheme);
+      return;
+    }
 
     // View Transitions API with circular ripple if supported
     if (document.startViewTransition && e && e.clientX !== undefined) {

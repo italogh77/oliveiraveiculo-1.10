@@ -79,8 +79,9 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
             width={coverDimensions.width}
             height={coverDimensions.height}
             style={photoStyle(vehicle.fotosAjustes?.[0])}
-            loading="eager"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
           {/* Feixe de luz reflexivo suave na lataria ao passar o mouse */}
           <span
@@ -144,7 +145,7 @@ export default function VehicleCard({ vehicle, onSelectVehicle }) {
               e.stopPropagation();
               open();
             }}
-            className="btn-shine inline-flex min-h-[38px] shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-[13px] font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer whitespace-nowrap"
+            className="btn-shine inline-flex min-h-11 shrink-0 items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-4 py-2 text-xs sm:text-[13px] font-bold text-black transition-all shadow-sm hover:shadow-md active:scale-95 cursor-pointer whitespace-nowrap"
           >
             <span>Ver detalhes</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
