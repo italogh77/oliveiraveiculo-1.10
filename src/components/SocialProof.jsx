@@ -96,14 +96,14 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
             <button
               onClick={() => scrollCarousel('left')}
               aria-label="Momento anterior"
-              className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
+              className="w-11 h-11 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scrollCarousel('right')}
               aria-label="Próximo momento"
-              className="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
+              className="w-11 h-11 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
             >
               <ChevronRight size={18} />
             </button>
@@ -227,7 +227,7 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
                     <button
                       type="button"
                       onClick={() => toggleExpand(review.id)}
-                      className="mt-2 text-xs font-bold text-[#cf8d3c] hover:underline cursor-pointer"
+                      className="mt-2 min-h-11 inline-flex items-center text-xs font-bold text-[#cf8d3c] hover:underline cursor-pointer"
                     >
                       {isExpanded ? 'Ler menos' : 'Ler mais'}
                     </button>
