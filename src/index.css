@@ -1397,16 +1397,17 @@ html:not(.dark) .ov-transition-logo {
   color: white;
 }
 
-html.light .ov-hero,
-html:not(.dark) .ov-hero {
-  background: #090a0b;
-}
-
 @media (min-width: 768px) {
   .ov-hero {
     aspect-ratio: 2048 / 911;
     align-items: flex-end;
     padding: 0 0 20px;
+    background: #090a0b;
+  }
+
+  html.light .ov-hero,
+  html:not(.dark) .ov-hero {
+    background: #090a0b;
   }
 }
 
@@ -2007,12 +2008,24 @@ html:not(.dark) .vehicle-card h3 {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 64px 0 12px;
+    padding: 0;
+    background: #ffffff;
+  }
+
+  html.dark .ov-hero {
+    background: #090a0b;
   }
 
   .ov-hero-shell {
     width: 100%;
-    padding-inline: 0.75rem;
+    padding-inline: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+    background: #ffffff;
+  }
+
+  html.dark .ov-hero-shell {
+    background: #090a0b;
   }
 
   .ov-hero-content {
@@ -2024,12 +2037,14 @@ html:not(.dark) .vehicle-card h3 {
     width: 100%;
     aspect-ratio: 2048 / 911;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
   }
 
   .ov-hero-banner img {
     width: 100%;
     height: 100%;
-    object-fit: cover !important;
+    object-fit: contain !important;
     object-position: center;
     display: block;
   }

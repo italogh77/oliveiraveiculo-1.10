@@ -130,25 +130,26 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
       {/* ── Hero Section 2048x911 Proporcional (100% Visível sem Cortes) ── */}
       <section
         id="inicio-hero"
-        className="ov-hero relative w-full overflow-hidden bg-[#090a0b] flex flex-col md:flex-row md:items-end pt-16 md:pt-0 md:aspect-[2048/911]"
+        className="ov-hero relative w-full overflow-hidden bg-white dark:bg-[#090a0b] flex flex-col md:flex-row md:items-end pt-16 md:pt-0 md:aspect-[2048/911]"
       >
-        {/* Banner 100% visível e proporcional em qualquer tela */}
+        {/* Banner 100% visível e proporcional em qualquer tela (sem cortes no celular) */}
         <div className="ov-hero-banner relative w-full aspect-[2048/911] overflow-hidden md:absolute md:inset-0 md:h-full md:aspect-auto">
           <img
-            className="w-full h-full object-cover object-center pointer-events-none select-none"
+            className="w-full h-full object-contain md:object-cover object-center pointer-events-none select-none"
             src={publicAsset('loja-oliveira-banner-2048.png')}
             alt="Oliveira Veículos - Seu próximo carro está aqui"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090a0b] via-transparent to-transparent md:via-[#090a0b]/20 md:to-transparent pointer-events-none" />
+          {/* Overlay suave apenas em desktop para preservar 100% de nitidez da foto no celular */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#090a0b] via-[#090a0b]/20 to-transparent pointer-events-none" />
         </div>
 
-        {/* CTAs em formato Pílula (Regra 1 do Design System) */}
-        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-3 pb-3 md:pt-0 md:pb-6">
+        {/* CTAs em formato Pílula (Fundo Branco no Claro, adaptável no Dark Mode) */}
+        <div className="ov-hero-shell relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-4 md:pt-0 md:pb-6 bg-white dark:bg-[#090a0b] md:bg-transparent md:dark:bg-transparent transition-colors duration-300">
           <div className="ov-hero-content max-w-2xl">
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <button
-                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-lg active:scale-95 cursor-pointer w-full sm:w-auto"
+                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-md active:scale-95 cursor-pointer w-full sm:w-auto"
                 onClick={onGoToEstoque}
               >
                 <span>Explorar veículos</span>
@@ -159,16 +160,16 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-white/10 px-6 py-2.5 text-sm sm:text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:shadow-lg active:scale-95 cursor-pointer w-full sm:w-auto"
+                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300/80 bg-gray-50/90 text-gray-900 shadow-sm hover:border-[#dfb15b]/60 hover:bg-white active:scale-95 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 md:border-white/20 md:bg-white/10 md:text-white md:backdrop-blur-md px-6 py-2.5 text-sm sm:text-base font-semibold transition-all duration-300 w-full sm:w-auto cursor-pointer"
               >
                 <MessageCircle
                   size={18}
-                  className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
+                  className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0 text-[#25D366] dark:text-[#25D366] md:text-white"
                 />
                 <span>Falar no WhatsApp</span>
                 <ArrowUpRight
                   size={18}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-80 group-hover:opacity-100"
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5 opacity-70 group-hover:opacity-100 text-gray-600 dark:text-white/80 md:text-white/80"
                 />
               </a>
             </div>
