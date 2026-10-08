@@ -18,9 +18,9 @@ export default function AboutPage({ onGoToEstoque }) {
   };
 
   return (
-    <div className="ov-about pt-20 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="ov-about ov-page-flow pt-20 pb-20 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1540px] mx-auto w-full text-gray-900 dark:text-white transition-colors duration-300">
       {/* ── 1. APRESENTAÇÃO DA LOJA (COM ANIMAÇÃO DE ENTRADA SUAVE) ── */}
-      <Reveal className="text-center max-w-4xl mx-auto mb-9 sm:mb-12">
+      <Reveal className="ov-flow-intro text-center max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#dfb15b]/15 text-[#dfb15b] text-xs font-bold uppercase tracking-widest mb-4 border border-[#dfb15b]/30">
           <Award className="w-4 h-4" />
           <span>CONHEÇA A OLIVEIRA VEÍCULOS</span>
@@ -59,7 +59,7 @@ export default function AboutPage({ onGoToEstoque }) {
       </Reveal>
 
       {/* Roteiro da página: reduz a carga cognitiva em uma página longa. */}
-      <Reveal className="mb-16 sm:mb-20">
+      <Reveal className="ov-flow-nav">
         <nav aria-label="Roteiro da página Sobre nós">
           <ol className="grid grid-cols-2 lg:grid-cols-4 rounded-2xl border border-gray-200/80 bg-white shadow-lg shadow-black/5 dark:border-white/10 dark:bg-[#111215] dark:shadow-black/30 overflow-hidden">
             {[
@@ -91,7 +91,7 @@ export default function AboutPage({ onGoToEstoque }) {
       </Reveal>
 
       {/* ── 2. DIFERENCIAIS DA LOJA (GARANTIA E SEGURANÇA) ──────────── */}
-      <Reveal className="mb-20 sm:mb-24 scroll-mt-24" id="por-que-confiar">
+      <Reveal className="ov-flow-section scroll-mt-24" id="por-que-confiar">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[#dfb15b] text-xs font-bold uppercase tracking-wider mb-2">
             <ShieldCheck className="w-4 h-4 text-[#dfb15b]" />
@@ -109,17 +109,17 @@ export default function AboutPage({ onGoToEstoque }) {
       </Reveal>
 
       {/* ── 3. CAMINHOS DISPONÍVEIS ── */}
-      <Reveal className="mb-20 sm:mb-24 scroll-mt-24" id="como-ajudamos">
+      <Reveal className="ov-flow-section scroll-mt-24" id="como-ajudamos">
         <Services onGoToEstoque={onGoToEstoque} />
       </Reveal>
 
       {/* ── 4. PROVA SOCIAL ANTES DO CONVITE PARA CONTATO ── */}
-      <Reveal className="mb-20 sm:mb-24">
+      <Reveal className="ov-flow-section">
         <SocialProof onGoToEstoque={onGoToEstoque} showFinalCta={false} />
       </Reveal>
 
       {/* ── 5. CONTATO HUMANO COMO PRÓXIMO PASSO ── */}
-      <Reveal className="mb-20 sm:mb-24 scroll-mt-24" id="equipe">
+      <Reveal className="ov-flow-section scroll-mt-24" id="equipe">
         <SellersContact />
       </Reveal>
 

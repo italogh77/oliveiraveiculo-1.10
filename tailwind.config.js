@@ -41,8 +41,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Titillium Web', 'Outfit', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['Titillium Web', 'Outfit', 'sans-serif'],
+        sans: ['Titillium Web', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'Titillium Web', 'sans-serif'],
+        mono: ['Titillium Web', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'liquid': '0 20px 50px -15px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12)',
