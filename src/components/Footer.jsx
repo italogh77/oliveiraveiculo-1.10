@@ -34,7 +34,7 @@ export default function Footer({ onSelectTab }) {
             onClick={() => handleNav('inicio')}
             aria-label="Oliveira Veículos — Início"
             title="Voltar ao início"
-            className="cursor-pointer inline-block active:scale-95 transition-transform"
+            className="cursor-pointer inline-flex min-h-11 min-w-11 items-center justify-center active:scale-95 transition-transform"
           >
             <img
               src={publicAsset('logo-dark.png')}
@@ -50,7 +50,7 @@ export default function Footer({ onSelectTab }) {
             <button
               key={id}
               onClick={() => handleNav(id)}
-              className="inline-flex min-h-11 items-center px-2 hover:text-[#dfb15b] transition-colors cursor-pointer"
+              className="inline-flex min-h-11 items-center px-2.5 hover:text-[#dfb15b] transition-colors cursor-pointer"
             >
               {label}
             </button>

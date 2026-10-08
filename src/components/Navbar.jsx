@@ -30,7 +30,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           <button
             onClick={() => navigate('inicio')}
             aria-label="Oliveira Veículos — início"
-            className="shrink-0 cursor-pointer flex items-center active:scale-95 transition-transform"
+            className="shrink-0 min-h-11 min-w-11 cursor-pointer flex items-center active:scale-95 transition-transform"
           >
             <img
               src={publicAsset(isDark ? 'logo-dark.png' : 'logo-light.png')}
