@@ -12,10 +12,10 @@ export default function SellersContact() {
         <div>
           <span className="text-xs font-mono uppercase tracking-widest text-[#cf8d3c] font-bold flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Atendimento Personalizado • Consultores Online
+            04 · FALE COM A EQUIPE
           </span>
           <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-gray-950 dark:text-white mt-1">
-            Fale Diretamente com Nossos Consultores
+            Escolha quem vai acompanhar você
           </h3>
         </div>
         <div className="inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-medium px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800">

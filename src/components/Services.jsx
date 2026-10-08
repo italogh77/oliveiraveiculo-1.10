@@ -73,13 +73,13 @@ export default function Services({ onGoToEstoque }) {
       <div className="text-center max-w-3xl mx-auto mb-14">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold text-[#cf8d3c] bg-[#cf8d3c]/10 mb-3 border border-[#cf8d3c]/20">
           <Wrench className="w-3.5 h-3.5" />
-          <span>SOLUÇÕES AUTOMOTIVAS COMPLETAS</span>
+          <span>02 · COMO PODEMOS AJUDAR</span>
         </div>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-gray-950 dark:text-white tracking-tight">
-          Nossos Serviços
+          Escolha o caminho que combina com você
         </h2>
         <p className="mt-3 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          Tudo o que você precisa em um só lugar: transparência, segurança jurídica e atendimento focado na sua tranquilidade.
+          Quer comprar, financiar, trocar ou vender? Comece pela opção que corresponde ao que você precisa agora.
         </p>
       </div>
 

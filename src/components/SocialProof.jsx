@@ -39,7 +39,7 @@ const GOOGLE_REVIEWS = [
   },
 ];
 
-export default function SocialProof({ onGoToEstoque }) {
+export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
   // Lightbox modal para ampliar foto/print sem cortes
   const [activeMedia, setActiveMedia] = useState(null);
 
@@ -81,10 +81,10 @@ export default function SocialProof({ onGoToEstoque }) {
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold text-[#cf8d3c] bg-[#cf8d3c]/10 mb-2">
-              <span>HISTÓRIAS REAIS DE QUEM ESCOLHEU A OLIVEIRA</span>
+              <span>03 · EXPERIÊNCIAS REAIS</span>
             </div>
             <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-gray-950 dark:text-white tracking-tight">
-              Experiências dos Nossos Clientes
+              Veja como foi para outros clientes
             </h3>
             <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-xl">
               Registros reais de entregas e conquistas. Clique em qualquer card para visualizar os detalhes em tela cheia.
@@ -261,8 +261,8 @@ export default function SocialProof({ onGoToEstoque }) {
         </div>
       </div>
 
-      {/* ── 3. CHAMADA FINAL PARA CONTATO (DESIGN MARCANTE) ─────────── */}
-      <div className="rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#1c1c1c] via-[#141414] to-[#0a0a0a] text-white border border-[#cf8d3c]/30 shadow-2xl relative overflow-hidden">
+      {/* ── 3. CHAMADA FINAL PARA CONTATO (opcional conforme a jornada) ── */}
+      {showFinalCta && <div className="rounded-3xl p-8 sm:p-12 lg:p-14 bg-gradient-to-br from-[#1c1c1c] via-[#141414] to-[#0a0a0a] text-white border border-[#cf8d3c]/30 shadow-2xl relative overflow-hidden">
         {/* Glow dourado de fundo */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#cf8d3c]/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -302,7 +302,7 @@ export default function SocialProof({ onGoToEstoque }) {
             )}
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* ── MODAL LIGHTBOX PARA AMPLIAR PRINTS/FOTOS ────────────────── */}
       <AnimatePresence>
