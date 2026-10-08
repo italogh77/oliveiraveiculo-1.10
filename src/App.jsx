@@ -183,7 +183,7 @@ export default function App() {
               <Suspense fallback={<PageTransitionOverlay isVisible={true} />}>
                 <HomePage
                   onGoToEstoque={() => handleSelectTab('estoque')}
-                  onGoToOndeEstamos={() => handleSelectTab('onde-estamos')}
+                  onGoToFinanciamento={() => handleSelectTab('financiamento')}
                   onGoToSobre={() => handleSelectTab('sobre')}
                   onSelectVehicle={handleSelectVehicle}
                 />

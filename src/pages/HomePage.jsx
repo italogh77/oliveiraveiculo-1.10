@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, ChevronDown, Sparkles, Navigation } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, MessageCircle, ShieldCheck, BadgeCheck, CreditCard, MapPin, ChevronLeft, ChevronRight, Sparkles, Navigation } from 'lucide-react';
 import { COMPANY_DATA } from '../data/companyData';
 import { useVehicles } from '../context/VehiclesContext';
 import VehicleCard from '../components/VehicleCard';
 import { publicAsset } from '../lib/publicAsset';
 
-export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre, onSelectVehicle }) {
+export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSobre, onSelectVehicle }) {
   const { vehicles } = useVehicles();
   const carouselContainerRef = useRef(null);
 
@@ -122,8 +122,14 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
   const step = cardWidth + gap;
   const translateX = containerWidth / 2 - (currentIndex * step + trioWidth / 2);
 
-  // Índice ativo para paginação por dots
-  const activeDot = Math.min(currentIndex, featuredVehicles.length - 1);
+  const scrollToSection = useCallback((sectionId) => {
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    const navOffset = window.innerWidth >= 640 ? 96 : 80;
+    const y = target.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }, []);
 
   return (
     <div className="ov-home text-gray-900 dark:text-white bg-[#f7f8fa] dark:bg-[#090a0b] transition-colors duration-300">
@@ -184,40 +190,51 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         </div>
       </section>
 
+      {/* Roteiro curto: apresenta a jornada antes dos blocos detalhados. */}
+      <nav
+        aria-label="Etapas para comprar seu veículo"
+        className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-1 md:-mt-4"
+      >
+        <ol className="grid grid-cols-1 sm:grid-cols-3 rounded-2xl border border-gray-200/80 bg-white shadow-lg shadow-black/5 dark:border-white/10 dark:bg-[#111215] dark:shadow-black/30 overflow-hidden">
+          {[
+            { number: '01', title: 'Escolha seu carro', text: 'Compare os veículos em destaque.', target: 'estoque-destaque' },
+            { number: '02', title: 'Planeje a compra', text: 'Conheça as opções de financiamento.', target: 'planeje-compra' },
+            { number: '03', title: 'Converse e visite', text: 'Tire dúvidas e veja o carro de perto.', target: 'visite-loja' },
+          ].map((step, index) => (
+            <li key={step.number} className={index ? 'border-t sm:border-t-0 sm:border-l border-gray-200/80 dark:border-white/10' : ''}>
+              <button
+                type="button"
+                onClick={() => scrollToSection(step.target)}
+                className="group w-full min-h-[88px] px-4 sm:px-5 py-4 text-left flex items-center gap-3 hover:bg-[#dfb15b]/[0.07] focus-visible:bg-[#dfb15b]/[0.07] transition-colors cursor-pointer"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dfb15b]/15 text-xs font-black text-[#b7791f] dark:text-[#dfb15b]">
+                  {step.number}
+                </span>
+                <span className="min-w-0">
+                  <strong className="flex items-center gap-1.5 text-sm font-extrabold text-gray-950 dark:text-white">
+                    {step.title}
+                    <ArrowRight size={14} className="text-[#dfb15b] transition-transform group-hover:translate-x-0.5" />
+                  </strong>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-gray-600 dark:text-gray-400">{step.text}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
       {/* ── Estoque em Destaque: Carrossel Sangrado (Full-Bleed até o final da tela) ── */}
       <section
         id="estoque-destaque"
         className="ov-section scroll-mt-24 sm:scroll-mt-28 relative w-full pt-6 sm:pt-8 lg:pt-10 pb-5 sm:pb-7 overflow-hidden"
       >
-        {/* Indicador de rolagem posicionado abaixo do banner */}
-        <div className="flex justify-center mb-6 sm:mb-8">
-          <button
-            type="button"
-            onClick={() => {
-              const target = document.getElementById('vitrine-carros') || document.getElementById('estoque-destaque');
-              if (target) {
-                const navOffset = window.innerWidth >= 640 ? 90 : 75;
-                const y = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }}
-            aria-label="Rolar para o estoque em destaque"
-            className="group inline-flex min-h-11 items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#131417]/90 backdrop-blur-md shadow-sm hover:shadow-md hover:border-[#dfb15b]/50 transition-all duration-300 cursor-pointer active:scale-95"
-          >
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-semibold text-gray-500 dark:text-gray-400 group-hover:text-[#dfb15b] transition-colors">
-              Rolar para o estoque
-            </span>
-            <ChevronDown size={15} className="animate-bounce text-[#dfb15b]" />
-          </button>
-        </div>
-
         {/* Cabeçalho alinhado ao grid central da loja */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
           <div className="ov-section-top flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="text-left">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-1">
                 <Sparkles size={13} className="text-[#dfb15b]" />
-                <span>ESTOQUE EM DESTAQUE</span>
+                <span>ETAPA 1 · ESCOLHA</span>
               </span>
               <h2 className="text-[clamp(1.6rem,5vw,2.5rem)] font-extrabold tracking-tight text-gray-950 dark:text-white leading-tight">
                 Encontre seu próximo carro
@@ -358,32 +375,38 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
         )}
       </section>
 
-      {/* ── Valores da Loja ── */}
-      <section className="ov-values border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] pt-5 sm:pt-7 pb-5 sm:pb-6 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* ── Etapa 2: planejamento e confiança ── */}
+      <section id="planeje-compra" className="ov-values scroll-mt-24 border-y border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#0d0e11] py-10 sm:py-14 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ov-values-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div className="lg:col-span-5">
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
-              <span>A OLIVEIRA VEÍCULOS</span>
+              <CreditCard size={13} />
+              <span>ETAPA 2 · PLANEJE</span>
             </span>
             <h2 className="text-[clamp(1.6rem,5vw,2.75rem)] font-black tracking-tight text-gray-950 dark:text-white leading-tight mb-3">
-              Mais que uma revenda. Um caminho para sua próxima conquista.
+              Encontre uma condição que faça sentido
             </h2>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
-              Estamos em Maricá para ajudar você a comparar opções, tirar dúvidas e encontrar uma condição que faça sentido.
+              Depois de escolher o carro, simule o financiamento e conte com nossa equipe para entender cada etapa antes de decidir.
             </p>
-            <button
-              className="btn-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gray-100 hover:bg-[#dfb15b] hover:text-black border border-gray-200 px-5 py-2.5 min-h-[44px] text-xs sm:text-sm font-bold text-gray-900 transition-all duration-300 active:scale-95 cursor-pointer shadow-sm dark:bg-white/10 dark:hover:bg-[#dfb15b] dark:border-white/15 dark:text-white"
-              onClick={onGoToSobre}
-            >
-              <span>Conheça nossa loja</span>
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0"
-              />
-            </button>
+            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center lg:items-stretch xl:items-center gap-3">
+              <button
+                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black px-5 py-2.5 min-h-[46px] text-sm font-bold transition-all active:scale-95 cursor-pointer shadow-sm"
+                onClick={onGoToFinanciamento}
+              >
+                <span>Simular financiamento</span>
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </button>
+              <button
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-gray-50 hover:border-[#dfb15b]/60 px-5 py-2.5 min-h-[46px] text-sm font-bold text-gray-900 transition-all active:scale-95 cursor-pointer dark:border-white/15 dark:bg-white/5 dark:text-white"
+                onClick={onGoToSobre}
+              >
+                <span>Conheça a Oliveira</span>
+              </button>
+            </div>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-7 grid grid-cols-1 gap-3">
             <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
               <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
                 <ShieldCheck size={22} />
@@ -391,16 +414,6 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               <div>
                 <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Garantia de Motor e Caixa</strong>
                 <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Veículos revisados com garantia de motor e caixa de câmbio.</p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
-              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
-                <CreditCard size={22} />
-              </div>
-              <div>
-                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Financiamento</strong>
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Simulações com os principais bancos parceiros da loja.</p>
               </div>
             </div>
 
@@ -414,21 +427,12 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               </div>
             </div>
 
-            <div className="rounded-2xl border border-gray-200/80 bg-gray-50/80 p-5 flex items-start gap-4 shadow-sm dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none">
-              <div className="w-10 h-10 rounded-xl bg-[#dfb15b]/10 text-[#dfb15b] flex items-center justify-center shrink-0">
-                <MapPin size={22} />
-              </div>
-              <div>
-                <strong className="block text-sm font-bold text-gray-900 dark:text-white mb-1">Perto de você</strong>
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Visite nosso espaço na Rodovia Amaral Peixoto em Maricá, RJ.</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 7. SEÇÃO DE LOCALIZAÇÃO: "Venha nos Visitar" (Regra 7) ── */}
-      <section className="ov-visit max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-10 sm:pb-14">
+      {/* ── Etapa 3: conversa e visita ── */}
+      <section id="visite-loja" className="ov-visit scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-10 sm:pb-14">
         <div className="rounded-3xl border border-gray-200/80 bg-white p-5 sm:p-8 lg:p-10 shadow-xl overflow-hidden dark:border-white/10 dark:bg-gradient-to-b dark:from-[#141518] dark:to-[#0c0d0f] dark:shadow-2xl transition-colors duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Coluna de Informações e Chamada */}
@@ -436,16 +440,16 @@ export default function HomePage({ onGoToEstoque, onGoToOndeEstamos, onGoToSobre
               <div>
                 <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#dfb15b] uppercase tracking-wider mb-2">
                   <MapPin size={13} />
-                  <span>NOSSA LOCALIZAÇÃO</span>
+                  <span>ETAPA 3 · CONVERSE E VISITE</span>
                 </span>
 
                 {/* Título com correção textual e clamp anti-estouro */}
                 <h2 className="text-[clamp(1.5rem,5.5vw,2.5rem)] font-extrabold text-gray-950 dark:text-white tracking-tight leading-tight break-words mb-3">
-                  Estamos prontos para receber você
+                  Veja o carro de perto
                 </h2>
 
                 <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
-                  {COMPANY_DATA.address}
+                  Tire suas dúvidas com a equipe e, quando estiver pronto, visite a Oliveira Veículos em {COMPANY_DATA.address}.
                 </p>
 
                 <div className="space-y-3 mb-6">
