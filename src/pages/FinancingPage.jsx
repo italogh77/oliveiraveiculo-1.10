@@ -115,7 +115,7 @@ export default function FinancingPage({ onGoToEstoque }) {
                     key={chip.label}
                     type="button"
                     onClick={() => handleShortcutEntry(chip.pct)}
-                    className="min-h-[40px] px-3.5 py-1.5 rounded-full text-xs font-semibold border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-white/5 hover:border-[#dfb15b] hover:text-[#dfb15b] text-gray-700 dark:text-gray-300 active:scale-95 transition-all cursor-pointer shadow-sm"
+                    className="ov-btn ov-btn-secondary min-h-[40px] px-3.5 py-1.5 text-xs"
                   >
                     {chip.label}
                   </button>
@@ -136,11 +136,8 @@ export default function FinancingPage({ onGoToEstoque }) {
                       key={n}
                       type="button"
                       onClick={() => setMonths(n)}
-                      className={`min-h-[44px] rounded-full text-xs sm:text-sm font-bold transition-all duration-150 active:scale-95 cursor-pointer border ${
-                        active
-                          ? 'bg-[#dfb15b] border-[#dfb15b] text-black shadow-md'
-                          : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 hover:border-[#dfb15b]/50'
-                      }`}
+                      aria-pressed={active}
+                      className="ov-choice-pill text-xs sm:text-sm"
                     >
                       {n}x
                     </button>
@@ -227,7 +224,7 @@ export default function FinancingPage({ onGoToEstoque }) {
 
           {/* Botão em Pílula: Solicitar simulação */}
           <a
-            className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full min-h-[46px] px-6 py-3.5 text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-all duration-300 shadow-lg cursor-pointer"
+            className="ov-btn ov-btn-primary w-full min-h-[46px] px-6 text-sm sm:text-base"
             href={`https://wa.me/5521998016913?text=${whatsappMessage}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -239,7 +236,7 @@ export default function FinancingPage({ onGoToEstoque }) {
           {/* Botão em Pílula Secundário: Ver estoque */}
           <button
             type="button"
-            className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full min-h-[44px] px-5 py-3 border border-gray-300 dark:border-white/15 hover:border-[#dfb15b] text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white bg-white dark:bg-transparent text-xs sm:text-sm font-semibold active:scale-95 transition-all cursor-pointer shadow-sm"
+            className="ov-btn ov-btn-secondary w-full text-xs sm:text-sm"
             onClick={onGoToEstoque}
           >
             <span>Ver veículos no estoque</span>

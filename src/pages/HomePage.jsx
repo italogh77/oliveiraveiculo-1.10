@@ -162,7 +162,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
           <div className="ov-hero-content max-w-2xl">
             <div className="ov-actions flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <button
-                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base min-h-[46px] px-6 py-2.5 transition-all shadow-md active:scale-95 cursor-pointer w-full sm:w-auto"
+                className="ov-btn ov-btn-primary text-sm sm:text-base min-h-[46px] px-6 w-full sm:w-auto"
                 onClick={onGoToEstoque}
               >
                 <span>Explorar veículos</span>
@@ -173,7 +173,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex min-h-[46px] items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300/80 bg-gray-50/90 text-gray-900 shadow-sm hover:border-[#dfb15b]/60 hover:bg-white active:scale-95 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 md:border-white/20 md:bg-white/10 md:text-white md:backdrop-blur-md px-6 py-2.5 text-sm sm:text-base font-semibold transition-all duration-300 w-full sm:w-auto cursor-pointer"
+                className="ov-btn ov-btn-contact min-h-[46px] px-6 text-sm sm:text-base w-full sm:w-auto"
               >
                 <MessageCircle
                   size={18}
@@ -247,7 +247,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
             <div className="flex items-center justify-start sm:justify-end shrink-0">
               <button
                 onClick={onGoToEstoque}
-                className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-11 transition-all active:scale-95 cursor-pointer shadow-sm"
+                className="ov-btn ov-btn-secondary text-xs sm:text-sm"
               >
                 <span>Ver todos ({vehicles.length})</span>
                 <ArrowRight size={15} />
@@ -268,11 +268,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
                 onClick={canPrev ? prevSlide : undefined}
                 disabled={!canPrev}
                 aria-label="Veículo anterior"
-                className={`pointer-events-auto group h-11 w-11 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
-                  canPrev
-                    ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
-                    : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
-                }`}
+                className="ov-btn ov-btn-icon pointer-events-auto h-11 w-11 sm:h-12 sm:w-12"
               >
                 <ChevronLeft size={22} className={`stroke-[2.5] transition-transform duration-200 ${canPrev ? 'group-hover:-translate-x-0.5' : ''}`} />
               </button>
@@ -281,11 +277,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
                 onClick={canNext ? nextSlide : undefined}
                 disabled={!canNext}
                 aria-label="Próximo veículo"
-                className={`pointer-events-auto group h-11 w-11 sm:h-12 sm:w-12 rounded-full border transition-all duration-200 flex items-center justify-center backdrop-blur-md ${
-                  canNext
-                    ? 'bg-white/95 dark:bg-[#131417]/90 hover:bg-[#dfb15b] border-gray-200 dark:border-white/20 hover:border-[#dfb15b] text-gray-900 dark:text-white hover:text-black shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.8)] active:scale-95 cursor-pointer'
-                    : 'bg-gray-200/50 dark:bg-[#131417]/40 border-gray-200/50 dark:border-white/5 text-gray-400 dark:text-white/20 cursor-not-allowed opacity-25 shadow-none'
-                }`}
+                className="ov-btn ov-btn-icon pointer-events-auto h-11 w-11 sm:h-12 sm:w-12"
               >
                 <ChevronRight size={22} className={`stroke-[2.5] transition-transform duration-200 ${canNext ? 'group-hover:translate-x-0.5' : ''}`} />
               </button>
@@ -391,14 +383,14 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
             </p>
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center lg:items-stretch xl:items-center gap-3">
               <button
-                className="btn-shine group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black px-5 py-2.5 min-h-[46px] text-sm font-bold transition-all active:scale-95 cursor-pointer shadow-sm"
+                className="ov-btn ov-btn-primary min-h-[46px] text-sm"
                 onClick={onGoToFinanciamento}
               >
                 <span>Simular financiamento</span>
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </button>
               <button
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-gray-50 hover:border-[#dfb15b]/60 px-5 py-2.5 min-h-[46px] text-sm font-bold text-gray-900 transition-all active:scale-95 cursor-pointer dark:border-white/15 dark:bg-white/5 dark:text-white"
+                className="ov-btn ov-btn-secondary min-h-[46px] text-sm"
                 onClick={onGoToSobre}
               >
                 <span>Conheça a Oliveira</span>
@@ -470,7 +462,7 @@ export default function HomePage({ onGoToEstoque, onGoToFinanciamento, onGoToSob
                   href={COMPANY_DATA.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
+                  className="ov-btn ov-btn-primary w-full min-h-[46px] px-6 text-sm"
                 >
                   <Navigation
                     size={16}

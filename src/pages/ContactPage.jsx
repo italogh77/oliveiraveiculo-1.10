@@ -128,7 +128,7 @@ export default function ContactPage({ onGoToOndeEstamos }) {
 
           <button
             type="submit"
-            className="btn-shine group relative w-full mt-6 min-h-[46px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm sm:text-base flex items-center justify-center gap-2 active:scale-95 transition-all duration-300 shadow-md cursor-pointer"
+            className="ov-btn ov-btn-primary w-full mt-6 min-h-[46px] text-sm sm:text-base"
           >
             <span>Conversar no WhatsApp</span>
             <MessageCircle size={18} className="transition-transform duration-300 group-hover:scale-110 shrink-0" />
@@ -223,7 +223,7 @@ export default function ContactPage({ onGoToOndeEstamos }) {
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[38px] overflow-hidden text-xs font-bold rounded-full bg-[#dfb15b] text-black hover:bg-[#efc676] active:scale-95 transition-all duration-200 shrink-0 shadow-sm cursor-pointer"
+                className="ov-btn ov-btn-secondary min-h-[38px] px-3.5 py-1.5 text-xs shrink-0"
               >
                 <Navigation size={13} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0" />
                 <span>Como chegar</span>

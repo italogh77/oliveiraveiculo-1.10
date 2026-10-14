@@ -144,7 +144,7 @@ export default function Services({ onGoToEstoque }) {
                   <button
                     type="button"
                     onClick={onGoToEstoque}
-                    className="w-full min-h-11 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm tracking-wide text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-[#cf8d3c] hover:text-white transition-colors cursor-pointer"
+                    className="ov-btn ov-btn-secondary w-full text-xs sm:text-sm tracking-wide"
                   >
                     <span>{service.cta}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -154,7 +154,7 @@ export default function Services({ onGoToEstoque }) {
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full min-h-11 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm tracking-wide text-white bg-[#cf8d3c] hover:bg-[#b5761e] transition-colors shadow-sm cursor-pointer"
+                    className="ov-btn ov-btn-contact w-full text-xs sm:text-sm tracking-wide"
                   >
                     <span>{service.cta}</span>
                     <ArrowRight className="w-4 h-4" />

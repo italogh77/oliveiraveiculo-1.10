@@ -813,12 +813,12 @@ body {
    DESIGN — botões, cards e detalhes
    ================================================================ */
 
-/* Brilho reflexivo padronizado que atravessa o botão em pílula ao passar o mouse / tocar */
+/* Compatibilidade: o brilho antigo foi removido para manter os botões sóbrios. */
 .btn-shine {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.25s var(--ease-spring), box-shadow 0.3s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  transition: transform 0.16s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
 .btn-shine > * {
@@ -827,34 +827,23 @@ body {
 }
 
 .btn-shine::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(105deg, transparent 15%, rgba(255, 255, 255, 0.45) 50%, transparent 85%);
-  transform: translateX(-160%) skewX(-20deg);
-  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  content: none;
 }
 
 .btn-shine:hover::before,
 .btn-shine:focus-visible::before,
 .group:hover .btn-shine::before {
-  transform: translateX(350%) skewX(-20deg);
+  transform: none;
 }
 
-/* Efeito de clique tátil e halo dourado elegante em botões pílula dourados */
 .btn-shine:active {
-  transform: scale(0.95);
+  transform: translateY(1px);
 }
 
 .btn-shine.bg-\[\#dfb15b\]:hover,
 .btn-shine.bg-gold:hover,
 .btn-shine[class*="#dfb15b"]:hover {
-  box-shadow: 0 10px 25px -4px rgba(223, 177, 91, 0.4), 0 6px 12px -4px rgba(223, 177, 91, 0.25);
+  box-shadow: none;
 }
 
 /* Botão Instagram Oficial: preenchimento gradual com degradê arco-íris, ícone branco e feixe reluzente */
@@ -2225,7 +2214,158 @@ html:not(.dark) .vehicle-card h3 {
   }
 }
 
-/* ── Mobile-First Design System & Regra dos Botões em Pílula (Pill Style) ── */
+/* ── Sistema de ações: uma cor e um comportamento para cada função ── */
+:root {
+  --ov-action-gold: #d9aa52;
+  --ov-action-gold-hover: #e6b963;
+  --ov-action-ink: #17130b;
+  --ov-action-surface: #ffffff;
+  --ov-action-surface-hover: #f4f1eb;
+  --ov-action-border: #d7d9dd;
+  --ov-action-text: #202329;
+  --ov-action-contact: #168a4a;
+}
+
+.dark {
+  --ov-action-surface: #17191d;
+  --ov-action-surface-hover: #22252a;
+  --ov-action-border: #3c4047;
+  --ov-action-text: #f4f4f5;
+  --ov-action-contact: #38c172;
+}
+
+.ov-btn {
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--ov-font-body);
+  font-weight: 700;
+  line-height: 1.15;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: none;
+  transition: transform 0.16s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.ov-btn-primary,
+.ov-btn-secondary,
+.ov-btn-contact,
+.ov-btn-quiet {
+  padding: 0.7rem 1.25rem;
+}
+
+.ov-btn-primary {
+  color: var(--ov-action-ink) !important;
+  background: var(--ov-action-gold) !important;
+  border-color: var(--ov-action-gold) !important;
+}
+
+.ov-btn-secondary,
+.ov-btn-contact {
+  color: var(--ov-action-text) !important;
+  background: var(--ov-action-surface) !important;
+  border-color: var(--ov-action-border) !important;
+}
+
+.ov-btn-contact svg {
+  color: var(--ov-action-contact) !important;
+}
+
+.ov-btn-quiet {
+  color: var(--ov-action-text) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.ov-btn-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+  color: var(--ov-action-text) !important;
+  background: var(--ov-action-surface) !important;
+  border-color: var(--ov-action-border) !important;
+}
+
+.ov-btn-icon.ov-btn-primary {
+  color: var(--ov-action-ink) !important;
+  background: var(--ov-action-gold) !important;
+  border-color: var(--ov-action-gold) !important;
+}
+
+.ov-choice-pill {
+  min-height: 44px;
+  border: 1px solid var(--ov-action-border);
+  border-radius: 9999px;
+  color: var(--ov-action-text);
+  background: var(--ov-action-surface);
+  font-family: var(--ov-font-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.ov-choice-pill[aria-pressed="true"] {
+  color: var(--ov-action-ink);
+  background: var(--ov-action-gold);
+  border-color: var(--ov-action-gold);
+}
+
+.ov-choice-pill:focus-visible {
+  outline: 3px solid rgba(217, 170, 82, 0.32);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1023px) {
+  body:has(#detalhes-conteudo) .ov-whatsapp-float {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  .ov-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .ov-btn-primary:hover {
+    background: var(--ov-action-gold-hover) !important;
+    border-color: var(--ov-action-gold-hover) !important;
+  }
+
+  .ov-btn-secondary:hover,
+  .ov-btn-contact:hover,
+  .ov-btn-icon:hover {
+    background: var(--ov-action-surface-hover) !important;
+    border-color: var(--ov-action-gold) !important;
+  }
+
+  .ov-btn-quiet:hover {
+    color: #9a651e !important;
+    background: rgba(217, 170, 82, 0.1) !important;
+  }
+}
+
+.ov-btn:active {
+  transform: translateY(1px);
+}
+
+.ov-btn:focus-visible {
+  outline: 3px solid rgba(217, 170, 82, 0.32);
+  outline-offset: 3px;
+}
+
+.ov-btn:disabled,
+.ov-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Compatibilidade com componentes antigos que já usam a regra de pílula. */
 .ov-btn-pill,
 .ov-button-pill {
   border-radius: 9999px !important;

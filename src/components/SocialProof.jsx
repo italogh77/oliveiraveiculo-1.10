@@ -96,14 +96,14 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
             <button
               onClick={() => scrollCarousel('left')}
               aria-label="Momento anterior"
-              className="w-11 h-11 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
+              className="ov-btn ov-btn-icon"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scrollCarousel('right')}
               aria-label="Próximo momento"
-              className="w-11 h-11 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-[#cf8d3c] hover:text-[#cf8d3c] transition-colors flex items-center justify-center cursor-pointer shadow-sm"
+              className="ov-btn ov-btn-icon"
             >
               <ChevronRight size={18} />
             </button>
@@ -192,7 +192,7 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
             href="https://www.google.com/maps/place/Oliveira+Ve%C3%ADculos+Maric%C3%A1/@-22.9033231,-42.7993074,17z/data=!3m1!4b1!4m6!3m5!1s0x99ed9b8c5bf7ab:0x9229d06d2cf0423d!8m2!3d-22.9033231!4d-42.7993074!16s%2Fg%2F11t0rpf0sy"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#cf8d3c]/40 px-4 py-2 text-xs sm:text-sm font-bold text-[#cf8d3c] hover:bg-[#cf8d3c] hover:text-black transition-all active:scale-95 cursor-pointer"
+            className="ov-btn ov-btn-secondary hidden sm:inline-flex px-4 text-xs sm:text-sm"
           >
             <span>Ver todas no Google</span>
             <ArrowRight size={15} />
@@ -253,7 +253,7 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
             href="https://www.google.com/maps/place/Oliveira+Ve%C3%ADculos+Maric%C3%A1/@-22.9033231,-42.7993074,17z/data=!3m1!4b1!4m6!3m5!1s0x99ed9b8c5bf7ab:0x9229d06d2cf0423d!8m2!3d-22.9033231!4d-42.7993074!16s%2Fg%2F11t0rpf0sy"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 dark:border-white/15 bg-gray-100 dark:bg-white/5 hover:bg-[#dfb15b] hover:text-black dark:hover:text-black text-gray-800 dark:text-white px-6 py-3 min-h-[44px] text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-sm hover:shadow-md cursor-pointer"
+            className="ov-btn ov-btn-secondary w-full sm:w-auto px-6 text-xs sm:text-sm"
           >
             <span>Ver mais avaliações no Google</span>
             <ArrowRight size={15} />
@@ -284,7 +284,7 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
               href={finalCtaWhatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl text-sm sm:text-base font-bold text-gray-950 bg-gradient-to-r from-[#e5a350] to-[#cf8d3c] hover:brightness-110 transition-all shadow-lg hover:shadow-[#cf8d3c]/25 cursor-pointer"
+              className="ov-btn ov-btn-primary px-7 text-sm sm:text-base"
             >
               <span>Quero encontrar meu próximo carro</span>
               <MessageSquare className="w-5 h-5 fill-current" />
@@ -294,7 +294,7 @@ export default function SocialProof({ onGoToEstoque, showFinalCta = true }) {
               <button
                 type="button"
                 onClick={onGoToEstoque}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-sm sm:text-base font-semibold text-white border border-white/30 hover:border-white hover:bg-white/10 transition-colors cursor-pointer"
+                className="ov-btn ov-btn-secondary px-6 text-sm sm:text-base"
               >
                 <span>Explorar veículos</span>
                 <ArrowRight size={17} />

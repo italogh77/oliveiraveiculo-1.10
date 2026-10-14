@@ -67,7 +67,7 @@ export default function SellersContact() {
               <div className="flex items-center gap-2.5 pt-2">
                 <a
                   href={`tel:${rawPhone}`}
-                  className="btn-shine group p-3.5 rounded-xl border border-gray-300 dark:border-gray-600/80 bg-gray-100/70 dark:bg-gray-800/70 text-gray-700 dark:text-gray-200 hover:bg-gray-800 hover:text-white hover:border-gray-800 dark:hover:bg-gray-100 dark:hover:text-gray-900 dark:hover:border-white transition-all duration-300 flex items-center justify-center shrink-0 shadow-sm cursor-pointer hover:shadow-md"
+                  className="ov-btn ov-btn-icon"
                   title={`Ligar para ${seller.name}`}
                   aria-label={`Ligar para ${seller.name}`}
                 >
@@ -78,9 +78,9 @@ export default function SellersContact() {
                   href={seller.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-colors shadow-sm"
+                  className="ov-btn ov-btn-contact flex-1 text-xs sm:text-sm"
                 >
-                  <MessageSquare className="w-4 h-4 fill-white" />
+                  <MessageSquare className="w-4 h-4" />
                   <span>Conversar no WhatsApp</span>
                 </a>
               </div>

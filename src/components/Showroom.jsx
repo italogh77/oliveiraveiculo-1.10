@@ -199,7 +199,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
               <button
                 type="button"
                 onClick={() => setIsSearchExpanded(true)}
-                className="btn-shine flex-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-900 dark:text-white min-h-[44px] px-4 py-2.5 text-xs sm:text-sm font-semibold active:scale-95 transition-all duration-300 shadow-sm cursor-pointer"
+                className="ov-btn ov-btn-secondary flex-1 px-4 text-xs sm:text-sm"
                 aria-label="Abrir campo de busca"
               >
                 <Search size={16} className="text-[#dfb15b]" />
@@ -212,7 +212,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 aria-expanded={mobileFiltersOpen}
                 aria-controls="mobile-bottom-sheet-filters"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="btn-shine inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black min-h-[44px] px-5 py-2.5 text-xs sm:text-sm font-bold active:scale-95 transition-all shadow-md cursor-pointer shrink-0"
+                className="ov-btn ov-btn-secondary px-5 text-xs sm:text-sm shrink-0"
               >
                 <SlidersHorizontal size={15} />
                 <span>Filtros</span>
@@ -252,7 +252,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
               <button
                 type="button"
                 onClick={() => setIsSearchExpanded(false)}
-                className="h-11 w-11 shrink-0 rounded-full border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-900 dark:text-white flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+                className="ov-btn ov-btn-icon shrink-0"
                 aria-label="Recolher busca"
               >
                 <X size={18} />
@@ -309,7 +309,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                     type="button"
                     onClick={() => setMobileFiltersOpen(false)}
                     aria-label="Fechar painel de filtros"
-                    className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 flex items-center justify-center text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white cursor-pointer"
+                    className="ov-btn ov-btn-icon"
                   >
                     <X size={16} />
                   </button>
@@ -450,7 +450,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 <button
                   type="button"
                   onClick={handleApplyMobileFilters}
-                  className="btn-shine group relative w-full min-h-[46px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-all duration-300 shadow-lg cursor-pointer"
+                  className="ov-btn ov-btn-primary w-full min-h-[46px] text-sm"
                 >
                   <Check size={17} className="stroke-[2.5] transition-transform duration-300 group-hover:scale-110 shrink-0" />
                   <span>Aplicar Filtros ({filteredVehicles.length})</span>
@@ -701,7 +701,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
               </p>
               <button
                 onClick={resetFilters}
-                className="btn-shine group relative inline-flex items-center gap-1.5 px-5 py-2.5 min-h-[42px] overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black text-xs font-bold active:scale-95 transition-all duration-300 cursor-pointer shadow-md"
+                className="ov-btn ov-btn-secondary min-h-[42px] px-5 text-xs"
               >
                 <RotateCcw size={13} className="transition-transform duration-300 group-hover:-rotate-90 shrink-0" />
                 <span>Limpar todos os filtros</span>
@@ -716,7 +716,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
                 aria-label="Página anterior"
-                className="w-10 h-10 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-600 dark:text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors shadow-sm"
+                className="ov-btn ov-btn-icon"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -727,11 +727,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                   onClick={() => goToPage(page)}
                   aria-label={`Página ${page}`}
                   aria-current={page === currentPage ? 'page' : undefined}
-                  className={`w-10 h-10 rounded-full font-bold text-sm flex items-center justify-center cursor-pointer transition-all active:scale-95 ${
-                    page === currentPage
-                      ? 'bg-[#dfb15b] text-black shadow-md'
-                      : 'border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-300 hover:border-[#dfb15b] hover:text-[#dfb15b] shadow-sm'
-                  }`}
+                  className={`ov-btn ov-btn-icon text-sm ${page === currentPage ? 'ov-btn-primary' : ''}`}
                 >
                   {page}
                 </button>
@@ -741,7 +737,7 @@ export default function Showroom({ sharedVehicleId, selectedVehicle, onSelectVeh
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 aria-label="Próxima página"
-                className="w-10 h-10 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-gray-600 dark:text-gray-400 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed enabled:cursor-pointer enabled:hover:border-[#dfb15b] enabled:hover:text-[#dfb15b] transition-colors shadow-sm"
+                className="ov-btn ov-btn-icon"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

@@ -39,7 +39,7 @@ export default function AboutPage({ onGoToEstoque }) {
           {onGoToEstoque && (
             <button
               onClick={onGoToEstoque}
-              className="btn-shine group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] overflow-hidden rounded-full text-sm sm:text-base font-bold text-black bg-[#dfb15b] hover:bg-[#efc676] active:scale-95 transition-all shadow-md cursor-pointer"
+              className="ov-btn ov-btn-primary min-h-[46px] px-7 text-sm sm:text-base"
             >
               <Car className="w-5 h-5 transition-transform duration-300 group-hover:scale-110 shrink-0" />
               <span>Conhecer os veículos</span>
@@ -50,7 +50,7 @@ export default function AboutPage({ onGoToEstoque }) {
             href={COMPANY_DATA.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shine group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 min-h-[46px] overflow-hidden rounded-full text-sm sm:text-base font-bold text-gray-900 dark:text-white border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer backdrop-blur-md shadow-sm"
+            className="ov-btn ov-btn-contact min-h-[46px] px-7 text-sm sm:text-base"
           >
             <MessageSquare className="w-5 h-5 text-[#dfb15b] transition-transform duration-300 group-hover:scale-110 shrink-0" />
             <span>Conversar com a equipe</span>
@@ -161,7 +161,7 @@ export default function AboutPage({ onGoToEstoque }) {
                   href={COMPANY_DATA.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-shine group relative w-full inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold text-sm min-h-[46px] px-6 py-3 transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
+                  className="ov-btn ov-btn-primary w-full min-h-[46px] px-6 text-sm"
                 >
                   <Navigation size={16} className="transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0" />
                   <span>Ver no Google Maps</span>

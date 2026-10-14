@@ -80,7 +80,7 @@ function VideoPlayer({ info, title }) {
         href={info.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-shine inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#dfb15b] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#efc676] active:scale-95 cursor-pointer shadow-md"
+        className="ov-btn ov-btn-secondary px-5 text-sm"
       >
         <ExternalLink className="h-4 w-4" /> Assistir vídeo
       </a>
@@ -172,7 +172,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
         <button
           onClick={onBack}
           aria-label="Voltar ao estoque"
-          className="btn-shine group inline-flex items-center gap-2 overflow-hidden rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all cursor-pointer active:scale-95"
+          className="ov-btn ov-btn-secondary px-3.5 py-1.5 text-xs"
         >
           <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
           <span>Voltar ao estoque</span>
@@ -309,7 +309,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                   type="button"
                   onClick={handleShare}
                   aria-label="Compartilhar anúncio"
-                  className="btn-shine inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-gray-200/80 dark:border-white/10 bg-white/80 dark:bg-white/5 text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-md hover:border-[#dfb15b]/50 hover:text-[#dfb15b] transition-all active:scale-95"
+                  className="ov-btn ov-btn-icon shrink-0"
                 >
                   {copied ? <Check size={18} className="text-emerald-500" /> : <Share2 size={18} />}
                 </button>
@@ -342,7 +342,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-shine group relative flex min-h-[50px] flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-6 py-3.5 text-sm font-extrabold text-black shadow-lg transition-all duration-200 active:scale-95 cursor-pointer"
+                  className="ov-btn ov-btn-primary min-h-[50px] flex-1 px-6 text-sm"
                 >
                   <MessageSquare className="h-4 w-4 fill-black text-black transition-transform group-hover:scale-110" />
                   <span>Falar sobre este carro</span>
@@ -353,7 +353,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                   href={scheduleVisitUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-shine group relative flex min-h-[50px] items-center justify-center gap-2 overflow-hidden rounded-full border border-gray-300 dark:border-[#dfb15b]/40 bg-transparent hover:border-[#dfb15b] hover:bg-[#dfb15b]/10 px-6 py-3.5 text-sm font-bold text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer whitespace-nowrap"
+                  className="ov-btn ov-btn-contact min-h-[50px] px-6 text-sm whitespace-nowrap"
                 >
                   <Calendar className="h-4 w-4 text-[#dfb15b] transition-transform group-hover:scale-110" />
                   <span>Agendar visita na loja</span>
@@ -651,7 +651,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             </div>
             <button
               onClick={onBack}
-              className="btn-shine inline-flex items-center gap-2 rounded-full border border-[#dfb15b]/40 bg-[#dfb15b]/10 hover:bg-[#dfb15b] text-[#dfb15b] hover:text-black font-semibold text-xs sm:text-sm px-5 py-2.5 min-h-[42px] transition-all active:scale-95 cursor-pointer shadow-sm shrink-0 self-start sm:self-auto"
+              className="ov-btn ov-btn-secondary min-h-[42px] px-5 text-xs sm:text-sm shrink-0 self-start sm:self-auto"
             >
               <span>Ver estoque completo</span>
               <ArrowRight size={15} />
@@ -687,7 +687,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
                 el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="btn-shine flex-1 min-h-[46px] inline-flex items-center justify-center overflow-hidden rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 px-3.5 py-2 text-xs font-bold text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer whitespace-nowrap"
+            className="ov-btn ov-btn-secondary flex-1 min-h-[46px] px-3.5 text-xs whitespace-nowrap"
           >
             <span>Ver parcelas</span>
           </button>
@@ -696,7 +696,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
           <a
             href={`tel:${COMPANY_DATA.phone.replace(/\D/g, '')}`}
             aria-label="Ligar para a loja"
-            className="btn-shine h-[46px] w-[46px] shrink-0 inline-flex items-center justify-center overflow-hidden rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-900 dark:text-white transition-all duration-200 active:scale-95 cursor-pointer"
+            className="ov-btn ov-btn-icon h-[46px] w-[46px] shrink-0"
           >
             <Phone size={17} />
           </a>
@@ -706,7 +706,7 @@ export default function VehicleDetailView({ vehicle, onBack, onSelectVehicle }) 
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shine flex-[1.3] min-h-[46px] inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] px-3.5 py-2 text-xs font-extrabold text-black shadow-lg transition-all duration-200 active:scale-95 cursor-pointer whitespace-nowrap"
+            className="ov-btn ov-btn-primary flex-[1.3] min-h-[46px] px-3.5 text-xs whitespace-nowrap"
           >
             <MessageSquare size={15} className="fill-black text-black shrink-0" />
             <span>Enviar mensagem</span>

@@ -45,7 +45,7 @@ export default function WhereWeArePage() {
                 href={COMPANY_DATA.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative w-full min-h-[46px] py-3.5 px-6 overflow-hidden bg-[#dfb15b] hover:bg-[#efc676] text-black font-bold rounded-full flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 shadow-md text-sm cursor-pointer"
+                className="ov-btn ov-btn-primary w-full min-h-[46px] px-6 text-sm"
               >
                 <Navigation className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 shrink-0" />
                 <span>Traçar rota</span>
@@ -55,7 +55,7 @@ export default function WhereWeArePage() {
                 href={COMPANY_DATA.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine group relative w-full min-h-[46px] py-3.5 px-6 overflow-hidden border border-[#dfb15b] text-[#dfb15b] hover:bg-[#dfb15b]/10 font-bold rounded-full flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 text-sm cursor-pointer"
+                className="ov-btn ov-btn-contact w-full min-h-[46px] px-6 text-sm"
               >
                 <MessageSquare className="w-4 h-4 transition-transform duration-300 group-hover:scale-110 shrink-0" />
                 <span>Falar no WhatsApp</span>
@@ -136,7 +136,7 @@ export default function WhereWeArePage() {
               href={COMPANY_DATA.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine group relative inline-flex items-center gap-2 px-6 py-3 min-h-[44px] overflow-hidden rounded-full bg-white/95 hover:bg-white text-gray-950 font-bold text-xs sm:text-sm transition-all duration-300 active:scale-95 shadow-md self-start sm:self-auto cursor-pointer"
+              className="ov-btn ov-btn-secondary px-6 text-xs sm:text-sm self-start sm:self-auto"
             >
               <span>Ver no Google Maps</span>
               <ExternalLink className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />

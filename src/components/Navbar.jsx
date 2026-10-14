@@ -70,7 +70,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
           {/* Botão Encontrar meu carro no canto direito */}
           <button
             onClick={() => navigate('estoque')}
-            className="btn-shine group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-full bg-[#dfb15b] hover:bg-[#efc676] text-black font-semibold text-[11px] xs:text-[12px] sm:text-[13px] py-1.5 px-3 sm:px-4 min-h-11 transition-all duration-150 active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
+            className="ov-btn ov-btn-primary text-[11px] xs:text-[12px] sm:text-[13px] px-3 sm:px-4 whitespace-nowrap"
             aria-label="Encontrar meu carro no estoque"
           >
             <span className="hidden min-[420px]:inline">Encontrar meu carro</span>
@@ -84,7 +84,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
             onClick={(e) => toggleTheme(e)}
             aria-label={isDark ? 'Alternar para tema claro' : 'Alternar para tema escuro'}
             title={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
-            className="ov-theme-toggle flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 hover:border-gray-300 text-gray-700 hover:text-black dark:border-white/10 dark:hover:border-white/20 dark:text-gray-300 dark:hover:text-white transition-all cursor-pointer shrink-0 active:scale-95"
+            className="ov-theme-toggle ov-btn ov-btn-icon shrink-0"
           >
             {isDark ? (
               <Sun size={18} strokeWidth={2} />
@@ -99,7 +99,7 @@ export default function Navbar({ activeTab, onSelectTab }) {
             aria-expanded={open}
             aria-controls="ov-mobile-nav"
             onClick={() => setOpen(!open)}
-            className="lg:hidden flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-900 dark:border-white/10 dark:bg-white/5 dark:text-white active:scale-95 transition-transform cursor-pointer shrink-0"
+            className="ov-btn ov-btn-icon lg:hidden shrink-0"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -118,10 +118,10 @@ export default function Navbar({ activeTab, onSelectTab }) {
               key={id}
               onClick={() => navigate(id)}
               aria-current={activeTab === id ? 'page' : undefined}
-              className={`w-full text-left px-4 py-3 min-h-[46px] rounded-full text-sm font-semibold transition-all flex items-center justify-between active:scale-95 cursor-pointer ${
+              className={`ov-btn w-full min-h-[46px] px-4 text-left text-sm justify-between ${
                 activeTab === id
-                  ? 'bg-[#dfb15b] text-black shadow-md font-bold'
-                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-200 dark:bg-white/5 dark:text-gray-200 dark:hover:bg-white/10 dark:border-white/5'
+                  ? 'ov-btn-primary'
+                  : 'ov-btn-secondary'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -133,10 +133,10 @@ export default function Navbar({ activeTab, onSelectTab }) {
           ))}
           <button
             onClick={() => navigate('onde-estamos')}
-            className={`w-full text-left px-4 py-3 min-h-[46px] rounded-full text-sm font-semibold transition-all flex items-center justify-between active:scale-95 cursor-pointer ${
+            className={`ov-btn w-full min-h-[46px] px-4 text-left text-sm justify-between ${
               activeTab === 'onde-estamos'
-                ? 'bg-[#dfb15b] text-black shadow-md font-bold'
-                : 'bg-gray-100 text-gray-800 hover:bg-gray-200 border border-gray-200 dark:bg-white/5 dark:text-gray-200 dark:hover:bg-white/10 dark:border-white/5'
+                ? 'ov-btn-primary'
+                : 'ov-btn-secondary'
             }`}
           >
             <div className="flex items-center gap-3">
